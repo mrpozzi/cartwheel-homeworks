@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cartwheel trace review</title>
+<link rel="stylesheet" href="/ui/styles.css" />
+</head>
+<body>
+<header id="topbar">
+  <h1>Cartwheel <span class="dim">trace review</span></h1>
+  <nav class="views">
+    <button data-view="review" class="active">Review</button>
+    <button data-view="taxonomy">Taxonomy</button>
+    <button data-view="labels">Labels</button>
+    <button data-view="progress">Progress</button>
+  </nav>
+  <div class="nav" id="session-nav">
+    <button id="prev" title="previous session (k)">&larr;</button>
+    <span class="pos" id="pos">0 / 0</span>
+    <button id="next" title="next session (j)">&rarr;</button>
+  </div>
+  <div class="spacer"></div>
+  <button id="spec-toggle" title="requirement ids from SPEC.md">SPEC</button>
+  <span class="source" id="source-badge">loading…</span>
+</header>
+
+<div id="layout">
+  <aside id="sidebar">
+    <div class="filters">
+      <input id="f-search" placeholder="search scenario, trace, intent, text" />
+      <div class="row">
+        <select id="f-batch"><option value="">all batches</option></select>
+        <select id="f-role">
+          <option value="">all roles</option>
+          <option value="shopper">shopper</option>
+          <option value="merchant">merchant</option>
+          <option value="support">support</option>
+        </select>
+      </div>
+      <div class="row">
+        <select id="f-reviewed">
+          <option value="">reviewed or not</option>
+          <option value="no">unreviewed only</option>
+          <option value="yes">reviewed only</option>
+          <option value="failure">with a failure note</option>
+        </select>
+        <select id="f-tag"><option value="">any tag</option></select>
+      </div>
+      <div class="row">
+        <select id="f-tool"><option value="">any tool</option></select>
+        <select id="f-badge"><option value="">any outcome</option></select>
+      </div>
+      <div class="row">
+        <select id="f-order" title="sidebar order">
+          <option value="scenario_asc">scenario id ↑</option>
+          <option value="scenario_desc">scenario id ↓</option>
+          <option value="unreviewed_first">unreviewed first</option>
+          <option value="reviewed_first">reviewed first</option>
+          <option value="random">random order</option>
+        </select>
+        <button id="f-shuffle" title="draw a new random order">reshuffle</button>
+      </div>
+      <div class="count" id="f-count"></div>
+    </div>
+    <ul id="session-list"></ul>
+  </aside>
+
+  <main id="main">
+    <section id="review-view" class="view active">
+      <div id="session-root"><p class="empty">Pick a session from the list.</p></div>
+    </section>
+    <section id="taxonomy-view" class="view"></section>
+    <section id="labels-view" class="view"></section>
+    <section id="progress-view" class="view"></section>
+  </main>
+
+  <aside id="spec-drawer" class="hidden">
+    <h3>SPEC.md requirements <button id="spec-close">×</button></h3>
+    <div id="spec-list"></div>
+  </aside>
+</div>
+
+<div id="popover" class="hidden">
+  <div class="anchor-line" id="popover-anchor"></div>
+  <textarea id="note-input" rows="3" placeholder="what went wrong, in your own words (Enter to save, Shift+Enter for newline)"></textarea>
+  <input id="tag-input" list="tag-options" placeholder="tags, comma separated (RESP-2, issue_refund, revisit…)" />
+  <datalist id="tag-options"></datalist>
+  <div class="hint">First failure only during open coding. No mode names here.</div>
+  <div class="acts"><button id="popover-save" class="primary">Save</button><button id="popover-cancel">Cancel</button></div>
+</div>
+<div id="toast"></div>
+<script src="/ui/app.js"></script>
+</body>
+</html>
