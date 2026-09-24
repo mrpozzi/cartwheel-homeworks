@@ -70,4 +70,14 @@ Commit 96aa1b7 added `Today's date: {today}` to the agent's session context, fil
 jq '[.traces[].cartwheel_scenario_id] | unique | length' traces/support_traces.json
 ```
 
-(Item 3, one complete final trace with its scenario id and tool activity: to be filled in after the final run.)
+## 3b. Complete final traces to open (video item 3)
+
+Export: `traces/support_traces.json`, 466 traces for 250 of 250 scenarios (0 missing), exported 2026-09-23. Links: `http://localhost:3000/project/cartwheel-dev/traces/<trace id>`.
+
+| scenario | group / role / turns | trace ids (one per turn) | tools on turn 1 |
+| --- | --- | --- | --- |
+| support-0003 | challenge / support / 1 | 620095d403bdd659b9e7d1548762825c | search_products(ok) |
+| support-0004 | coverage / merchant / 6 | a63e106d6aaa33550c4e94b363e7714d, af0f9d4f72a8e1e6c7078277296e18d2, 1b36c6e5c77958dd9b2b664411534070, d2b7520057aad9f226f9186bfa99a644, 1fc1873399b4e3ab5a0ce1e4c7525513, 5a693af2d362c6b929df8f634b5247fc | get_order(ok), issue_refund(ok), escalate_to_human(ok) |
+| support-0008 | coverage / support / 1 | 32961eb875c96104cca7f436962a6151 | get_order(ok), issue_refund(ok) |
+
+Each trace carries `cartwheel.scenario_id`, `cartwheel.prompt_version = f45891500f2f`, the model name on every model call, and the tool spans with their inputs and outputs.
