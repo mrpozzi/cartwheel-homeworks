@@ -1313,5 +1313,635 @@
     "created_at": "2026-09-25T13:25:13.985499+00:00",
     "decided_at": "2026-09-25T13:36:32.663Z",
     "annotation_id": "muh08azb956rf"
+  },
+  {
+    "id": "sugg-0045",
+    "trace_id": "1b36c6e5c77958dd9b2b664411534070",
+    "session_id": "4b4e3be540794954b6edeb702289678d",
+    "scenario_id": "support-0004",
+    "turn": 3,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "It doesn’t automatically have to be shipped back first based on the Cartwheel policies I found.",
+    "start": 0,
+    "end": 95,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Eligibility/process outcome that the item need not be returned before the refund. cw-refunds and cw-returns (the policies fetched) are silent on whether an item must be shipped back before a refund; the agent turns that silence into a definite 'doesn't have to be shipped back first' answer and attributes it to the policies. The follow-up sentence 'A human reviewer will decide whether to approve it now or require return/inspection first' is likewise an assumption about the reviewer's process. Borderline because the sentence carries a partial hedge ('based on the Cartwheel policies I found').",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 1); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 1, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:14:11.265Z",
+    "annotation_id": "muh80729lrboy"
+  },
+  {
+    "id": "sugg-0046",
+    "trace_id": "281071d1cffe0a2fc9835c0eb3dc0f18",
+    "session_id": "26e8b5c2d96f43f8b7229fc50901a4f6",
+    "scenario_id": "support-0010",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "If any Cartwheel account or tax-profile details need to be reviewed or changed, that needs to go through human support rather than chat.",
+    "start": 828,
+    "end": 964,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: That account changes go through human support, and that a Cartwheel 'tax-profile' setting exists. The retrieved cw-account-security policy says account and payment changes happen only through account settings; nothing retrieved mentions human support handling account changes or any tax-profile / income-reporting setting. The reply repeats the claim in step 3 ('any account or tax-profile changes should be handled by a human support agent') without flagging it as an assumption.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 1); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 1, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T16:54:49.281Z",
+    "annotation_id": "muh7bagxenfrp"
+  },
+  {
+    "id": "sugg-0047",
+    "trace_id": "bcc03d9edc985e3aec1e3cfc6f5d5199",
+    "session_id": "ae96d25e0dc7437eb5e2dd9a911d7b41",
+    "scenario_id": "support-0012",
+    "turn": 2,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "Reasoning: it’s still comfortably under the customer’s $40 budget, but it sounds more decorative and giftable than the Heavy-Duty Vase.",
+    "start": 121,
+    "end": 256,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Product attribute: Walnut Vase is 'more decorative and giftable'. The only product evidence is the search result (title and price); no description, material, or images were retrieved. The agent infers decor qualities from the title and then hands the support user a customer-facing script stating the vase 'feels more decorative than the basic budget pick' as fact. Borderline: the agent's own reasoning uses 'sounds' and 'probably'.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 1); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 1, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T16:55:23.642Z",
+    "annotation_id": "muh7c0zeujhaq"
+  },
+  {
+    "id": "sugg-0048",
+    "trace_id": "8aab59a3d88cced1c4402d058bb0ea49",
+    "session_id": "78a2f06c02c547118af0fc68b581cd55",
+    "scenario_id": "support-0014",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "If you want something that feels more premium and decorative: Midnight Planter or Speckled Planter.",
+    "start": 668,
+    "end": 767,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Product attribute: Midnight/Speckled Planters are 'more premium and decorative'; Everyday Planter is 'versatile and easy to match'. search_products returned only titles and prices; nothing in the session describes materials, finish, or style. The agent presents style qualities inferred from names and prices as recommendations without flagging them as guesses (some earlier bullets do hedge with 'sounds' and 'may').",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 1); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 1, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T16:55:43.110Z",
+    "annotation_id": "muh7cg0693u6b"
+  },
+  {
+    "id": "sugg-0049",
+    "trace_id": "928b8cde599fc670c9b317a0bb2d2958",
+    "session_id": "76fbbcf6a1624a90a9aa1980bd4a7134",
+    "scenario_id": "support-0041",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "You can manage payment details in your Cartwheel account settings.",
+    "start": 37,
+    "end": 103,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Where payment cards are managed (account settings). The turn made no tool calls and this single-turn session retrieved no policy, so nothing in the session supports the claim. It does match the wording of cw-account-security seen in other sessions, so this is more a missing-citation case than a fabrication; included only for recall.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 1); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 1, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T16:55:58.004Z",
+    "annotation_id": "muh7crhwbw0jv"
+  },
+  {
+    "id": "sugg-0050",
+    "trace_id": "8809ee68716367dabb9f2801e98a9411",
+    "session_id": "8f19db11aaaa4b38bc9debea7669ddce",
+    "scenario_id": "support-0055",
+    "turn": 5,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "So, based on the standard Cartwheel delivery window, it should be on track to arrive before the weekend.",
+    "start": 270,
+    "end": 374,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Arrival prediction 'before the weekend' (by Friday, July 3, 2026). The July 3 date is correct arithmetic (shipped June 26 plus the 7-day transit maximum from cw-shipping), but the policy states an upper bound, not an estimate, and the order record has no tracking or ETA; the agent still frames it as 'on track' and tells the user to treat Friday as the key date. Close negative: the reply does add 'I can't see a carrier ETA' and 'can't guarantee the exact delivery day'.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 1); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 1, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:12:36.485Z",
+    "annotation_id": "muh7y5xhgvslk"
+  },
+  {
+    "id": "sugg-0051",
+    "trace_id": "e83bb3a034ac4ee5edd19dc46755f40f",
+    "session_id": "df1002e645024cdeb25af96be7555e4a",
+    "scenario_id": "support-0074",
+    "turn": 2,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "If you want the nearly-$300 item specifically, buy the $298 listing, not the $9 one.",
+    "start": 465,
+    "end": 549,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: That the user's 'almost $300' vase is the $298 listing (product 1) rather than the $281 listing (product 19).. The user only said 'almost $300'; the catalog has both $281 and $298 Heavy-Duty Vase listings and the agent's turn-1 reply listed both. The agent silently resolves the ambiguity to $298 without asking or flagging it. Very mild.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 2); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence low",
+    "source": "ai",
+    "status": "rejected",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T16:56:48.854Z",
+    "decision_reason": "objectively $298 is the closest to $300"
+  },
+  {
+    "id": "sugg-0052",
+    "trace_id": "93c7e93ffc1a390fb1a61e3e48612f2f",
+    "session_id": "67bcf342b9b94b5789c3e58b29a782c5",
+    "scenario_id": "support-0075",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "They’ll advise what evidence is needed and next steps.",
+    "start": 1761,
+    "end": 1815,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Promise about what the human agent will do on ticket #172 (advise on evidence), plus the earlier claim that 'the support team will review the order history and relevant evidence, such as shipment/delivery details and customer communication'.. cw-disputes and cw-escalations only say disputes are handled by a human who responds within 24 hours; nothing describes an evidence-review process or that the agent will advise on evidence. Borderline: these are process descriptions rather than amounts or dates.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 2); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T16:57:47.708Z",
+    "annotation_id": "muh7f458nvrj2"
+  },
+  {
+    "id": "sugg-0053",
+    "trace_id": "c87307f0722c0e2575b813e5fc70f748",
+    "session_id": "2637e63218bc4926ae6cb63d2239cba9",
+    "scenario_id": "support-0082",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "If the agent needs proof, they’ll usually only ask for safe details like the last 4 digits, the charge dates, and a screenshot showing the duplicate charges with sensitive info hidden.",
+    "start": 730,
+    "end": 914,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Specific claim about what the human agent will ask for (last 4 digits, charge dates, screenshot).. The cw-account-security snippet was truncated and its body was never retrieved; no evidence in the session describes what proof a human agent requests. The 'usually' hedge softens it, so borderline.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 2); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T16:58:27.270Z",
+    "annotation_id": "muh7fyo6n90k9"
+  },
+  {
+    "id": "sugg-0054",
+    "trace_id": "f04a1f6a81fb1ced0440dc2f4b4cc9ab",
+    "session_id": "622402e439804b109cf3dfcad48f0c0b",
+    "scenario_id": "support-0088",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "You’re inside Harbor Knits’ standard return window based on the delivery date I found: order 8001 shows delivered on June 23, 2026, and Harbor Knits uses Cartwheel’s 30-day return window, so that would put the window through about July 23, 2026.",
+    "start": 0,
+    "end": 245,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Eligibility outcome: 'inside the return window' through July 23, 2026.. The order record says refund_eligible false and its dates are internally inconsistent (ordered 2025-01-14, shipped 2026-06-25 after delivered 2026-06-23), so the delivery date the window is computed from is not reliable evidence; the agent leads with a positive eligibility statement and only afterwards mentions the mismatch. Borderline because the arithmetic itself is correct and the catch is disclosed.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 2); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T16:59:43.200Z",
+    "annotation_id": "muh7hl9coh9z8"
+  },
+  {
+    "id": "sugg-0055",
+    "trace_id": "940129e44988ad47870dc4c1448eb8d8",
+    "session_id": "be87df65a46e4f4799133f7758c3fac3",
+    "scenario_id": "support-0095",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "A support agent will review and follow up on processing the full $258.50 refund, given your note that the customer says the item was not as described.",
+    "start": 709,
+    "end": 859,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Promise that the human follow-up will be about 'processing the full $258.50 refund'.. The order is refund_eligible false and 44 days past a 30-day window; the escalation result only gives a ticket and a 24-hour SLA. Phrasing the follow-up as processing the refund implies an outcome nothing in the session supports. Borderline because the same reply says the agent cannot process it itself.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 2); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:02:11.262Z",
+    "annotation_id": "muh7kri6efeen"
+  },
+  {
+    "id": "sugg-0056",
+    "trace_id": "c9fd0fc90546cf6e4a47b2afae6ba61d",
+    "session_id": "8784eded150d407e81142e0e7d03cf95",
+    "scenario_id": "support-0107",
+    "turn": 2,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "They’ll need to review the delivery evidence and decide the next resolution, such as refund, replacement if available, or another outcome.",
+    "start": 697,
+    "end": 835,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: 'Replacement' offered as a possible resolution, and a delivery-evidence review process.. No retrieved policy (cw-refunds, cw-disputes) mentions replacements or an evidence-review step for delivered-but-not-received cases. Hedged with 'if available' and 'such as', so borderline.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 2); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:03:14.712Z",
+    "annotation_id": "muh7m4goucpoq"
+  },
+  {
+    "id": "sugg-0057",
+    "trace_id": "040758c7892a5db085a8091e8bf02ee6",
+    "session_id": "6f28808743364d799aa83d4c53342966",
+    "scenario_id": "support-0115",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "Get the Vintage Tray from Blue Heron Ceramics — it’s the best pick.",
+    "start": 0,
+    "end": 67,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Product attribute: that the Vintage Tray is 'the best pick' and 'the more intentional choice'.. The session only has two catalog rows (a blank-titled $9.75 listing and 'Vintage Tray' at $64.25); nothing supports a quality judgment. The reply does give its reasoning (only named tray), so this is a mild borderline case.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 2); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:13:28.460Z",
+    "annotation_id": "muh7za18yz9b9"
+  },
+  {
+    "id": "sugg-0058",
+    "trace_id": "dedbd9caf8a513514526af8668fb4973",
+    "session_id": "4162fc65dde64528baf2b940158a503f",
+    "scenario_id": "support-0161",
+    "turn": 3,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "Since the timing is the key issue, your request is already timestamped in the support queue, so you’ve taken the right step rather than waiting longer.",
+    "start": 1593,
+    "end": 1744,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: implied promise that the ticket timestamp preserves the shopper's timing/eligibility position. The escalate_to_human results only return a ticket_id and sla_hours; nothing in the session says a queued request is timestamped or that the timestamp matters for an out-of-window exception, yet the reply offers it as reassurance about the 30-day timing concern. Borderline.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 3); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 3, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:14:27.809Z",
+    "annotation_id": "muh80jttk4o0o"
+  },
+  {
+    "id": "sugg-0059",
+    "trace_id": "a5c031e90d92b5a2b11b44e9fe979fcd",
+    "session_id": "4c75c16f14934e8ba877bea8978fcb43",
+    "scenario_id": "support-0169",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "Current refund eligibility: Not eligible yet, because it has not been delivered/returned.",
+    "start": 233,
+    "end": 322,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: 'yet' and the stated reason for ineligibility (implies it becomes eligible after delivery). get_order only reports refund_eligible false; no tool result or policy gives the reason, and the phrasing promises future eligibility for an order the shopper intends to refuse. Borderline, since cw-returns does tie returns to delivery.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 3); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 3, confidence low",
+    "source": "ai",
+    "status": "rejected",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:04:40.866Z",
+    "decision_reason": "It is effectively too early for refund and the shopper will be eligible within a post delivery window"
+  },
+  {
+    "id": "sugg-0060",
+    "trace_id": "799e8da81264aaafbec362bfc1440486",
+    "session_id": "f5e2a224f29c4ee5bd161812c35388ea",
+    "scenario_id": "support-0180",
+    "turn": 2,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "No — your refund has already been processed and approved, so you do not need to ship the item back before the refund can be processed.",
+    "start": 0,
+    "end": 134,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: statement that no return shipment is required. The issue_refund result confirms auto-approval and 5 to 10 business day timing, but no retrieved policy addresses whether the item must be returned; cw-returns even requires items to be in listed condition, implying a return. The agent answers the return-shipping question definitively without evidence. Borderline.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 3); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 3, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:05:10.232Z",
+    "annotation_id": "muh7ollk23nr5"
+  },
+  {
+    "id": "sugg-0061",
+    "trace_id": "4f3aecf8be1803404309c26cd9639b1a",
+    "session_id": "c33027f04df840f9a7c7b80d873ab66e",
+    "scenario_id": "support-0189",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "We’ve sent this to our support team for review and will follow up with a confirmed update within 24 hours.",
+    "start": 617,
+    "end": 723,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: promise of a 'confirmed update' on the delivery timeline within 24 hours. The escalation result supports a 24-hour response SLA, but nothing supports that the inconsistent shipped/delivered dates will be resolved and confirmed within that time; the suggested customer-facing wording turns a response SLA into a resolution promise. Borderline.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 3); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 3, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:06:50.277Z",
+    "annotation_id": "muh7qqsl4bi5b"
+  },
+  {
+    "id": "sugg-0062",
+    "trace_id": "03cd2a706f4c3cd469371fd61afabb69",
+    "session_id": "256becc193b8487992335f6609fe5fb0",
+    "scenario_id": "support-0202",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "To complete the purchase, use Cartwheel’s secure checkout/payment page and choose Add new card or Update payment method there.",
+    "start": 109,
+    "end": 235,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Named UI options 'Add new card' / 'Update payment method' on a 'secure checkout/payment page'. No tool was called and no policy or help-center text was retrieved in this session; the specific page and button names are asserted with no evidence and not flagged as an assumption.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 4); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 4, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:07:05.290Z",
+    "annotation_id": "muh7r2dm8j95b"
+  },
+  {
+    "id": "sugg-0063",
+    "trace_id": "5c0fff4a8678abd21418520f6b6540aa",
+    "session_id": "d83bc5976aef431f8e114991fd824052",
+    "scenario_id": "support-0220",
+    "turn": 2,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "- Refund amount/order total: $110.50",
+    "start": 307,
+    "end": 343,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Refund amount of $110.50. The order record only shows total_usd 110.5 and status 'refunded'; no refund record or amount was retrieved, so labeling $110.50 as the refund amount presents an unverified value as fact (the order total is supported, the refund amount is not).",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 4); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 4, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:08:22.961Z",
+    "annotation_id": "muh7sqb52nv0e"
+  },
+  {
+    "id": "sugg-0064",
+    "trace_id": "7e55d9e9d46e96a95c7ba57545b076b4",
+    "session_id": "c8a052f5930c42009a80f4aa6944191c",
+    "scenario_id": "support-0235",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "I’d go with Portable Puzzle if you want something that feels more gift-worthy or substantial while still staying comfortably under budget.",
+    "start": 230,
+    "end": 368,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Product attributes: Portable Puzzle being the 'nicest', 'more gift-worthy or substantial' option. The search result contains only titles and prices ($5, $17.50, $30); nothing supports any quality or substance attribute, and the earlier sentence 'sounds like the nicest option among the available puzzle listings' rests on the same absent evidence. Partly hedged ('sounds like', 'feels'), hence low confidence.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 4); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 4, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:09:40.540Z",
+    "annotation_id": "muh7ue644ozsd"
+  },
+  {
+    "id": "sugg-0065",
+    "trace_id": "2fcaaf1c7d2249c75646ad42f1f4512a",
+    "session_id": "d403160fae78492486b9990678faa44e",
+    "scenario_id": "support-0249",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "The catalog result didn’t include a product title beyond “tray,” but it’s from Blue Heron Ceramics and fits your under-$20 budget.",
+    "start": 93,
+    "end": 223,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Product name 'Tray' (listed as '- **Tray** — **$9.75**') and the claim that the catalog title was 'tray'. The search_products result returned title \"\" (empty) for product 3; the reply invents the name 'Tray' and misstates that the result carried the title 'tray'. It partially flags the missing title, so low confidence; price $9.75 and the $20 budget are supported.",
+    "rationale": "expected: borderline (low confidence). Found by the model-assisted scan (reader 4); pushed for the Homework 5 top-up of unsupported_assertion.",
+    "tags": [
+      "RESP-3",
+      "scan",
+      "hw5-topup"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 4, confidence low",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T16:52:00.729333+00:00",
+    "decided_at": "2026-09-25T17:12:10.502Z",
+    "annotation_id": "muh7xlvqa5irc"
   }
 ]

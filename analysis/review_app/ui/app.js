@@ -3,7 +3,7 @@
    All state is loaded from and saved to the file-backed API in server.py. */
 
 'use strict';
-const APP_VERSION = '2026-09-25g';
+const APP_VERSION = '2026-09-25j';
 /* debug ring buffer: the last 80 popover-related events, viewable from the Progress view */
 const DBG = [];
 function dbg(msg) { DBG.push(new Date().toISOString().slice(11, 23) + ' ' + msg); if (DBG.length > 80) DBG.shift(); try { localStorage.setItem('cw_hw4_debug', JSON.stringify(DBG)); } catch { /* ignore */ } }
@@ -23,6 +23,8 @@ const state = {
   showExpected: false,
   labelsShowAll: false, labelsCandidates: false, labelsIncomplete: false,
   collapsed: new Set(),
+  labelsSelected: null, labelsScrollTo: false, sessionCache: {},
+  labelsFollow: true, labelsFocusSession: null,
 };
 
 /* ---------------------------------------------------------------- utils */
@@ -627,6 +629,8 @@ function labelRows() {
   const rs = reviewSet(); let ids;
   if (state.labelsShowAll || !rs) ids = state.sessions.flatMap((s) => s.trace_ids).filter((t) => state.labelsShowAll || isReviewed(t));
   else ids = Array.from(rs);
+  if (state.labelsFollow) { const vis = new Set(state.filtered.map((s) => s.session_id)); ids = ids.filter((t) => vis.has((state.traceIndex[t] || {}).session_id)); }
+  if (state.labelsFocusSession) ids = ids.filter((t) => (state.traceIndex[t] || {}).session_id === state.labelsFocusSession);
   return ids.map((t) => ({ tid: t, ...(state.traceIndex[t] || {}) })).filter((r) => r.session_id).sort((a, b) => (state.sessionIndex[a.session_id].scenario_id || '').localeCompare(state.sessionIndex[b.session_id].scenario_id || '') || a.index - b.index);
 }
 function renderLabels() {
@@ -639,23 +643,35 @@ function renderLabels() {
       <label><input type="checkbox" id="l-cand" ${state.labelsCandidates ? 'checked' : ''}/> include candidate modes</label>
       <label><input type="checkbox" id="l-all" ${state.labelsShowAll ? 'checked' : ''}/> all traces (not only the review set)</label>
       <label><input type="checkbox" id="l-inc" ${state.labelsIncomplete ? 'checked' : ''}/> incomplete rows only</label>
+      <label><input type="checkbox" id="l-follow" ${state.labelsFollow ? 'checked' : ''}/> follow the sidebar filters</label>
+      ${state.labelsFocusSession ? `<span class="badge info">focused on ${esc((state.sessionIndex[state.labelsFocusSession] || {}).scenario_id || '')}</span> <button id="l-unfocus">show all listed</button>` : ''}
       <button id="l-sync">retry Langfuse sync</button>
       <span class="dim">${rows.length} rows · F = present (1) · P = absent (0) · "rest absent" fills every unset mode on the row with absent. Each click saves and writes a Langfuse score.</span></div>
     ${ms.length ? `<table class="labels"><thead><tr><th>trace</th><th>open codes</th><th>shortcut</th>${counts.map(({ m, f, p, u }) => `<th class="mode">${esc(m.name)}<small>${f} fail · ${p} pass · ${u} unset</small></th>`).join('')}<th>evidence note for next click</th></tr></thead><tbody>
     ${rows.map((r) => { const s = state.sessionIndex[r.session_id]; const t = s.turns.find((x) => x.trace_id === r.tid) || {}; const notes = annsFor(r.tid).map((a) => a.no_failure ? 'no failure observed' : (isComment(a) ? 'comment: ' : '') + a.note);
       const rowTags = Array.from(new Set([...(state.traceNotes.traces[r.tid] || {}).tags || [], ...annsFor(r.tid).flatMap((a) => a.tags || [])]));
-      return `<tr class="${incomplete(r.tid) ? 'incomplete' : ''}"><td class="trace"><span class="tid" data-open="${esc(r.tid)}">${esc(short(r.tid))}…</span><div class="sub">${esc(s.scenario_id)} · ${esc(s.role)} · turn ${r.index}${batchOf(r.tid) ? ' · ' + esc(batchOf(r.tid)) : ''}</div><div>${hasFailure(r.tid) ? '<span class="badge danger">failure noted</span>' : isReviewed(r.tid) ? '<span class="badge ok">no failure</span>' : '<span class="badge muted">unreviewed</span>'}${(t.badges || []).map((b) => `<span class="badge ${b.kind}">${esc(b.text)}</span>`).join('')}</div></td>
+      return `<tr data-row="${esc(r.tid)}" class="${incomplete(r.tid) ? 'incomplete' : ''} ${state.labelsSelected === r.tid ? 'selected' : ''} ${state.labelsFocusSession && r.session_id === state.labelsFocusSession ? 'focused' : ''}"><td class="trace"><span class="tid" data-open="${esc(r.tid)}" data-ctx="${esc(r.tid)}" title="click to open in Review; hover for context">${esc(short(r.tid))}…</span><div class="sub">${esc(s.scenario_id)} · ${esc(s.role)} · turn ${r.index}${batchOf(r.tid) ? ' · ' + esc(batchOf(r.tid)) : ''}</div><div>${hasFailure(r.tid) ? '<span class="badge danger">failure noted</span>' : isReviewed(r.tid) ? '<span class="badge ok">no failure</span>' : '<span class="badge muted">unreviewed</span>'}${(t.badges || []).map((b) => `<span class="badge ${b.kind}">${esc(b.text)}</span>`).join('')}</div></td>
         <td class="codes" style="max-width:320px;font-size:12px">${notes.length ? notes.map((n) => `<div class="code" title="${esc(n)}">${esc(clip(n, 160))}</div>`).join('') : '<span class="dim">unreviewed</span>'}${rowTags.length ? `<div style="margin-top:3px">${rowTags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}</td>
         <td class="rest">${incomplete(r.tid) ? `<button data-rest="${esc(r.tid)}" title="write 'absent' for every mode still unset on this trace (${ms.filter((m) => !labelOf(m.name, r.tid)).length} left)">rest absent</button>` : '<span class="badge ok">complete</span>'}</td>
         ${ms.map((m) => { const l = labelOf(m.name, r.tid); const v = l ? l.label : null; const uns = l && l.langfuse && !l.langfuse.synced ? '<div class="unsynced" title="' + esc(l.langfuse.error || '') + '">not in Langfuse</div>' : ''; return `<td class="cell" title="${esc(l?.note || '')}"><button data-tid="${esc(r.tid)}" data-mode="${esc(m.name)}" data-v="1" class="${v === 1 ? 'on-fail' : ''}">F</button> <button data-tid="${esc(r.tid)}" data-mode="${esc(m.name)}" data-v="0" class="${v === 0 ? 'on-pass' : ''}">P</button>${uns}</td>`; }).join('')}
         <td class="note"><input data-note="${esc(r.tid)}" placeholder="evidence (optional)" /></td></tr>`; }).join('')}</tbody></table>` : '<p class="empty">No final modes yet. Mark modes as final in the Taxonomy view, or tick "include candidate modes".</p>'}`;
+  if (state.labelsScrollTo && state.labelsSelected) { const row = $(`tr[data-row="${state.labelsSelected}"]`, el); if (row) row.scrollIntoView({ block: 'center' }); state.labelsScrollTo = false; }
+  el.onmouseover = (e) => { const t = e.target.closest('[data-ctx]'); if (t) showCtx(t.dataset.ctx, t.getBoundingClientRect()); };
+  el.onmouseout = (e) => { const t = e.target.closest('[data-ctx]'); if (t && !e.relatedTarget?.closest?.('#ctx-pop')) hideCtx(); };
+  $('#l-follow').onchange = (e) => { state.labelsFollow = e.target.checked; renderLabels(); };
+  const unf = $('#l-unfocus'); if (unf) unf.onclick = () => { state.labelsFocusSession = null; renderLabels(); };
   $('#l-cand').onchange = (e) => { state.labelsCandidates = e.target.checked; renderLabels(); };
   $('#l-all').onchange = (e) => { state.labelsShowAll = e.target.checked; renderLabels(); };
   $('#l-inc').onchange = (e) => { state.labelsIncomplete = e.target.checked; renderLabels(); };
   $('#l-sync').onclick = async () => { const r = await api('/api/labels/sync', 'POST', {}); toast(`retried ${r.retried}, synced ${r.synced}`); state.labels = await api('/api/labels'); renderLabels(); };
   el.onclick = async (e) => {
     const t = e.target;
-    if (t.dataset.open) { openSession(t.dataset.open, t.dataset.open); return; }
+    if (t.dataset.open) { state.labelsSelected = t.dataset.open; state.labelsScrollTo = true; hideCtx(); openSession(t.dataset.open, t.dataset.open); return; }
+    const row = t.closest('tr[data-row]');
+    if (row && !t.closest('button') && !t.closest('input')) {
+      state.labelsSelected = row.dataset.row;
+      $$('tr.selected', el).forEach((x) => x.classList.remove('selected')); row.classList.add('selected');
+    }
     if (t.dataset.rest) {
       const tid = t.dataset.rest; const unset = ms.filter((m) => !labelOf(m.name, tid));
       t.disabled = true; t.textContent = 'writing…'; let n = 0, unsynced = 0;
@@ -712,6 +728,34 @@ function renderProgress() {
   };
 }
 
+/* ------------------------------------------- labels follow the sidebar */
+async function focusSessionInLabels(sid) {
+  state.labelsFocusSession = state.labelsFocusSession === sid ? null : sid;
+  state.currentId = sid; state.labelsScrollTo = true;
+  try { state.current = state.sessionCache[sid] || (state.sessionCache[sid] = await api(`/api/session?id=${encodeURIComponent(sid)}`)); location.hash = `s=${sid}`; } catch { /* review view keeps the previous session */ }
+  $$('#session-list li').forEach((li) => li.classList.toggle('active', li.dataset.id === sid));
+  const first = (state.sessionIndex[sid] || {}).trace_ids || []; if (state.labelsFocusSession && first.length) state.labelsSelected = first[0];
+  updatePos(); renderLabels();
+}
+
+/* ------------------------------------------------------ context popup */
+async function showCtx(tid, rect) {
+  const pop = $('#ctx-pop'); const info = state.traceIndex[tid]; if (!info) return;
+  pop.dataset.tid = tid; pop.classList.remove('hidden'); pop.innerHTML = '<div class="dim">loading…</div>';
+  const top = Math.min(rect.bottom + 6, window.innerHeight - 40); pop.style.top = top + 'px'; pop.style.left = Math.max(8, Math.min(window.innerWidth - 600, rect.left)) + 'px';
+  if (!state.sessionCache[info.session_id]) { try { state.sessionCache[info.session_id] = await api(`/api/session?id=${encodeURIComponent(info.session_id)}`); } catch { pop.innerHTML = 'could not load'; return; } }
+  if (pop.dataset.tid !== tid) return;
+  const s = state.sessionCache[info.session_id]; const t = s.turns.find((x) => x.trace_id === tid); if (!t) return;
+  const steps = t.steps.map((st) => `<div class="cstep"><b>${esc(st.tool_call.name)}</b>(${esc(clip(compact(st.tool_call.arguments), 120))}) → ${esc(clip((st.tool_result || {}).summary || 'no result', 160))}</div>`).join('') || '<div class="dim">no tool calls</div>';
+  const prev = s.turns.filter((x) => x.index < t.index).map((x) => `<div class="cprev"><span class="dim">turn ${x.index} user:</span> ${esc(clip(x.user, 120))}</div>`).join('');
+  pop.innerHTML = `<div class="chead">${esc(s.scenario_id)} · turn ${t.index}/${s.turn_count} · ${esc(s.role)} · ${esc(s.scenario.intent || '')}</div>${prev}
+    <div class="clabel">User</div><div class="ctext">${esc(clip(t.user, 400))}</div>
+    <div class="clabel">Tool calls</div>${steps}
+    <div class="clabel">Reply</div><div class="ctext">${esc(clip(String(t.reply).replace(/\*\*/g, ''), 700))}</div>`;
+  const h = pop.offsetHeight; if (rect.bottom + 6 + h > window.innerHeight) pop.style.top = Math.max(8, rect.top - h - 6) + 'px';
+}
+function hideCtx() { const pop = $('#ctx-pop'); pop.classList.add('hidden'); pop.dataset.tid = ''; }
+
 /* ---------------------------------------------------------------- spec */
 function renderSpec() {
   $('#spec-list').innerHTML = state.spec.map((r) => `<div class="req" data-id="${esc(r.id)}"><b>${esc(r.id)}</b> <span class="sec">${esc(r.section)}</span><div>${md(r.text)}</div></div>`).join('');
@@ -721,7 +765,9 @@ function renderSpec() {
 
 /* ------------------------------------------------------------- views */
 function switchView(name) {
-  state.view = name;
+  const wasReview = state.view === 'review';
+  state.view = name; hideCtx(); if (name === 'labels') state.labelsScrollTo = true;
+  if (name === 'review' && !wasReview && state.current && $('#session-root .session-header h2')?.textContent.indexOf(state.current.scenario_id) !== 0) renderSession();
   $$('.views button').forEach((b) => b.classList.toggle('active', b.dataset.view === name));
   $$('.view').forEach((v) => v.classList.toggle('active', v.id === `${name}-view`));
   renderView();
@@ -767,9 +813,9 @@ window.addEventListener('unhandledrejection', (e) => { toast('error: ' + ((e.rea
   $('#prev').onclick = () => step(-1); $('#next').onclick = () => step(1);
   $('#spec-toggle').onclick = () => $('#spec-drawer').classList.toggle('hidden');
   $('#spec-close').onclick = () => $('#spec-drawer').classList.add('hidden');
-  $('#session-list').onclick = (e) => { const li = e.target.closest('li'); if (li) openSession(li.dataset.id); };
+  $('#session-list').onclick = (e) => { const li = e.target.closest('li'); if (!li) return; if (state.view === 'labels') focusSessionInLabels(li.dataset.id); else openSession(li.dataset.id); };
   for (const [id, key] of [['#f-search', 'search'], ['#f-batch', 'batch'], ['#f-role', 'role'], ['#f-reviewed', 'reviewed'], ['#f-tag', 'tag'], ['#f-tool', 'tool'], ['#f-badge', 'badge']]) {
-    $(id).addEventListener('input', (e) => { state.filters[key] = e.target.value; applyFilters(); });
+    $(id).addEventListener('input', (e) => { state.filters[key] = e.target.value; applyFilters(); if (state.view === 'labels') renderLabels(); });
   }
   $('#f-order').addEventListener('input', (e) => { state.order = e.target.value; applyFilters(); });
   $('#f-shuffle').onclick = () => { state.shuffleSeed = (Math.random() * 2 ** 31) >>> 0; state.order = 'random'; $('#f-order').value = 'random'; applyFilters(); toast('new random order'); };
