@@ -1,6 +1,34 @@
 {
   "batches": [
     {
+      "name": "B0-opportunistic",
+      "method": "opportunistic_review",
+      "n": 8,
+      "seed": null,
+      "selected_at": "2026-09-25T14:00:06.475837+00:00",
+      "params": {},
+      "trace_ids": [
+        "699de8ac66fada8ad1d0c6ea9eb4f417",
+        "5346852cabfa8089f4dab49e5b31d7f9",
+        "174e0a701317da28efde381a8a3e0481",
+        "d9671dd1526cce4fcb8154064d295322",
+        "46f110f950916a9716ee40fe3271d9d5",
+        "da8bb1cec0862ba3b8768682fed04e18",
+        "c3959f387f2f6888edbff4e461e8b576",
+        "d4cd2d97fd205665290852e23ad37588"
+      ],
+      "reasons": {
+        "699de8ac66fada8ad1d0c6ea9eb4f417": "annotated by the reviewer while reading a neighbouring sampled turn (opportunistic find during open coding)",
+        "5346852cabfa8089f4dab49e5b31d7f9": "annotated by the reviewer while reading a neighbouring sampled turn (opportunistic find during open coding)",
+        "174e0a701317da28efde381a8a3e0481": "annotated by the reviewer while reading a neighbouring sampled turn (opportunistic find during open coding)",
+        "d9671dd1526cce4fcb8154064d295322": "annotated by the reviewer while reading a neighbouring sampled turn (opportunistic find during open coding)",
+        "46f110f950916a9716ee40fe3271d9d5": "annotated by the reviewer while reading a neighbouring sampled turn (opportunistic find during open coding)",
+        "da8bb1cec0862ba3b8768682fed04e18": "annotated by the reviewer while reading a neighbouring sampled turn (opportunistic find during open coding)",
+        "c3959f387f2f6888edbff4e461e8b576": "annotated by the reviewer while reading a neighbouring sampled turn (opportunistic find during open coding)",
+        "d4cd2d97fd205665290852e23ad37588": "annotated by the reviewer while reading a neighbouring sampled turn (opportunistic find during open coding)"
+      }
+    },
+    {
       "name": "B1-uniform",
       "method": "uniform",
       "n": 15,
@@ -284,6 +312,104 @@
         "201afa795cbd36baac5968277642781c": "retrieved by structural depth search for reply_noise (raw field name in reply)",
         "dd6e405603f8c391d24416f9959c9caa": "retrieved by structural depth search for reply_noise (raw field name in reply)"
       }
+    },
+    {
+      "name": "B4-final",
+      "method": "uniform",
+      "n": 15,
+      "seed": 41,
+      "selected_at": "2026-09-25T13:19:09.971922+00:00",
+      "params": {
+        "pool_size": 380
+      },
+      "trace_ids": [
+        "6ce65122c93f2a9103b07c98ec2ee97b",
+        "592e92bb78e011641faa3853b9d9579c",
+        "56ac6b698c5ae7fb937c03f74d05b79d",
+        "de0de21cba275d6e651defb67d135f64",
+        "811517bd9b488b7d35e37297d37ea362",
+        "62dfdcd96428d0d5a470629e847be57d",
+        "d78cb9eae3e92cef8707f49ed676f788",
+        "f2075ad9eaeacfb910d4e8bcee33c7d6",
+        "654b4169db408f1246a13f679a83c746",
+        "f987f68caffe4404a1ffdd118ad27737",
+        "08bdcbba7f4a860c6478a2be992869d9",
+        "9dd86986b3a1d8b1ee10c6375513bed1",
+        "d2b7520057aad9f226f9186bfa99a644",
+        "ecafd149b01b7481a8f8855df4f7410b",
+        "ce8a847764e4b837d95227fd6995cb32"
+      ],
+      "reasons": {
+        "6ce65122c93f2a9103b07c98ec2ee97b": "uniform random pick over all traces not yet in a batch",
+        "592e92bb78e011641faa3853b9d9579c": "uniform random pick over all traces not yet in a batch",
+        "56ac6b698c5ae7fb937c03f74d05b79d": "uniform random pick over all traces not yet in a batch",
+        "de0de21cba275d6e651defb67d135f64": "uniform random pick over all traces not yet in a batch",
+        "811517bd9b488b7d35e37297d37ea362": "uniform random pick over all traces not yet in a batch",
+        "62dfdcd96428d0d5a470629e847be57d": "uniform random pick over all traces not yet in a batch",
+        "d78cb9eae3e92cef8707f49ed676f788": "uniform random pick over all traces not yet in a batch",
+        "f2075ad9eaeacfb910d4e8bcee33c7d6": "uniform random pick over all traces not yet in a batch",
+        "654b4169db408f1246a13f679a83c746": "uniform random pick over all traces not yet in a batch",
+        "f987f68caffe4404a1ffdd118ad27737": "uniform random pick over all traces not yet in a batch",
+        "08bdcbba7f4a860c6478a2be992869d9": "uniform random pick over all traces not yet in a batch",
+        "9dd86986b3a1d8b1ee10c6375513bed1": "uniform random pick over all traces not yet in a batch",
+        "d2b7520057aad9f226f9186bfa99a644": "uniform random pick over all traces not yet in a batch",
+        "ecafd149b01b7481a8f8855df4f7410b": "uniform random pick over all traces not yet in a batch",
+        "ce8a847764e4b837d95227fd6995cb32": "uniform random pick over all traces not yet in a batch"
+      }
+    },
+    {
+      "name": "B3-depth-scan",
+      "method": "depth_search_model_assisted",
+      "n": 12,
+      "seed": null,
+      "selected_at": "2026-09-25T13:25:13.988806+00:00",
+      "params": {
+        "mode": "unsupported_assertion",
+        "suggestion_ids": [
+          "sugg-0032",
+          "sugg-0033",
+          "sugg-0034",
+          "sugg-0035",
+          "sugg-0036",
+          "sugg-0037",
+          "sugg-0038",
+          "sugg-0039",
+          "sugg-0040",
+          "sugg-0041",
+          "sugg-0042",
+          "sugg-0043",
+          "sugg-0044"
+        ],
+        "low_confidence_not_pushed": 22
+      },
+      "trace_ids": [
+        "3c36ae2cb13987d40f804ae59fc852cb",
+        "f4543ef3b11cd29166fff72b0c767147",
+        "d937959222da59b13ae53e9039b6c842",
+        "116fcc9ffa6cea2327c11b729230fa97",
+        "7246f6a648f9e50fcb22e98bad0c2420",
+        "23b5b0c07c240ffbb90e91b861668efb",
+        "bb87a215928a1237a26ab80180d114b1",
+        "f22f1ffa73873d6c8845d17fef6f01b3",
+        "f3d143f337c4defeffc54b5c22d552d5",
+        "1ff02db6a3bc34e3a93c57f55da8d814",
+        "c20fdb26fd9351a8d4ec734061435eed",
+        "98ba489697c88b52ba48aeac33d608a3"
+      ],
+      "reasons": {
+        "3c36ae2cb13987d40f804ae59fc852cb": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
+        "f4543ef3b11cd29166fff72b0c767147": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
+        "d937959222da59b13ae53e9039b6c842": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
+        "116fcc9ffa6cea2327c11b729230fa97": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
+        "7246f6a648f9e50fcb22e98bad0c2420": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
+        "23b5b0c07c240ffbb90e91b861668efb": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
+        "bb87a215928a1237a26ab80180d114b1": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
+        "f22f1ffa73873d6c8845d17fef6f01b3": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
+        "f3d143f337c4defeffc54b5c22d552d5": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
+        "1ff02db6a3bc34e3a93c57f55da8d814": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
+        "c20fdb26fd9351a8d4ec734061435eed": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
+        "98ba489697c88b52ba48aeac33d608a3": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)"
+      }
     }
   ],
   "unit": "one Langfuse trace (one user turn); the interface shows the whole session",
@@ -294,5 +420,5 @@
     "trace_count": 466,
     "session_count": 250
   },
-  "updated_at": "2026-09-24T19:22:03.251462+00:00"
+  "updated_at": "2026-09-25T14:00:06.475998+00:00"
 }

@@ -73,3 +73,9 @@ the sidebar.
 3. Tags are free text with autocomplete but no controlled vocabulary. A typo
    creates a second tag and splits a search; this happened once during the
    smoke test.
+4. Found during review, and an instance of limitation 1: when the agent issued
+   several calls to the same tool in one step, the loader paired results with
+   calls by position, and Langfuse does not guarantee that order, so one turn
+   showed the "neck warmer" search with the "scarf" result. Results are now
+   matched by their arguments (verified on all 772 tool steps). The defect
+   affected 53 turns and one verdict was re-checked; it did not change.

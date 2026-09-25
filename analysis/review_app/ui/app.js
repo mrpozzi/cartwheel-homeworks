@@ -3,7 +3,7 @@
    All state is loaded from and saved to the file-backed API in server.py. */
 
 'use strict';
-const APP_VERSION = '2026-09-25b';
+const APP_VERSION = '2026-09-25g';
 /* debug ring buffer: the last 80 popover-related events, viewable from the Progress view */
 const DBG = [];
 function dbg(msg) { DBG.push(new Date().toISOString().slice(11, 23) + ' ' + msg); if (DBG.length > 80) DBG.shift(); try { localStorage.setItem('cw_hw4_debug', JSON.stringify(DBG)); } catch { /* ignore */ } }
@@ -640,11 +640,13 @@ function renderLabels() {
       <label><input type="checkbox" id="l-all" ${state.labelsShowAll ? 'checked' : ''}/> all traces (not only the review set)</label>
       <label><input type="checkbox" id="l-inc" ${state.labelsIncomplete ? 'checked' : ''}/> incomplete rows only</label>
       <button id="l-sync">retry Langfuse sync</button>
-      <span class="dim">${rows.length} rows · F = failure present (1) · P = absent (0). Each click saves and writes a Langfuse score.</span></div>
-    ${ms.length ? `<table class="labels"><thead><tr><th>trace</th><th>open codes</th>${counts.map(({ m, f, p, u }) => `<th class="mode">${esc(m.name)}<small>${f} fail · ${p} pass · ${u} unset</small></th>`).join('')}<th>evidence note for next click</th></tr></thead><tbody>
+      <span class="dim">${rows.length} rows · F = present (1) · P = absent (0) · "rest absent" fills every unset mode on the row with absent. Each click saves and writes a Langfuse score.</span></div>
+    ${ms.length ? `<table class="labels"><thead><tr><th>trace</th><th>open codes</th><th>shortcut</th>${counts.map(({ m, f, p, u }) => `<th class="mode">${esc(m.name)}<small>${f} fail · ${p} pass · ${u} unset</small></th>`).join('')}<th>evidence note for next click</th></tr></thead><tbody>
     ${rows.map((r) => { const s = state.sessionIndex[r.session_id]; const t = s.turns.find((x) => x.trace_id === r.tid) || {}; const notes = annsFor(r.tid).map((a) => a.no_failure ? 'no failure observed' : (isComment(a) ? 'comment: ' : '') + a.note);
-      return `<tr class="${incomplete(r.tid) ? 'incomplete' : ''}"><td class="trace"><span class="tid" data-open="${esc(r.tid)}">${esc(short(r.tid))}…</span><div class="sub">${esc(s.scenario_id)} · ${esc(s.role)} · turn ${r.index}${batchOf(r.tid) ? ' · ' + esc(batchOf(r.tid)) : ''}</div><div>${(t.badges || []).map((b) => `<span class="badge ${b.kind}">${esc(b.text)}</span>`).join('')}</div></td>
-        <td style="max-width:320px;font-size:12px">${notes.length ? notes.map((n) => esc(clip(n, 160))).join('<br/>') : '<span class="dim">unreviewed</span>'}</td>
+      const rowTags = Array.from(new Set([...(state.traceNotes.traces[r.tid] || {}).tags || [], ...annsFor(r.tid).flatMap((a) => a.tags || [])]));
+      return `<tr class="${incomplete(r.tid) ? 'incomplete' : ''}"><td class="trace"><span class="tid" data-open="${esc(r.tid)}">${esc(short(r.tid))}…</span><div class="sub">${esc(s.scenario_id)} · ${esc(s.role)} · turn ${r.index}${batchOf(r.tid) ? ' · ' + esc(batchOf(r.tid)) : ''}</div><div>${hasFailure(r.tid) ? '<span class="badge danger">failure noted</span>' : isReviewed(r.tid) ? '<span class="badge ok">no failure</span>' : '<span class="badge muted">unreviewed</span>'}${(t.badges || []).map((b) => `<span class="badge ${b.kind}">${esc(b.text)}</span>`).join('')}</div></td>
+        <td class="codes" style="max-width:320px;font-size:12px">${notes.length ? notes.map((n) => `<div class="code" title="${esc(n)}">${esc(clip(n, 160))}</div>`).join('') : '<span class="dim">unreviewed</span>'}${rowTags.length ? `<div style="margin-top:3px">${rowTags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}</td>
+        <td class="rest">${incomplete(r.tid) ? `<button data-rest="${esc(r.tid)}" title="write 'absent' for every mode still unset on this trace (${ms.filter((m) => !labelOf(m.name, r.tid)).length} left)">rest absent</button>` : '<span class="badge ok">complete</span>'}</td>
         ${ms.map((m) => { const l = labelOf(m.name, r.tid); const v = l ? l.label : null; const uns = l && l.langfuse && !l.langfuse.synced ? '<div class="unsynced" title="' + esc(l.langfuse.error || '') + '">not in Langfuse</div>' : ''; return `<td class="cell" title="${esc(l?.note || '')}"><button data-tid="${esc(r.tid)}" data-mode="${esc(m.name)}" data-v="1" class="${v === 1 ? 'on-fail' : ''}">F</button> <button data-tid="${esc(r.tid)}" data-mode="${esc(m.name)}" data-v="0" class="${v === 0 ? 'on-pass' : ''}">P</button>${uns}</td>`; }).join('')}
         <td class="note"><input data-note="${esc(r.tid)}" placeholder="evidence (optional)" /></td></tr>`; }).join('')}</tbody></table>` : '<p class="empty">No final modes yet. Mark modes as final in the Taxonomy view, or tick "include candidate modes".</p>'}`;
   $('#l-cand').onchange = (e) => { state.labelsCandidates = e.target.checked; renderLabels(); };
@@ -654,6 +656,19 @@ function renderLabels() {
   el.onclick = async (e) => {
     const t = e.target;
     if (t.dataset.open) { openSession(t.dataset.open, t.dataset.open); return; }
+    if (t.dataset.rest) {
+      const tid = t.dataset.rest; const unset = ms.filter((m) => !labelOf(m.name, tid));
+      t.disabled = true; t.textContent = 'writing…'; let n = 0, unsynced = 0;
+      for (const m of unset) {
+        try {
+          const r = await api('/api/labels', 'POST', { trace_id: tid, mode: m.name, label: 0, note: '' });
+          state.labels[m.name] = state.labels[m.name] || {}; state.labels[m.name][tid] = r.record; n++;
+          if (!r.record.langfuse.synced) unsynced++;
+        } catch (err) { toast('label failed for ' + m.name + ': ' + err.message, 5000); }
+      }
+      toast(`${n} absent label${n === 1 ? '' : 's'} written${unsynced ? `, ${unsynced} not synced to Langfuse (use retry)` : ''}`, 3500);
+      renderLabels(); return;
+    }
     if (t.dataset.mode && t.dataset.v !== undefined) {
       const tid = t.dataset.tid, mode = t.dataset.mode, v = Number(t.dataset.v);
       const noteEl = $(`input[data-note="${tid}"]`, el); const note = noteEl ? noteEl.value.trim() : '';

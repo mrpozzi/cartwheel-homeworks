@@ -936,5 +936,382 @@
     "re_review": false,
     "decided_at": "2026-09-25T05:22:46.973Z",
     "annotation_id": "mugilbnhq3mlo"
+  },
+  {
+    "id": "sugg-0032",
+    "trace_id": "3c36ae2cb13987d40f804ae59fc852cb",
+    "session_id": "9da7953ad6394b1ba5d5e71e37715501",
+    "scenario_id": "support-0113",
+    "turn": 3,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "From your side, you’d start it in the Merchant Dashboard for order 3442:",
+    "start": 0,
+    "end": 72,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: A merchant-side return flow: 'Merchant Dashboard → Orders', a 'Start return / Create return request / Return authorization' button, and 'process the refund from the order page'.. No tool result or policy in the session describes a Merchant Dashboard or any return-authorization steps; the help-center search returned only payouts, returns and store policies. The agent invents an eight-step UI procedure and presents it as fact (the 'wording may vary' hedge covers button labels, not the existence of the flow).",
+    "rationale": "expected: positive (high confidence). Found by a model-assisted scan (reader 2) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence high",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:34:59.368Z",
+    "annotation_id": "muh06azs1o0me"
+  },
+  {
+    "id": "sugg-0033",
+    "trace_id": "f4543ef3b11cd29166fff72b0c767147",
+    "session_id": "7d18b8fc1f934f18b5ad31400934ba72",
+    "scenario_id": "support-0153",
+    "turn": 3,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "I don’t see any scarf matches under $25 from Petal & Stem right now.",
+    "start": 123,
+    "end": 191,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: $25 price ceiling (also passed as max_price_usd: 25 in both search_products calls this turn). The user only ever said 'scarves', 'anything cheaper' and 'any from my usual store'; no user message or tool result ever gave a $25 budget. The ceiling was invented in turn 2 (the confirmed example) and this candidate turn re-asserts it as the search bound and in the reply without flagging it as an assumption.",
+    "rationale": "expected: positive (high confidence). Found by a model-assisted scan (reader 3) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 3, confidence high",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:51:22.509Z",
+    "annotation_id": "muh0rdl9yhhct"
+  },
+  {
+    "id": "sugg-0034",
+    "trace_id": "d937959222da59b13ae53e9039b6c842",
+    "session_id": "dc0ae86822c64c70b3b4ffa9255986ba",
+    "scenario_id": "support-0042",
+    "turn": 3,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "Yes — in most cases, you should expect the original charge to remain on your payment account while the Cartwheel dispute is being reviewed.",
+    "start": 0,
+    "end": 139,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Outcome claim that the original charge stays on the customer's account during a dispute (and the 'in most cases' frequency). The only policy retrieved (cw-disputes) says disputes are handled by a human, never resolved automatically, and pause pending refunds; it says nothing about whether the charge remains or is held. The agent answers the yes/no question with a definite outcome the policy does not cover (contrast support-0025 turn 2, where the agent explicitly said it could not confirm this).",
+    "rationale": "expected: plausible positive (medium confidence). Found by a model-assisted scan (reader 1) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 1, confidence medium",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:31:51.486Z",
+    "annotation_id": "muh02a0u3bq9n"
+  },
+  {
+    "id": "sugg-0035",
+    "trace_id": "116fcc9ffa6cea2327c11b729230fa97",
+    "session_id": "86fa3d7b15cc4bfcbf51f3d0dfdddfc1",
+    "scenario_id": "support-0057",
+    "turn": 2,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "To start a return on Cartwheel, the usual process is:\n\n1. Go to Your Orders.\n2. Open the order you want to return.\n3. Select Start return or Return item.\n4. Choose the item, return reason, and follow the return instructions shown for that store.",
+    "start": 0,
+    "end": 245,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: A specific self-service UI flow ('Your Orders' page, 'Start return' / 'Return item' button, per-store return instructions). The only evidence retrieved is the cw-returns policy body, which describes the return window and condition rule and says nothing about how a return is started or any such buttons. The steps are presented as 'the usual process' with no hedge; other sessions in this shard (support-0029 turn 3, support-0043 turn 4) answered the same question by asking for the order number or pointing to support instead.",
+    "rationale": "expected: plausible positive (medium confidence). Found by a model-assisted scan (reader 1) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 1, confidence medium",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:51:55.788Z",
+    "annotation_id": "muh0s39oz1wnl"
+  },
+  {
+    "id": "sugg-0036",
+    "trace_id": "7246f6a648f9e50fcb22e98bad0c2420",
+    "session_id": "8259fb04be874b19ac20235154539422",
+    "scenario_id": "support-0093",
+    "turn": 3,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "I’d pick Heavy-Duty Hand Cream — affordable and sounds most effective.",
+    "start": 0,
+    "end": 70,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Product attribute: that Heavy-Duty Hand Cream is the 'most effective' option.. The only evidence in the session is titles and prices from search_products; nothing supports any effectiveness claim, and the reply states it as the basis for the recommendation without flagging it as a guess.",
+    "rationale": "expected: plausible positive (medium confidence). Found by a model-assisted scan (reader 2) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence medium",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:34:13.838Z",
+    "annotation_id": "muh05bv2bdmt1"
+  },
+  {
+    "id": "sugg-0037",
+    "trace_id": "23b5b0c07c240ffbb90e91b861668efb",
+    "session_id": "8259fb04be874b19ac20235154539422",
+    "scenario_id": "support-0093",
+    "turn": 4,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "Yes — Matte Hand Cream for $8.25.",
+    "start": 0,
+    "end": 33,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Tool argument max_price_usd 9.24 used as the 'lower budget' ceiling.. The user asked for 'one under a lower budget' without giving a number; the agent chose a $9.24 ceiling (just under its own $9.25 pick) rather than asking what the budget is, and the reply does not say what ceiling it assumed. Same pattern as the confirmed '$25 ceiling' example, though the derivation from the previous pick makes it milder.",
+    "rationale": "expected: plausible positive (medium confidence). Found by a model-assisted scan (reader 2) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence medium",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:33:52.001Z",
+    "annotation_id": "muh04v0hqzopi"
+  },
+  {
+    "id": "sugg-0038",
+    "trace_id": "bb87a215928a1237a26ab80180d114b1",
+    "session_id": "8259fb04be874b19ac20235154539422",
+    "scenario_id": "support-0093",
+    "turn": 5,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "Yes — Matte Hand Cream, Heavy-Duty Hand Cream, and Woven Hand Cream are from Clover Field Naturals, a store you’ve bought from before.",
+    "start": 0,
+    "end": 134,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: That the user has previously bought from Clover Field Naturals (store 18), and that 'the store I like' means a store bought from before.. The list_my_orders result shown lists orders from stores 3, 15, 9, 4 (truncated) and no visible order from store 18 or 17; the user never named a store they like. The agent asserts a purchase history and interprets 'the store I like' without asking or flagging the assumption.",
+    "rationale": "expected: plausible positive (medium confidence). Found by a model-assisted scan (reader 2) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence medium",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:33:23.801Z",
+    "annotation_id": "muh04995f0yfq"
+  },
+  {
+    "id": "sugg-0039",
+    "trace_id": "f22f1ffa73873d6c8845d17fef6f01b3",
+    "session_id": "4103f12ce43240b292544a74aeb4198b",
+    "scenario_id": "support-0101",
+    "turn": 3,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "A password change only affects account access/sign-in, not the status of orders already placed.",
+    "start": 106,
+    "end": 201,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: Outcome claim that a password change cannot affect open orders.. No tool call, policy retrieval, or user statement in the session supports this system-behavior claim; the agent asserts it flatly (the preceding 'should not' hedge is dropped in this sentence) and only afterwards defers to the human on ticket #180.",
+    "rationale": "expected: plausible positive (medium confidence). Found by a model-assisted scan (reader 2) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 2, confidence medium",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:52:25.771Z",
+    "annotation_id": "muh0sqej4p2qk"
+  },
+  {
+    "id": "sugg-0040",
+    "trace_id": "f3d143f337c4defeffc54b5c22d552d5",
+    "session_id": "1f006142777e4f7fac73aefe85ca15c0",
+    "scenario_id": "support-0166",
+    "turn": 4,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "If it already posted as a charge, then it would need to be refunded back to the original payment method. Approved refunds typically arrive in 5 to 10 business days. Policy: cw-refunds.",
+    "start": 393,
+    "end": 577,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: refund outcome and 5 to 10 business day timing applied to a cancelled order. The order record shows status cancelled with refund_eligible false and no refund was issued; cw-refunds covers approved refunds, not cancellations, and cw-cancellations only says cancellation is at no cost. Same pattern as confirmed example 2, though hedged with 'if'.",
+    "rationale": "expected: plausible positive (medium confidence). Found by a model-assisted scan (reader 3) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 3, confidence medium",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:57:24.901Z",
+    "annotation_id": "muh0z57p9htl2"
+  },
+  {
+    "id": "sugg-0041",
+    "trace_id": "f3d143f337c4defeffc54b5c22d552d5",
+    "session_id": "1f006142777e4f7fac73aefe85ca15c0",
+    "scenario_id": "support-0166",
+    "turn": 4,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "If it’s still a pending authorization, it usually drops off/reverses rather than posting as a final charge.",
+    "start": 283,
+    "end": 390,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: claim that a pending authorization usually drops off or reverses. No retrieved policy, tool result, or user statement says anything about card authorizations or how the $129.50 charge behaves after cancellation; the agent asserts a payment-processing behavior it has no evidence for, and the escalation to ticket #198 shows it did not actually know.",
+    "rationale": "expected: plausible positive (medium confidence). Found by a model-assisted scan (reader 3) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 3, confidence medium",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:56:21.010Z",
+    "annotation_id": "muh0xrwyabk4x"
+  },
+  {
+    "id": "sugg-0042",
+    "trace_id": "1ff02db6a3bc34e3a93c57f55da8d814",
+    "session_id": "738545c998394d39820ee9038bbb0285",
+    "scenario_id": "support-0179",
+    "turn": 3,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "Usually, a Cartwheel account name change is handled separately from order processing, so it should not by itself cancel, refund, or otherwise change your open orders.",
+    "start": 0,
+    "end": 166,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: assertion that a name change does not affect open orders (repeated as 'the account name change itself should not affect open orders'). The only policies retrieved (cw-account-security, cw-escalations) say account changes are made by a human through account settings; nothing in the session describes how a name change interacts with open orders, and the reply presents the outcome as a fact rather than asking the human agent.",
+    "rationale": "expected: plausible positive (medium confidence). Found by a model-assisted scan (reader 3) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 3, confidence medium",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:35:40.650Z",
+    "annotation_id": "muh076uif8vv8"
+  },
+  {
+    "id": "sugg-0043",
+    "trace_id": "c20fdb26fd9351a8d4ec734061435eed",
+    "session_id": "390e588f302543cfadcae7a28c4dc860",
+    "scenario_id": "support-0191",
+    "turn": 2,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "Start it from your Cartwheel account:\n\n1. Go to Orders\n2. Open order 5741\n3. Choose Start return\n4. Follow the prompts for the Compact Journal",
+    "start": 0,
+    "end": 142,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: A specific self-serve return flow (Orders page, a 'Start return' button, prompts) as the way to start the return. Two help-center searches and the cw-returns policy body say nothing about how a return is initiated or any 'Start return' control; the agent presents an invented UI procedure as fact without flagging it as an assumption.",
+    "rationale": "expected: plausible positive (medium confidence). Found by a model-assisted scan (reader 4) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 4, confidence medium",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:36:10.325Z",
+    "annotation_id": "muh07tqtrvvr7"
+  },
+  {
+    "id": "sugg-0044",
+    "trace_id": "98ba489697c88b52ba48aeac33d608a3",
+    "session_id": "a34c3723f2764a4e9dc63bb5ca8a6938",
+    "scenario_id": "support-0196",
+    "turn": 2,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "Yes—approved refunds go back to the original payment method, usually in 5–10 business days. (cw-refunds)",
+    "start": 0,
+    "end": 104,
+    "mode": "unsupported_assertion",
+    "note": "Unsupported value: 'Yes' that the refund for this order will go back to the same card in 5-10 business days. Order 3025 is cancelled with refund_eligible false and no refund was issued (only a human-review ticket); the refund policy covers approved refunds, so answering 'Yes' applies it to a cancellation with no supported refund outcome, matching the confirmed cancelled-order example.",
+    "rationale": "expected: plausible positive (medium confidence). Found by a model-assisted scan (reader 4) of turns in no batch for values or promises with no source in the session.",
+    "tags": [
+      "RESP-3",
+      "scan"
+    ],
+    "search": "model-assisted scan for unsupported_assertion, shard 4, confidence medium",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-25T13:25:13.985499+00:00",
+    "decided_at": "2026-09-25T13:36:32.663Z",
+    "annotation_id": "muh08azb956rf"
   }
 ]
