@@ -110,6 +110,105 @@ def setup_tracing() -> bool:
     return True
 
 
+_workshop_processor: Any = None
+
+
+def setup_workshop() -> bool:
+    """Mirror every span to a local Raindrop Workshop (Homework 4, Part C).
+
+    Active only when ``RAINDROP_LOCAL_DEBUGGER`` names the local daemon, and
+    only after :func:`setup_tracing` has installed the Langfuse tracer
+    provider. Workshop accepts OTLP/HTTP, so one more batch processor with a
+    standard OTLP exporter is attached to that same provider; no second
+    provider is created and the Langfuse export is untouched. Agent, model,
+    and tool spans then appear in Workshop with the same GenAI attributes that
+    Langfuse receives. Local mirroring needs no cloud write key.
+    """
+    global _workshop_processor
+    if _workshop_processor is not None:
+        return True
+    url = os.environ.get("RAINDROP_LOCAL_DEBUGGER", "").strip().rstrip("/")
+    if not url:
+        return False
+    provider = trace.get_tracer_provider()
+    add_processor = getattr(provider, "add_span_processor", None)
+    if add_processor is None:
+        log.warning("RAINDROP_LOCAL_DEBUGGER is set but no tracer provider exists; run setup_tracing() first")
+        return False
+    from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+    endpoint = url if url.endswith("/traces") else f"{url}/traces"
+    _workshop_processor = BatchSpanProcessor(_WorkshopExporter(endpoint=endpoint, timeout=5))
+    add_processor(_workshop_processor)
+    log.info("workshop mirroring enabled; spans also go to %s", endpoint)
+    return True
+
+
+def _workshop_exporter_class() -> type:
+    """Build the exporter class lazily so importing this module stays cheap."""
+    from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+    from opentelemetry.sdk.trace import ReadableSpan
+
+    class WorkshopExporter(OTLPSpanExporter):
+        """OTLP exporter that adds the tool payload keys Workshop reads.
+
+        OpenLLMetry records a tool's arguments and result under the GenAI
+        attributes; Workshop fills its tool input and output columns from
+        ``tool.input`` / ``tool.output``. The copy happens on the exported
+        span only, so the spans Langfuse receives are unchanged.
+        """
+
+        _COPIES = (
+            ("gen_ai.tool.call.arguments", "tool.input"),
+            ("gen_ai.tool.call.result", "tool.output"),
+        )
+
+        def export(self, spans):  # type: ignore[override]
+            adapted = []
+            for span in spans:
+                attrs = dict(span.attributes or {})
+                extra = {dst: attrs[src] for src, dst in self._COPIES if src in attrs and dst not in attrs}
+                if extra:
+                    span = ReadableSpan(
+                        name=span.name,
+                        context=span.get_span_context(),
+                        parent=span.parent,
+                        resource=span.resource,
+                        attributes={**attrs, **extra},
+                        events=span.events,
+                        links=span.links,
+                        kind=span.kind,
+                        status=span.status,
+                        start_time=span.start_time,
+                        end_time=span.end_time,
+                        instrumentation_scope=span.instrumentation_scope,
+                    )
+                adapted.append(span)
+            return super().export(adapted)
+
+    return WorkshopExporter
+
+
+class _WorkshopExporterProxy:
+    """Instantiate the lazily built exporter class (keeps the import local)."""
+
+    def __new__(cls, *args: Any, **kwargs: Any) -> Any:
+        return _workshop_exporter_class()(*args, **kwargs)
+
+
+_WorkshopExporter = _WorkshopExporterProxy
+
+
+def flush_workshop() -> None:
+    """Drain spans queued for Workshop; safe to call when mirroring is off."""
+    if _workshop_processor is None:
+        return
+    try:
+        _workshop_processor.force_flush(timeout_millis=5000)
+    except Exception:  # never let telemetry take the host down
+        log.debug("workshop flush failed", exc_info=True)
+
+
 def record_tool_result(ctx: "AuthContext", result: dict[str, Any]) -> None:
     """Add authenticated identity and permission attributes to the active tool span.
 
