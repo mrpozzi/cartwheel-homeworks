@@ -84,8 +84,8 @@
 <div id="popover" class="hidden">
   <div class="anchor-line" id="popover-anchor"></div>
   <textarea id="note-input" rows="3" placeholder="what went wrong, in your own words (Enter to save, Shift+Enter for newline)"></textarea>
-  <input id="tag-input" list="tag-options" placeholder="tags, comma separated (RESP-2, issue_refund, revisit…)" />
-  <datalist id="tag-options"></datalist>
+  <div id="tag-editor" title="type a tag and press Enter or comma; arrows pick a suggestion"></div>
+  <label class="kind"><input type="checkbox" id="kind-failure" checked /> this is a failure (uncheck to save a plain comment that carries no verdict)</label>
   <div class="hint">First failure only during open coding. No mode names here.</div>
   <div class="acts"><button id="popover-save" class="primary">Save</button><button id="popover-cancel">Cancel</button></div>
 </div>

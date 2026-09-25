@@ -3,6 +3,11 @@
    All state is loaded from and saved to the file-backed API in server.py. */
 
 'use strict';
+const APP_VERSION = '2026-09-25b';
+/* debug ring buffer: the last 80 popover-related events, viewable from the Progress view */
+const DBG = [];
+function dbg(msg) { DBG.push(new Date().toISOString().slice(11, 23) + ' ' + msg); if (DBG.length > 80) DBG.shift(); try { localStorage.setItem('cw_hw4_debug', JSON.stringify(DBG)); } catch { /* ignore */ } }
+const where = () => { try { return (new Error().stack || '').split('\n').slice(2, 5).map((l) => l.trim().replace(/^at /, '')).join(' < '); } catch { return '?'; } };
 
 const state = {
   view: 'review',
@@ -46,11 +51,53 @@ async function api(path, method = 'GET', body) {
 const parseTags = (s) => String(s || '').split(',').map((t) => t.trim()).filter(Boolean);
 const typing = () => ['INPUT', 'TEXTAREA', 'SELECT'].includes((document.activeElement || {}).tagName);
 
+/* ---------------------------------------------------------- tag editor */
+function tagEditor(container, initial, onChange) {
+  let tags = [...(initial || [])]; let hi = -1;
+  container.classList.add('tageditor'); container.innerHTML = '';
+  const chipsEl = document.createElement('span'); chipsEl.className = 'tag-chips';
+  const input = document.createElement('input'); input.className = 'tag-in'; input.placeholder = 'add tag ⏎';
+  const dd = document.createElement('div'); dd.className = 'tag-dd hidden';
+  container.append(chipsEl, input, dd);
+  const suggestions = () => { const q = input.value.trim().toLowerCase(); return Object.keys(state.tags).filter((t) => !tags.includes(t) && (!q || t.toLowerCase().includes(q))).slice(0, 8); };
+  const renderChips = () => { chipsEl.innerHTML = tags.map((t, i) => `<span class="tag">${esc(t)}<button type="button" data-rm="${i}" title="remove">×</button></span>`).join(''); };
+  const renderDd = () => { const list = suggestions(); if (!list.length || document.activeElement !== input) { dd.classList.add('hidden'); return; } dd.innerHTML = list.map((t, i) => `<div class="opt ${i === hi ? 'hi' : ''}" data-t="${esc(t)}">${esc(t)}</div>`).join(''); dd.classList.remove('hidden'); };
+  const add = (raw) => { const parts = String(raw || '').split(',').map((x) => x.trim()).filter(Boolean); let changed = false; for (const p of parts) if (!tags.includes(p)) { tags.push(p); changed = true; } input.value = ''; hi = -1; renderChips(); renderDd(); if (changed) onChange(tags.slice()); };
+  const remove = (i) => { tags.splice(i, 1); renderChips(); onChange(tags.slice()); };
+  input.addEventListener('input', () => { hi = -1; if (input.value.includes(',')) add(input.value); else renderDd(); });
+  input.addEventListener('focus', renderDd);
+  input.addEventListener('blur', () => setTimeout(() => { if (input.value.trim()) add(input.value); dd.classList.add('hidden'); }, 150));
+  input.addEventListener('keydown', (e) => {
+    const list = suggestions(); if (container.id === 'tag-editor') dbg('tag keydown ' + e.key + ' value=' + JSON.stringify(input.value) + ' hi=' + hi + ' active=' + ((document.activeElement || {}).className || (document.activeElement || {}).id));
+    if (e.key === 'ArrowDown') { e.preventDefault(); hi = Math.min(list.length - 1, hi + 1); renderDd(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); hi = Math.max(-1, hi - 1); renderDd(); }
+    else if (e.key === 'Enter' || e.key === 'Tab') {
+      if (hi >= 0 && list[hi]) { e.preventDefault(); add(list[hi]); }
+      else if (input.value.trim()) { e.preventDefault(); add(input.value); }
+      else if (e.key === 'Enter') { e.preventDefault(); container.dispatchEvent(new CustomEvent('tagsubmit', { bubbles: true })); }
+    }
+    else if (e.key === 'Backspace' && !input.value && tags.length) remove(tags.length - 1);
+    else if (e.key === 'Escape') { dd.classList.add('hidden'); input.blur(); container.dispatchEvent(new CustomEvent('tagescape', { bubbles: true })); }
+    e.stopPropagation();
+  });
+  dd.addEventListener('mousedown', (e) => { const o = e.target.closest('.opt'); if (o) { e.preventDefault(); add(o.dataset.t); input.focus(); } });
+  chipsEl.addEventListener('click', (e) => { const b = e.target.closest('[data-rm]'); if (b) { e.stopPropagation(); remove(Number(b.dataset.rm)); } });
+  container.addEventListener('click', (e) => { if (e.target === container || e.target === chipsEl) input.focus(); });
+  renderChips();
+  const api = { get: () => { if (input.value.trim()) add(input.value); return tags.slice(); }, set: (list) => { tags = [...(list || [])]; input.value = ''; renderChips(); }, add, focus: () => input.focus() };
+  container._tags = api;
+  return api;
+}
+let popTags = null;
+
 /* ------------------------------------------------------------- derived */
 const humanAnns = () => state.annotations.filter((a) => a.author !== 'ai');
 const annsFor = (tid) => humanAnns().filter((a) => a.trace_id === tid);
-const isReviewed = (tid) => annsFor(tid).length > 0;
-const hasFailure = (tid) => annsFor(tid).some((a) => !a.no_failure);
+const isComment = (a) => a.kind === 'comment';
+const failureAnns = (tid) => annsFor(tid).filter((a) => !a.no_failure && !isComment(a));
+const isReviewed = (tid) => annsFor(tid).some((a) => a.no_failure || !isComment(a));
+const hasFailure = (tid) => failureAnns(tid).length > 0;
+const hasComment = (tid) => annsFor(tid).some(isComment);
 const noFailureAnn = (tid) => annsFor(tid).find((a) => a.no_failure);
 function batchOf(tid) {
   for (const b of state.manifest.batches || []) if ((b.trace_ids || []).includes(tid)) return b.name;
@@ -95,7 +142,7 @@ async function loadAll() {
   state.sessionIndex = {}; state.traceIndex = {};
   for (const s of sessions) { state.sessionIndex[s.session_id] = s; s.turns.forEach((t) => { state.traceIndex[t.trace_id] = { session_id: s.session_id, index: t.index }; }); }
   const src = state.source.used || '?';
-  $('#source-badge').textContent = `${src} · ${state.source.session_count} sessions · ${state.source.trace_count} traces`;
+  $('#source-badge').textContent = `${src} · ${state.source.session_count} sessions · ${state.source.trace_count} traces · ui ${APP_VERSION}`;
   $('#source-badge').title = state.source.reason || '';
   populateFilters();
 }
@@ -108,7 +155,6 @@ function populateFilters() {
   fill('#f-tag', Object.keys(state.tags), 'any tag');
   fill('#f-tool', Array.from(new Set(state.sessions.flatMap((s) => s.tools))).sort(), 'any tool');
   fill('#f-badge', Array.from(new Set(state.sessions.flatMap((s) => s.badges.map((b) => b.text)))).sort(), 'any outcome');
-  $('#tag-options').innerHTML = Object.keys(state.tags).map((t) => `<option value="${esc(t)}">`).join('');
 }
 
 /* ------------------------------------------------------------- sidebar */
@@ -132,6 +178,9 @@ function applyFilters() {
     }
     return true;
   });
+  renderSidebar();
+}
+function sortFiltered() {
   const byId = (a, b) => String(a.scenario_id).localeCompare(String(b.scenario_id));
   const o = state.order;
   if (o === 'scenario_desc') state.filtered.sort((a, b) => byId(b, a));
@@ -139,12 +188,12 @@ function applyFilters() {
     const rank = (s) => { const r = reviewStatus(s); return r.total ? r.reviewed / r.total : 0; };
     state.filtered.sort((a, b) => (o === 'unreviewed_first' ? rank(a) - rank(b) : rank(b) - rank(a)) || byId(a, b));
   } else if (o === 'random') {
-    const rnd = seededRandom(state.shuffleSeed); const keyed = state.filtered.map((s) => [rnd(), s]);
-    keyed.sort((a, b) => a[0] - b[0]); state.filtered = keyed.map(([, s]) => s);
+    const rnd = seededRandom(state.shuffleSeed); state.filtered.sort(byId);
+    const keyed = state.filtered.map((s) => [rnd(), s]); keyed.sort((a, b) => a[0] - b[0]); state.filtered = keyed.map(([, s]) => s);
   } else state.filtered.sort(byId);
-  renderSidebar();
 }
 function renderSidebar() {
+  sortFiltered();
   const rs = reviewSet();
   $('#session-list').innerHTML = state.filtered.map((s) => {
     const turns = s.turns.map((t) => {
@@ -217,7 +266,7 @@ function renderSession() {
       <div class="facts">${facts}</div>
       <div class="tools-row"><span class="k">tools used</span>${s.tools.length ? s.tools.map((t) => `<button class="toolchip ${state.filters.tool === t ? 'on' : ''}" data-tool="${esc(t)}" title="filter the sidebar to sessions using ${esc(t)}">${esc(t)}</button>`).join('') : '<span class="dim">none</span>'}</div>
       <div class="controls"><button data-act="collapse-all">collapse all turns</button><button data-act="expand-all">expand all</button><span class="dim">a collapsed turn keeps its user message and a one-line summary</span></div>
-      <div class="notes-row"><input class="s-tags" placeholder="session tags (comma separated)" value="${esc((sn.tags || []).join(', '))}" list="tag-options" /><span class="chips" data-chips="session">${chips(sn.tags)}</span><textarea class="s-comment" placeholder="session-level comment (e.g. constraint lost across turns)">${esc(sn.comment || '')}</textarea></div>
+      <div class="notes-row"><div class="s-tags"></div><textarea class="s-comment" placeholder="session-level comment (e.g. constraint lost across turns)">${esc(sn.comment || '')}</textarea></div>
       <details class="panel"><summary>Scenario details</summary>${def(rest.map(([k, v]) => [k, esc(v)]))}</details>
       ${expected}
       <details class="panel"><summary>System prompt</summary>
@@ -245,7 +294,7 @@ function renderTurn(t) {
     } else inner += `<div class="block tool_result"><div class="role">Tool result</div><div class="dim">no result recorded</div></div>`;
     return `<div class="step">${inner}</div>`;
   }).join('');
-  const status = fail ? '<span class="badge danger">failure noted</span>' : nf ? '<span class="badge ok">reviewed · no failure</span>' : '<span class="badge muted">unreviewed</span>';
+  const status = fail ? '<span class="badge danger">failure noted</span>' : nf ? '<span class="badge ok">reviewed · no failure</span>' : hasComment(tid) ? '<span class="badge info">comment only · no verdict</span>' : '<span class="badge muted">unreviewed</span>';
   const nSteps = t.steps.length;
   return `<div class="turn ${collapsed ? 'collapsed' : ''}" data-trace="${esc(tid)}">
     <div class="turn-header" data-trace="${esc(tid)}" data-turn="${t.index}" data-kind="trace" data-obs="" data-tool="" data-step="">
@@ -256,9 +305,9 @@ function renderTurn(t) {
       <span>${t.badges.map((b) => `<span class="badge ${b.kind}">${esc(b.text)}</span>`).join('')}</span>
       <span class="right">${status}
         <button class="failobs" data-trace="${esc(tid)}" title="write the first failure you observed in this turn (anchored to the whole turn)">✗ failure observed</button>
-        <button class="nofail ${nf ? 'on' : ''}" data-trace="${esc(tid)}" ${fail ? 'disabled title="this turn has a failure note; delete it first to mark no failure"' : 'title="record that you reviewed this turn and found no failure"'}>✓ no failure</button></span>
+        <button class="nofail ${nf ? 'on' : ''}" data-trace="${esc(tid)}" title="${fail ? 'switch the verdict to no failure; the failure notes are kept as comments' : nf ? 'remove the no-failure mark (back to unreviewed)' : 'record that you reviewed this turn and found no failure'}">✓ no failure</button></span>
     </div>
-    <div class="turn-notes"><input class="t-tags" data-trace="${esc(tid)}" list="tag-options" placeholder="trace tags" value="${esc((tn.tags || []).join(', '))}" /><span class="chips" data-chips="${esc(tid)}">${chips(tn.tags)}</span><textarea class="t-comment" data-trace="${esc(tid)}" placeholder="trace-level comment">${esc(tn.comment || '')}</textarea></div>
+    <div class="turn-notes"><div class="t-tags" data-trace="${esc(tid)}"></div><textarea class="t-comment" data-trace="${esc(tid)}" placeholder="trace-level comment">${esc(tn.comment || '')}</textarea></div>
     ${block(t, 'user', 'User', null, `<div class="text">${md(t.user)}</div>`)}
     <div class="turn-summary">${nSteps} step${nSteps === 1 ? '' : 's'} (${t.tools.map(esc).join(', ') || 'no tools'}) → reply: ${esc(clip(String(t.reply).replace(/\s+/g, ' '), 150))}</div>
     <div class="turn-body">${steps}${block(t, 'reply', 'Assistant reply', null, `<div class="text">${md(t.reply)}</div>`)}</div>
@@ -311,18 +360,12 @@ function bindSessionEvents() {
     if (t.tagName === 'MARK' && t.dataset.ann) { focusAnn(t.dataset.ann, true); return; }
   };
   root.onmouseup = (e) => { if (!e.target.closest('.content')) return; setTimeout(handleSelection, 0); };
+  $$('.t-tags', root).forEach((el) => tagEditor(el, (state.traceNotes.traces[el.dataset.trace] || {}).tags, (tags) => saveTraceNote(el.dataset.trace, tags)));
+  const sEl = $('.s-tags', root); if (sEl) tagEditor(sEl, (state.traceNotes.sessions[state.currentId] || {}).tags, (tags) => saveSessionNote(tags));
   root.onchange = async (e) => {
     const t = e.target;
-    if (t.classList.contains('t-tags') || t.classList.contains('t-comment')) {
-      const tid = t.dataset.trace; const turn = t.closest('.turn');
-      state.traceNotes.traces[tid] = { tags: parseTags($('.t-tags', turn).value), comment: $('.t-comment', turn).value.trim(), ts: now() };
-      $(`.chips[data-chips="${tid}"]`, turn).innerHTML = chips(state.traceNotes.traces[tid].tags);
-      await saveNotes();
-    } else if (t.classList.contains('s-tags') || t.classList.contains('s-comment')) {
-      state.traceNotes.sessions[state.currentId] = { tags: parseTags($('.s-tags').value), comment: $('.s-comment').value.trim(), ts: now() };
-      $('.chips[data-chips="session"]').innerHTML = chips(state.traceNotes.sessions[state.currentId].tags);
-      await saveNotes();
-    }
+    if (t.classList.contains('t-comment')) await saveTraceNote(t.dataset.trace, null);
+    else if (t.classList.contains('s-comment')) await saveSessionNote(null);
   };
   $$('details', root).forEach((d) => d.addEventListener('toggle', () => layoutMargin()));
   $$('details.expected', root).forEach((d) => d.addEventListener('toggle', () => { state.showExpected = d.open; }));
@@ -367,7 +410,7 @@ function applyHighlights() {
     const blockEl = findBlock(it); if (!blockEl) continue;
     const content = blockEl.querySelector('.content');
     if (it.quote && content && it.start != null && it.end != null) {
-      const marks = highlightIn(content, it.start, it.end, 'hl' + (it._type === 'sugg' ? ' ai' : ''), it.id);
+      const marks = highlightIn(content, it.start, it.end, 'hl' + (it._type === 'sugg' ? ' ai' : '') + (it._type === 'ann' && isComment(it) ? ' comment' : ''), it.id);
       if (!marks.length) blockEl.classList.add('noted');
     } else blockEl.classList.add('noted');
   }
@@ -394,6 +437,12 @@ function layoutMargin() {
     const n = e.target.closest('.mnote'); if (!n) return; const id = n.dataset.ann; const t = e.target;
     if (t.dataset.act === 'delete') { if (confirm('Delete this note?')) { state.annotations = state.annotations.filter((a) => a.id !== id); await saveAnnotations(); renderSession(); renderSidebar(); } }
     else if (t.dataset.act === 'edit') { editNote(n, id); }
+    else if (t.dataset.act === 'flip') {
+      const a = state.annotations.find((x) => x.id === id); if (!a) return;
+      a.kind = isComment(a) ? 'failure' : 'comment'; a.flipped_at = now();
+      if (a.kind === 'failure') { const nf = noFailureAnn(a.trace_id); if (nf) state.annotations = state.annotations.filter((x) => x.id !== nf.id); }
+      await saveAnnotations(); renderSession(); renderSidebar();
+    }
     else if (t.dataset.act === 'accept') { await decideSuggestion(id, true); }
     else if (t.dataset.act === 'reject') { const reason = $('input', n).value.trim(); if (!reason) { toast('give a one-line reason for rejecting'); return; } await decideSuggestion(id, false, reason); }
     else if (t.tagName !== 'INPUT' && t.tagName !== 'TEXTAREA' && t.tagName !== 'BUTTON') {
@@ -409,8 +458,9 @@ function noteHtml(it) {
   const where = `turn ${it.turn || (state.traceIndex[it.trace_id] || {}).index || '?'} · ${esc((it.anchor || {}).kind || 'trace')}${(it.anchor || {}).tool_name ? ' · ' + esc(it.anchor.tool_name) : ''}${it._collapsed ? ' · (turn collapsed)' : ''}`;
   if (ai) return `<div class="mnote ai" data-ann="${esc(it.id)}"><div class="who">AI suggestion${it.mode ? ' · ' + esc(it.mode) : ''}</div><div class="q">${where}${it.quote ? ' · “' + esc(clip(it.quote, 60)) + '”' : ''}</div><div>${esc(it.note || it.rationale || '')}</div>${tags}
     <div class="acts"><button data-act="accept">accept</button><button data-act="reject" class="danger">reject</button></div><input placeholder="reason if rejecting" /></div>`;
-  return `<div class="mnote ${it.author === 'ai-accepted' ? 'ai' : ''}" data-ann="${esc(it.id)}">${it.author === 'ai-accepted' ? '<div class="who">accepted from AI</div>' : ''}<div class="q">${where}${it.quote ? ' · “' + esc(clip(it.quote, 60)) + '”' : ''}</div><div class="note-text">${esc(it.note)}</div>${tags}
-    <div class="acts"><button class="hover" data-act="edit">edit</button><button class="hover danger" data-act="delete">delete</button></div></div>`;
+  const kind = isComment(it) ? '<span class="kind comment">comment</span>' : '<span class="kind failure">failure</span>';
+  return `<div class="mnote ${it.author === 'ai-accepted' ? 'ai' : ''} ${isComment(it) ? 'comment' : ''}" data-ann="${esc(it.id)}">${it.author === 'ai-accepted' ? '<div class="who">accepted from AI</div>' : ''}<div class="q">${kind} ${where}${it.quote ? ' · “' + esc(clip(it.quote, 60)) + '”' : ''}</div><div class="note-text">${esc(it.note)}</div>${tags}
+    <div class="acts"><button class="hover" data-act="edit">edit</button><button class="hover" data-act="flip">${isComment(it) ? 'make failure' : 'make comment'}</button><button class="hover danger" data-act="delete">delete</button></div></div>`;
 }
 function focusAnn(id, scroll) {
   $$('.focus').forEach((x) => x.classList.remove('focus'));
@@ -420,10 +470,11 @@ function focusAnn(id, scroll) {
 }
 function editNote(noteEl, id) {
   const a = state.annotations.find((x) => x.id === id); if (!a) return;
-  noteEl.innerHTML = `<textarea rows="3">${esc(a.note)}</textarea><input list="tag-options" value="${esc((a.tags || []).join(', '))}" placeholder="tags" /><div class="acts"><button data-act="save-edit" class="primary">save</button><button data-act="cancel-edit">cancel</button></div>`;
+  noteEl.innerHTML = `<textarea rows="3">${esc(a.note)}</textarea><div class="edit-tags"></div><div class="acts"><button data-act="save-edit" class="primary">save</button><button data-act="cancel-edit">cancel</button></div>`;
   const ta = $('textarea', noteEl); ta.focus();
+  const ed = tagEditor($('.edit-tags', noteEl), a.tags, () => {});
   noteEl.onclick = async (e) => {
-    if (e.target.dataset.act === 'save-edit') { a.note = ta.value.trim(); a.tags = parseTags($('input', noteEl).value); a.edited_at = now(); await saveAnnotations(); renderSession(); }
+    if (e.target.dataset.act === 'save-edit') { a.note = ta.value.trim(); a.tags = ed.get(); a.edited_at = now(); await saveAnnotations(); renderSession(); }
     else if (e.target.dataset.act === 'cancel-edit') renderSession();
     e.stopPropagation();
   };
@@ -454,9 +505,10 @@ function startBlockNote(blockEl) {
   showPopover(blockEl.getBoundingClientRect(), `Turn ${blockEl.dataset.turn} · ${k === 'trace' ? 'whole turn' : 'whole ' + k + ' block'}${blockEl.dataset.tool ? ' · ' + blockEl.dataset.tool : ''}`);
 }
 function showPopover(rect, anchorText) {
+  dbg('showPopover ' + anchorText.slice(0, 60));
   const pop = $('#popover'); pop.classList.remove('hidden');
   $('#popover-anchor').textContent = anchorText;
-  $('#note-input').value = ''; $('#tag-input').value = '';
+  $('#note-input').value = ''; popTags.set([]); $('#kind-failure').checked = true;
   const h = pop.offsetHeight || 200;
   let top = rect.bottom + 6; if (top + h > window.innerHeight - 8) top = Math.max(8, rect.top - h - 6);
   const left = Math.max(8, Math.min(window.innerWidth - 400, rect.left));
@@ -464,39 +516,60 @@ function showPopover(rect, anchorText) {
   $('#note-input').focus();
 }
 function clearPending() {
+  dbg('clearPending pending=' + !!state.pending + ' from ' + where());
   if (state.pending) {
     for (const m of state.pending.marks) { const p = m.parentNode; while (m.firstChild) p.insertBefore(m.firstChild, m); p.removeChild(m); p.normalize(); }
     if (!state.pending.quote) state.pending.blockEl.classList.remove('noted');
   }
   state.pending = null; $('#popover').classList.add('hidden');
+  if (pollDeferred) { pollDeferred = false; try { renderSession(); renderSidebar(); } catch (err) { console.error(err); } }
 }
 async function commitAnnotation() {
-  const p = state.pending; if (!p) return;
+  const p = state.pending; dbg('commitAnnotation pending=' + !!p + ' note=' + JSON.stringify($('#note-input').value.slice(0, 30)) + ' from ' + where()); if (!p) return;
   const note = $('#note-input').value.trim(); if (!note) { toast('write the observation first'); return; }
   const b = p.blockEl; const tid = b.dataset.trace;
   const ann = {
     id: uid(), trace_id: tid, session_id: state.currentId, scenario_id: state.current.scenario_id, turn: Number(b.dataset.turn),
     anchor: { kind: b.dataset.kind, observation_id: b.dataset.obs || null, tool_name: b.dataset.tool || null, step: b.dataset.step === '' ? null : Number(b.dataset.step) },
-    quote: p.quote, start: p.start, end: p.end, note, tags: parseTags($('#tag-input').value), ts: now(), author: 'human', batch: batchOf(tid),
+    quote: p.quote, start: p.start, end: p.end, note, tags: popTags.get(), ts: now(), author: 'human', batch: batchOf(tid),
+    kind: $('#kind-failure').checked ? 'failure' : 'comment',
   };
   const nf = noFailureAnn(tid);
-  if (nf) { state.annotations = state.annotations.filter((a) => a.id !== nf.id); toast('removed the earlier "no failure observed" mark'); }
+  if (nf && ann.kind === 'failure') { state.annotations = state.annotations.filter((a) => a.id !== nf.id); toast('verdict switched to failure; the "no failure" mark was removed'); }
   state.annotations.push(ann);
   state.pending = null; $('#popover').classList.add('hidden');
-  await saveAnnotations(); renderSession(); renderSidebar();
+  pollDeferred = false;
+  await saveAnnotations();
+  try { renderSession(); renderSidebar(); } catch (err) { console.error(err); toast('saved, but redraw failed: ' + err.message, 6000); }
 }
 async function toggleNoFailure(tid) {
   const nf = noFailureAnn(tid);
   if (nf) state.annotations = state.annotations.filter((a) => a.id !== nf.id);
   else {
-    if (hasFailure(tid)) { toast('this turn already has a failure note; delete it first'); return; }
+    const fails = failureAnns(tid);
+    if (fails.length) {
+      if (!confirm(`This turn has ${fails.length} failure note${fails.length > 1 ? 's' : ''}. Switch the verdict to "no failure"? The notes are kept as comments.`)) return;
+      for (const a of fails) { a.kind = 'comment'; a.demoted_at = now(); }
+    }
     state.annotations.push({ id: uid(), trace_id: tid, session_id: state.currentId, scenario_id: state.current.scenario_id, turn: (state.traceIndex[tid] || {}).index, anchor: { kind: 'trace' }, quote: null, start: null, end: null, note: 'no failure observed', no_failure: true, tags: [], ts: now(), author: 'human', batch: batchOf(tid) });
   }
   await saveAnnotations(); renderSession(); renderSidebar();
 }
 async function saveAnnotations() {
   try { localStorage.setItem('cw_hw4_annotations', JSON.stringify(state.annotations)); } catch { /* ignore */ }
-  try { await api('/api/annotations', 'POST', { annotations: state.annotations }); refreshTags(); } catch (e) { toast('save failed: ' + e.message, 5000); }
+  try { const r = await api('/api/annotations', 'POST', { annotations: state.annotations }); dbg('saved annotations count=' + r.count); refreshTags(); } catch (e) { dbg('SAVE FAILED ' + e.message); toast('save failed: ' + e.message, 5000); }
+}
+async function saveTraceNote(tid, tags) {
+  const turn = $(`.turn[data-trace="${tid}"]`); const prev = state.traceNotes.traces[tid] || {};
+  const ed = turn && $('.t-tags', turn); const list = tags || (ed && ed._tags ? ed._tags.get() : prev.tags) || [];
+  state.traceNotes.traces[tid] = { tags: list, comment: turn ? $('.t-comment', turn).value.trim() : (prev.comment || ''), ts: now() };
+  await saveNotes();
+}
+async function saveSessionNote(tags) {
+  const prev = state.traceNotes.sessions[state.currentId] || {}; const ed = $('.s-tags');
+  const list = tags || (ed && ed._tags ? ed._tags.get() : prev.tags) || [];
+  state.traceNotes.sessions[state.currentId] = { tags: list, comment: $('.s-comment') ? $('.s-comment').value.trim() : (prev.comment || ''), ts: now() };
+  await saveNotes();
 }
 async function saveNotes() { try { await api('/api/trace_notes', 'POST', state.traceNotes); refreshTags(); } catch (e) { toast('save failed: ' + e.message, 5000); } }
 async function refreshTags() { state.tags = await api('/api/tags'); populateFilters(); }
@@ -569,7 +642,7 @@ function renderLabels() {
       <button id="l-sync">retry Langfuse sync</button>
       <span class="dim">${rows.length} rows · F = failure present (1) · P = absent (0). Each click saves and writes a Langfuse score.</span></div>
     ${ms.length ? `<table class="labels"><thead><tr><th>trace</th><th>open codes</th>${counts.map(({ m, f, p, u }) => `<th class="mode">${esc(m.name)}<small>${f} fail · ${p} pass · ${u} unset</small></th>`).join('')}<th>evidence note for next click</th></tr></thead><tbody>
-    ${rows.map((r) => { const s = state.sessionIndex[r.session_id]; const t = s.turns.find((x) => x.trace_id === r.tid) || {}; const notes = annsFor(r.tid).map((a) => a.no_failure ? 'no failure observed' : a.note);
+    ${rows.map((r) => { const s = state.sessionIndex[r.session_id]; const t = s.turns.find((x) => x.trace_id === r.tid) || {}; const notes = annsFor(r.tid).map((a) => a.no_failure ? 'no failure observed' : (isComment(a) ? 'comment: ' : '') + a.note);
       return `<tr class="${incomplete(r.tid) ? 'incomplete' : ''}"><td class="trace"><span class="tid" data-open="${esc(r.tid)}">${esc(short(r.tid))}…</span><div class="sub">${esc(s.scenario_id)} · ${esc(s.role)} · turn ${r.index}${batchOf(r.tid) ? ' · ' + esc(batchOf(r.tid)) : ''}</div><div>${(t.badges || []).map((b) => `<span class="badge ${b.kind}">${esc(b.text)}</span>`).join('')}</div></td>
         <td style="max-width:320px;font-size:12px">${notes.length ? notes.map((n) => esc(clip(n, 160))).join('<br/>') : '<span class="dim">unreviewed</span>'}</td>
         ${ms.map((m) => { const l = labelOf(m.name, r.tid); const v = l ? l.label : null; const uns = l && l.langfuse && !l.langfuse.synced ? '<div class="unsynced" title="' + esc(l.langfuse.error || '') + '">not in Langfuse</div>' : ''; return `<td class="cell" title="${esc(l?.note || '')}"><button data-tid="${esc(r.tid)}" data-mode="${esc(m.name)}" data-v="1" class="${v === 1 ? 'on-fail' : ''}">F</button> <button data-tid="${esc(r.tid)}" data-mode="${esc(m.name)}" data-v="0" class="${v === 0 ? 'on-pass' : ''}">P</button>${uns}</td>`; }).join('')}
@@ -608,14 +681,16 @@ function renderProgress() {
   const pend = state.suggestions.filter((s) => (s.status || 'pending') === 'pending'), acc = state.suggestions.filter((s) => s.status === 'accepted'), rej = state.suggestions.filter((s) => s.status === 'rejected');
   const suggHtml = (s) => `<div class="sugg ${esc(s.status || 'pending')}" data-id="${esc(s.id)}"><div class="head"><span class="mode">${esc(s.mode || 'suggestion')}</span><a class="chip" data-open="${esc(s.trace_id)}">${esc(short(s.trace_id))}…</a><span class="dim">${esc(s.search || s.signal || '')}</span></div>${s.quote ? `<div class="q">“${esc(clip(s.quote, 140))}”</div>` : ''}<div>${esc(s.note || s.rationale || '')}</div>${s.status === 'rejected' ? `<div class="dim">rejected: ${esc(s.decision_reason || '')}</div>` : ''}${(s.status || 'pending') === 'pending' ? `<div class="acts"><button data-act="accept">accept</button><button data-act="reject" class="danger">reject</button><input placeholder="reason if rejecting" /></div>` : ''}</div>`;
   el.innerHTML = `<div class="prog-section"><h3>Source</h3><div class="dim">${esc(src.used)} · ${esc(src.reason || '')}${src.fallback_reason ? ' · ' + esc(src.fallback_reason) : ''} · state in ${esc(src.state_dir || '')}</div>
-      <div style="margin-top:6px">${state.sessions.length} sessions · ${src.trace_count} traces · ${allReviewed.length} traces reviewed (${allReviewed.filter(hasFailure).length} with a failure note, ${allReviewed.filter((t) => !hasFailure(t)).length} marked no failure) · ${humanAnns().filter((a) => !a.no_failure).length} open codes</div></div>
+      <div style="margin-top:6px">${state.sessions.length} sessions · ${src.trace_count} traces · ${allReviewed.length} traces reviewed (${allReviewed.filter(hasFailure).length} with a failure note, ${allReviewed.filter((t) => !hasFailure(t)).length} marked no failure) · ${humanAnns().filter((a) => !a.no_failure && !isComment(a)).length} failure notes (open codes) · ${humanAnns().filter(isComment).length} comments</div></div>
     <div class="prog-section"><h3>Review batches</h3>${batches.length ? `<table><thead><tr><th>batch</th><th>size</th><th>reviewed</th><th>with failure</th><th></th><th>still to review</th></tr></thead><tbody>${batchRows}</tbody></table>` : '<div class="dim">No sample manifest yet. Batches appear here once Part B sampling writes sample_manifest.json.</div>'}</div>
     <div class="prog-section"><h3>Structured labels (${rs ? 'review set' : 'reviewed traces'}: ${ids.length} traces)</h3>${ms.length ? `<table><thead><tr><th>mode</th><th>fail</th><th>pass</th><th>unset</th><th>sample fraction</th><th>complete</th><th></th></tr></thead><tbody>${modeRows}</tbody></table>` : '<div class="dim">No modes yet.</div>'}</div>
     <div class="prog-section"><h3>AI suggestions · ${pend.length} pending · ${acc.length} accepted · ${rej.length} rejected</h3>${pend.map(suggHtml).join('') || '<div class="dim">nothing pending</div>'}
       <details style="margin-top:8px"><summary class="dim">decided suggestions (${acc.length + rej.length})</summary>${acc.concat(rej).map(suggHtml).join('')}</details></div>
+    <div class="prog-section"><h3>Debug <span class="dim">ui ${APP_VERSION}</span></h3><button id="dbg-copy">copy debug log</button> <span class="dim">last ${DBG.length} popover events; paste them in chat when a note misbehaves</span><pre style="font-size:11px;max-height:220px;overflow:auto;background:#fafaf8;border:1px solid var(--line);padding:6px;margin-top:6px">${esc(DBG.slice(-40).join('\n'))}</pre></div>
     <div class="prog-section"><h3>Keys</h3><div class="dim"><kbd>↑</kbd>/<kbd>↓</kbd>, <kbd>PgUp</kbd>/<kbd>PgDn</kbd>, <kbd>Space</kbd> scroll the feed · <kbd>←</kbd>/<kbd>→</kbd> or <kbd>k</kbd>/<kbd>j</kbd> previous/next session · <kbd>Esc</kbd> cancel note · select text in any block to annotate · <kbd>+ note</kbd> comments on a whole block · <kbd>✗ failure observed</kbd> notes the whole turn · <kbd>▾</kbd> collapses a turn</div></div>`;
   el.onclick = async (e) => {
-    const t = e.target; const opener = t.closest('[data-open]'); if (opener) { openSession(opener.dataset.open, opener.dataset.open); return; }
+    const t = e.target; if (t.id === 'dbg-copy') { navigator.clipboard?.writeText(DBG.join('\n')); toast('debug log copied'); return; }
+    const opener = t.closest('[data-open]'); if (opener) { openSession(opener.dataset.open, opener.dataset.open); return; }
     const box = t.closest('.sugg'); if (!box) return;
     if (t.dataset.act === 'accept') await decideSuggestion(box.dataset.id, true);
     if (t.dataset.act === 'reject') { const reason = $('input', box).value.trim(); if (!reason) { toast('give a one-line reason for rejecting'); return; } await decideSuggestion(box.dataset.id, false, reason); }
@@ -626,7 +701,7 @@ function renderProgress() {
 function renderSpec() {
   $('#spec-list').innerHTML = state.spec.map((r) => `<div class="req" data-id="${esc(r.id)}"><b>${esc(r.id)}</b> <span class="sec">${esc(r.section)}</span><div>${md(r.text)}</div></div>`).join('');
   $('#spec-list').onclick = (e) => { const r = e.target.closest('.req'); if (!r) return; const id = r.dataset.id;
-    const tagIn = $('#tag-input'); if (!$('#popover').classList.contains('hidden')) { tagIn.value = tagIn.value ? tagIn.value.replace(/,?\s*$/, ', ') + id : id; toast(`${id} added to tags`); } else { navigator.clipboard?.writeText(id); toast(`${id} copied`); } };
+    if (!$('#popover').classList.contains('hidden')) { popTags.add(id); toast(`${id} added to tags`); } else { navigator.clipboard?.writeText(id); toast(`${id} copied`); } };
 }
 
 /* ------------------------------------------------------------- views */
@@ -644,22 +719,29 @@ function renderView() {
 }
 
 /* ------------------------------------------------------------- polling */
-let pollSig = '';
+let pollSig = ''; let pollDeferred = false;
 async function poll() {
   try {
-    const [sugg, patterns, labels] = await Promise.all([api('/api/suggestions'), api('/api/patterns'), api('/api/labels')]);
-    const sig = JSON.stringify([sugg, patterns]);
+    const [sugg, patterns, labels, manifest] = await Promise.all([api('/api/suggestions'), api('/api/patterns'), api('/api/labels'), api('/api/manifest')]);
+    const sig = JSON.stringify([sugg, patterns, manifest]);
     if (sig !== pollSig) {
       const before = state.suggestions.filter((s) => (s.status || 'pending') === 'pending').length;
+      const batchesBefore = (state.manifest.batches || []).length;
       state.suggestions = Array.isArray(sugg) ? sugg : []; state.patterns = patterns && patterns.modes ? patterns : { modes: [] }; state.labels = labels || {};
+      state.manifest = manifest && manifest.batches ? manifest : { batches: [] };
+      if (pollSig && state.manifest.batches.length !== batchesBefore) { populateFilters(); applyFilters(); toast('review batches updated', 4000); }
       const after = state.suggestions.filter((s) => (s.status || 'pending') === 'pending').length;
       if (pollSig && after > before) toast(`${after - before} new AI suggestion${after - before > 1 ? 's' : ''} to review`, 4000);
       pollSig = sig;
-      if (state.view === 'review' && state.current) { renderSession(); } else renderView();
+      if (state.pending) { pollDeferred = true; dbg('poll change deferred (popover open)'); } else if (state.view === 'review' && state.current) { renderSession(); } else renderView();
     }
   } catch { /* server away; try again */ }
   setTimeout(poll, 5000);
 }
+
+/* ------------------------------------------------------- error trap */
+window.addEventListener('error', (e) => { toast('error: ' + (e.message || e.error) + (e.lineno ? ` (app.js:${e.lineno})` : ''), 8000); });
+window.addEventListener('unhandledrejection', (e) => { toast('error: ' + ((e.reason && e.reason.message) || e.reason), 8000); });
 
 /* ---------------------------------------------------------------- init */
 (async function boot() {
@@ -678,9 +760,12 @@ async function poll() {
   $('#f-shuffle').onclick = () => { state.shuffleSeed = (Math.random() * 2 ** 31) >>> 0; state.order = 'random'; $('#f-order').value = 'random'; applyFilters(); toast('new random order'); };
   $('#popover-save').onclick = commitAnnotation; $('#popover-cancel').onclick = clearPending;
   $('#note-input').addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); commitAnnotation(); } if (e.key === 'Escape') clearPending(); });
-  $('#tag-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); commitAnnotation(); } if (e.key === 'Escape') clearPending(); });
-  document.addEventListener('mousedown', (e) => { if (state.pending && !e.target.closest('#popover') && !e.target.closest('#spec-drawer') && !e.target.closest('mark.pending')) clearPending(); });
+  popTags = tagEditor($('#tag-editor'), [], () => {});
+  $('#tag-editor').addEventListener('tagsubmit', commitAnnotation);
+  $('#tag-editor').addEventListener('tagescape', clearPending);
+  document.addEventListener('mousedown', (e) => { if (state.pending && !e.target.closest('#popover') && !e.target.closest('#spec-drawer') && !e.target.closest('mark.pending')) { dbg('mousedown outside popover on ' + (e.target.tagName + '.' + e.target.className).slice(0, 40)); clearPending(); } });
   document.addEventListener('keydown', (e) => {
+    if (state.pending) dbg('document keydown ' + e.key + ' typing=' + typing() + ' active=' + ((document.activeElement || {}).tagName));
     if (typing()) return;
     const main = $('#main'); const page = main.clientHeight * 0.9;
     const scroll = { ArrowDown: 80, ArrowUp: -80, PageDown: page, PageUp: -page, ' ': e.shiftKey ? -page : page };

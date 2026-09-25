@@ -1,1 +1,940 @@
-[]
+[
+  {
+    "id": "sugg-0001",
+    "trace_id": "c3959f387f2f6888edbff4e461e8b576",
+    "session_id": "9d15a04b742942ba89c46fe8ee4b0cce",
+    "scenario_id": "support-0192",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "I’m not seeing any daypacks or backpack-like products currently listed by Trailhead Supply.",
+    "start": 0,
+    "end": 91,
+    "mode": null,
+    "note": "The reply tells the merchant-facing shopper that Trailhead Supply lists no daypacks, but the store does: the agent searched the plural 'daypacks' (0 results) and 'backpack' (0 results) and never tried the singular. search_products matches every query token as a literal substring, so 'daypacks' cannot match 'Daypack'.",
+    "rationale": "Turn 3 of the same session searched 'daypack' across all stores and returned Modern Daypack $64.25 from Trailhead Supply (store 9). Same pattern as the human note on support-0153 turn 1 (plural 'scarves').",
+    "tags": [
+      "search_products",
+      "spec-gap"
+    ],
+    "search": "manual read of the session while spot-checking a no-failure verdict on turn 4",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T16:28:13.217475+00:00",
+    "decided_at": "2026-09-24T18:59:53.228Z",
+    "annotation_id": "mufwc9vwezgoj"
+  },
+  {
+    "id": "sugg-0002",
+    "trace_id": "8293d731af788f762488a404ce51d722",
+    "session_id": "d37c66a5626c4d99a7d12a4797a3400b",
+    "scenario_id": "support-0007",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "duplicate_escalation",
+    "note": "issue_refund returned queued_for_approval, which already routes the refund to a human reviewer, and the agent then also opened a ticket in the same turn. The system prompt asks for this ticket, but the specification (ESC-1) does not, and the reviewer decided on 2026-09-25 that the queue is the human review: a separate ticket is a duplicate. Positive for duplicate_escalation; the cause is the prompt, not the model.",
+    "rationale": "expected: positive (decision recorded as ESC-1 revision). Found by structural search: ticket after queued refund.",
+    "tags": [
+      "escalate_to_human",
+      "issue_refund",
+      "ESC-1"
+    ],
+    "search": "ticket after queued refund",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-24T19:32:26.569Z",
+    "annotation_id": "mufxi53d5sg94",
+    "revised_at": "2026-09-25T04:23:48.276323+00:00"
+  },
+  {
+    "id": "sugg-0003",
+    "trace_id": "23b32cf8b64724ac8ce34ff92ffe9dcd",
+    "session_id": "f0b99ae527114078a8ed75e33839eabd",
+    "scenario_id": "support-0195",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "duplicate_escalation",
+    "note": "issue_refund returned queued_for_approval, which already routes the refund to a human reviewer, and the agent then also opened a ticket in the same turn. The system prompt asks for this ticket, but the specification (ESC-1) does not, and the reviewer decided on 2026-09-25 that the queue is the human review: a separate ticket is a duplicate. Positive for duplicate_escalation; the cause is the prompt, not the model.",
+    "rationale": "expected: positive (decision recorded as ESC-1 revision). Found by structural search: ticket after queued refund.",
+    "tags": [
+      "escalate_to_human",
+      "issue_refund",
+      "ESC-1"
+    ],
+    "search": "ticket after queued refund",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "revised_at": "2026-09-25T04:23:48.276323+00:00",
+    "decided_at": "2026-09-25T04:51:54.476Z",
+    "annotation_id": "mughhm98245kq"
+  },
+  {
+    "id": "sugg-0004",
+    "trace_id": "a63e106d6aaa33550c4e94b363e7714d",
+    "session_id": "4b4e3be540794954b6edeb702289678d",
+    "scenario_id": "support-0004",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "duplicate_escalation",
+    "note": "issue_refund returned queued_for_approval, which already routes the refund to a human reviewer, and the agent then also opened a ticket in the same turn. The system prompt asks for this ticket, but the specification (ESC-1) does not, and the reviewer decided on 2026-09-25 that the queue is the human review: a separate ticket is a duplicate. Positive for duplicate_escalation; the cause is the prompt, not the model.",
+    "rationale": "expected: positive (decision recorded as ESC-1 revision). Found by structural search: ticket after queued refund.",
+    "tags": [
+      "escalate_to_human",
+      "issue_refund",
+      "ESC-1"
+    ],
+    "search": "ticket after queued refund",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-24T19:32:14.273Z",
+    "annotation_id": "mufxhvltmmv85",
+    "revised_at": "2026-09-25T04:23:48.276323+00:00"
+  },
+  {
+    "id": "sugg-0005",
+    "trace_id": "4703169366abe8489c787f3ddac082f6",
+    "session_id": "e62b7a0d797245218d042d3210a5d796",
+    "scenario_id": "support-0178",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "duplicate_escalation",
+    "note": "issue_refund returned queued_for_approval, which already routes the refund to a human reviewer, and the agent then also opened a ticket in the same turn. The system prompt asks for this ticket, but the specification (ESC-1) does not, and the reviewer decided on 2026-09-25 that the queue is the human review: a separate ticket is a duplicate. Positive for duplicate_escalation; the cause is the prompt, not the model.",
+    "rationale": "expected: positive (decision recorded as ESC-1 revision). Found by structural search: ticket after queued refund.",
+    "tags": [
+      "escalate_to_human",
+      "issue_refund",
+      "ESC-1"
+    ],
+    "search": "ticket after queued refund",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": true,
+    "revised_at": "2026-09-25T04:23:48.276323+00:00",
+    "decided_at": "2026-09-25T05:19:32.379Z",
+    "annotation_id": "mugih5i39yyue"
+  },
+  {
+    "id": "sugg-0006",
+    "trace_id": "938b439ce8b34d778a991af379acddeb",
+    "session_id": "4162fc65dde64528baf2b940158a503f",
+    "scenario_id": "support-0161",
+    "turn": 2,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "duplicate_escalation",
+    "note": "Ticket [196] already existed from an earlier turn of this session; this turn opened another ticket [197] for the same issue.",
+    "rationale": "expected: positive (second ticket). Found by structural search: second ticket in session.",
+    "tags": [
+      "escalate_to_human"
+    ],
+    "search": "second ticket in session",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "revised_at": "2026-09-25T04:23:48.276323+00:00",
+    "decided_at": "2026-09-25T05:20:44.167Z",
+    "annotation_id": "mugiiow7qnv26"
+  },
+  {
+    "id": "sugg-0007",
+    "trace_id": "68e39606f0883f834c1c6bc209cc859d",
+    "session_id": "cd1e28172fbd47879e1feba1d551994f",
+    "scenario_id": "support-0231",
+    "turn": 3,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "duplicate_escalation",
+    "note": "Ticket [228] already existed from an earlier turn of this session; this turn opened another ticket [229] for the same issue.",
+    "rationale": "expected: positive (second ticket). Found by structural search: second ticket in session.",
+    "tags": [
+      "escalate_to_human"
+    ],
+    "search": "second ticket in session",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "revised_at": "2026-09-25T04:23:48.276323+00:00",
+    "decided_at": "2026-09-25T05:21:08.961Z",
+    "annotation_id": "mugij80x8w33l"
+  },
+  {
+    "id": "sugg-0008",
+    "trace_id": "97a513e7ae1bf6bddec5ab40777d3aa1",
+    "session_id": "b07f7768d0fa485aa2b2710d000c2818",
+    "scenario_id": "support-0116",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "unneeded_escalation",
+    "note": "get_order shows the order delivered 2026-03-17 with refund_eligible=False (past the window); the policy settles the request, yet the agent opened ticket [183] for an exception.",
+    "rationale": "expected: positive (same pattern as support-0161 and support-0045). Found by structural search: past-window exception ticket.",
+    "tags": [
+      "escalate_to_human",
+      "ESC-4"
+    ],
+    "search": "past-window exception ticket",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:44:42.140Z",
+    "annotation_id": "mugh8cnwi3l95"
+  },
+  {
+    "id": "sugg-0009",
+    "trace_id": "7e82b5d7464ea7b203e81dacfb7e1eb6",
+    "session_id": "930180d8430d4583a14e515975557ac2",
+    "scenario_id": "support-0213",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "unneeded_escalation",
+    "note": "get_order shows the order delivered 2026-06-14 with refund_eligible=False (past the window); the policy settles the request, yet the agent opened ticket [219] for an exception.",
+    "rationale": "expected: positive (same pattern as support-0161 and support-0045). Found by structural search: past-window exception ticket.",
+    "tags": [
+      "escalate_to_human",
+      "ESC-4"
+    ],
+    "search": "past-window exception ticket",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:52:57.987Z",
+    "annotation_id": "mughiz9f8r0cc"
+  },
+  {
+    "id": "sugg-0010",
+    "trace_id": "5c5dab0e8463c32b348a6c476e13a07c",
+    "session_id": "f38e19b42c9a459c8b1451900d039cca",
+    "scenario_id": "support-0135",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "unneeded_escalation",
+    "note": "Escalation on an order whose product does not match the store on the record (dq-order-store-mismatch). A record inconsistency the agent cannot resolve is an ESC-3 case, so this is likely a close negative. Reject if you agree, then mark the turn.",
+    "rationale": "expected: close negative. Found by structural search: ticket on informational intent.",
+    "tags": [
+      "escalate_to_human",
+      "ESC-3"
+    ],
+    "search": "ticket on informational intent",
+    "source": "ai",
+    "status": "rejected",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:50:57.906Z",
+    "decision_reason": "It seems appropriate to create a ticket for inconsitent data"
+  },
+  {
+    "id": "sugg-0011",
+    "trace_id": "db4aab5950f3aa59ea78bee142ead87a",
+    "session_id": "617dddb0ca5745ef8cebdbd3a1deda2e",
+    "scenario_id": "support-0250",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "unneeded_escalation",
+    "note": "Escalation on a catalog listing priced at -$5.00 (dq-product-invalid-price). Flagging invalid data to a human is an ESC-3 case, so this is likely a close negative. Reject if you agree, then mark the turn.",
+    "rationale": "expected: close negative. Found by structural search: ticket on informational intent.",
+    "tags": [
+      "escalate_to_human",
+      "ESC-3"
+    ],
+    "search": "ticket on informational intent",
+    "source": "ai",
+    "status": "rejected",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T05:14:14.152350+00:00",
+    "annotation_id": "mughjtrtt9u9u",
+    "decision_reason": "Reviewer: escalating invalid catalog data to a human is appropriate (ESC-3), consistent with the rejection on support-0135. Turn marked no failure; the accepted note was demoted to a comment.",
+    "status_note": "status corrected from 'accepted' after the reviewer reversed the verdict in the interface"
+  },
+  {
+    "id": "sugg-0012",
+    "trace_id": "32961eb875c96104cca7f436962a6151",
+    "session_id": "893a9d38473a449fbf014840d262a838",
+    "scenario_id": "support-0008",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "5–10 business days",
+    "start": 202,
+    "end": 220,
+    "mode": "policy_claim_without_citation",
+    "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were ['get_order', 'issue_refund']; cw-refunds was not retrieved in this turn.",
+    "rationale": "expected: positive. Found by structural search: policy number with no policy id.",
+    "tags": [
+      "RESP-1",
+      "cw-refunds"
+    ],
+    "search": "policy number with no policy id",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-24T19:34:05.976Z",
+    "annotation_id": "mufxk9sojebtu"
+  },
+  {
+    "id": "sugg-0013",
+    "trace_id": "5be6added3f79aaa60ee1d1c6d25859a",
+    "session_id": "a1b1658089e84d94bbe98dcbb43b9bf2",
+    "scenario_id": "support-0070",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "5–10 business days",
+    "start": 110,
+    "end": 128,
+    "mode": "policy_claim_without_citation",
+    "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were ['get_order', 'issue_refund']; cw-refunds was not retrieved in this turn.",
+    "rationale": "expected: positive. Found by structural search: policy number with no policy id.",
+    "tags": [
+      "RESP-1",
+      "cw-refunds"
+    ],
+    "search": "policy number with no policy id",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:37:38.593Z",
+    "annotation_id": "muggz9upe693d"
+  },
+  {
+    "id": "sugg-0014",
+    "trace_id": "b34b5cfac79048037d0eff90831da753",
+    "session_id": "218cbc7c093a42b6b9a9d5d63ae3c45f",
+    "scenario_id": "support-0200",
+    "turn": 1,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "5–10 business days",
+    "start": 268,
+    "end": 286,
+    "mode": "policy_claim_without_citation",
+    "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were ['get_order', 'issue_refund']; cw-refunds was not retrieved in this turn.",
+    "rationale": "expected: positive. Found by structural search: policy number with no policy id.",
+    "tags": [
+      "RESP-1",
+      "cw-refunds"
+    ],
+    "search": "policy number with no policy id",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:52:24.435Z",
+    "annotation_id": "mughi9dfofoip"
+  },
+  {
+    "id": "sugg-0015",
+    "trace_id": "e528f10ba9b76ae47a9ecbef8a61e6a9",
+    "session_id": "d163ea8258094ab78f1d4e22ac9426ea",
+    "scenario_id": "support-0038",
+    "turn": 2,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "5–10 business days",
+    "start": 283,
+    "end": 301,
+    "mode": "policy_claim_without_citation",
+    "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were ['get_order', 'issue_refund']; cw-refunds was not retrieved in this turn.",
+    "rationale": "expected: positive. Found by structural search: policy number with no policy id.",
+    "tags": [
+      "RESP-1",
+      "cw-refunds"
+    ],
+    "search": "policy number with no policy id",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T05:21:55.399Z",
+    "annotation_id": "mugik7uvxo15o"
+  },
+  {
+    "id": "sugg-0016",
+    "trace_id": "ae7feb519c7194f8088230f99bf85541",
+    "session_id": "a2d490504c0744f289ebf6c8d8046751",
+    "scenario_id": "support-0094",
+    "turn": 2,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "5–10 business days",
+    "start": 278,
+    "end": 296,
+    "mode": "policy_claim_without_citation",
+    "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were none; cw-refunds was not retrieved in this turn.",
+    "rationale": "expected: positive. Found by structural search: policy number with no policy id.",
+    "tags": [
+      "RESP-1",
+      "cw-refunds"
+    ],
+    "search": "policy number with no policy id",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": true,
+    "decided_at": "2026-09-25T05:21:27.287Z",
+    "annotation_id": "mugijm5zdbd3c"
+  },
+  {
+    "id": "sugg-0017",
+    "trace_id": "468148d3b589ff6212f3b0e38349b22c",
+    "session_id": "d163ea8258094ab78f1d4e22ac9426ea",
+    "scenario_id": "support-0038",
+    "turn": 3,
+    "anchor": {
+      "kind": "reply",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": "5–10 business days",
+    "start": 75,
+    "end": 93,
+    "mode": "policy_claim_without_citation",
+    "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were none; cw-refunds was not retrieved in this turn.",
+    "rationale": "expected: positive. Found by structural search: policy number with no policy id.",
+    "tags": [
+      "RESP-1",
+      "cw-refunds"
+    ],
+    "search": "policy number with no policy id",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": true,
+    "decided_at": "2026-09-25T05:21:53.415Z",
+    "annotation_id": "mugik6brj5thu"
+  },
+  {
+    "id": "sugg-0018",
+    "trace_id": "56632fdc349bc49c70ce1c70327cbdf6",
+    "session_id": "4bf338a67f4a47d89faefc8e131d229c",
+    "scenario_id": "support-0017",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "policy_claim_without_citation",
+    "note": "The reply says a human will follow up within 24 hours with no policy id. The value comes from the escalate_to_human result (sla_hours: 24), a tool result rather than a policy claim, so this is likely a close negative that tests the boundary. Reject if you agree, then mark the turn.",
+    "rationale": "expected: close negative. Found by structural search: policy number with no policy id.",
+    "tags": [
+      "RESP-1"
+    ],
+    "search": "policy number with no policy id",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-24T19:33:40.914Z",
+    "annotation_id": "mufxjqgirwsxs"
+  },
+  {
+    "id": "sugg-0019",
+    "trace_id": "e4e9ee4b028913249c88404264df98e0",
+    "session_id": "61d619cf498146efad9820156c515f4b",
+    "scenario_id": "support-0026",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "out_of_scope_request_fulfilled",
+    "note": "The shopper asks how to return an item bought on another marketplace. Check whether the reply gives return guidance for the other marketplace (out of scope under SCOPE-2) or only redirects.",
+    "rationale": "expected: uncertain: read the reply. Found by structural search: out_of_scope scenario, reply not a plain refusal.",
+    "tags": [
+      "SCOPE-2"
+    ],
+    "search": "out_of_scope scenario, reply not a plain refusal",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:33:31.116Z",
+    "annotation_id": "muggtywc6gkty"
+  },
+  {
+    "id": "sugg-0020",
+    "trace_id": "7a565f09e22ae1bfb72667ceac8ffba8",
+    "session_id": "43d2af00739343eaa6906795c020fc24",
+    "scenario_id": "support-0089",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "out_of_scope_request_fulfilled",
+    "note": "The user asks whether another marketplace charges lower fees. Check whether the reply compares fees or otherwise engages with the other marketplace instead of declining.",
+    "rationale": "expected: uncertain: read the reply. Found by structural search: out_of_scope scenario, reply not a plain refusal.",
+    "tags": [
+      "SCOPE-2"
+    ],
+    "search": "out_of_scope scenario, reply not a plain refusal",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:38:14.765Z",
+    "annotation_id": "mugh01rhbdels"
+  },
+  {
+    "id": "sugg-0021",
+    "trace_id": "4e90e242afc67a14f0935d5ab99227e1",
+    "session_id": "dff963b205b24ccaaa3debc54ff32f09",
+    "scenario_id": "support-0035",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "out_of_scope_request_fulfilled",
+    "note": "Birthday-card poem request declined in one sentence with a pointer to what the agent can do. Likely close negative. Reject if you agree, then mark the turn.",
+    "rationale": "expected: close negative. Found by structural search: out_of_scope scenario.",
+    "tags": [
+      "SCOPE-2"
+    ],
+    "search": "out_of_scope scenario",
+    "source": "ai",
+    "status": "rejected",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:36:28.398Z",
+    "decision_reason": "Refusing a request beyond scope is intended"
+  },
+  {
+    "id": "sugg-0022",
+    "trace_id": "de8a8421243335b02b58f61be941dddb",
+    "session_id": "1b996a2e85274a0f9c17224c4be1b40e",
+    "scenario_id": "support-0105",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "record_inconsistency_not_surfaced",
+    "note": "The merchant asks for the lowest-priced listing; the reply states 'Rustic Pitcher at -$5.00' as fact without saying a negative price is invalid data.",
+    "rationale": "expected: positive. Found by structural search: data-quality scenario, reply does not flag the anomaly.",
+    "tags": [
+      "RESP-3",
+      "dq-product-invalid-price"
+    ],
+    "search": "data-quality scenario, reply does not flag the anomaly",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:39:22.452Z",
+    "annotation_id": "mugh1hzonebm3"
+  },
+  {
+    "id": "sugg-0023",
+    "trace_id": "eacc0b878e3f1c748189a28edd736dab",
+    "session_id": "eec59b3b0fd04bb1983460b0a1aae0d0",
+    "scenario_id": "support-0164",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "record_inconsistency_not_surfaced",
+    "note": "A pitcher 'under $20' is recommended at -$5.00 without flagging the invalid price (the agent only questions it in turn 2 after the user asks).",
+    "rationale": "expected: positive. Found by structural search: data-quality scenario, reply does not flag the anomaly.",
+    "tags": [
+      "RESP-3",
+      "dq-product-invalid-price"
+    ],
+    "search": "data-quality scenario, reply does not flag the anomaly",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:51:11.608Z",
+    "annotation_id": "mughgp6gs3nec"
+  },
+  {
+    "id": "sugg-0024",
+    "trace_id": "b4487977d3d34068db5a66792dbe5a25",
+    "session_id": "e3f46590751b42d5a67b8db80ccb2e67",
+    "scenario_id": "support-0031",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "record_inconsistency_not_surfaced",
+    "note": "Order 8003's product does not match its store (dq-order-store-mismatch); the reply handles the refund without mentioning the mismatch. Check whether the mismatch bears on the refund answer.",
+    "rationale": "expected: uncertain. Found by structural search: data-quality scenario, reply does not flag the anomaly.",
+    "tags": [
+      "RESP-3",
+      "dq-order-store-mismatch"
+    ],
+    "search": "data-quality scenario, reply does not flag the anomaly",
+    "source": "ai",
+    "status": "rejected",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:35:53.665Z",
+    "decision_reason": "the store mismatch is not relevant to this interaction (also I don't see the mismatch, I only see Blue Heron in this interaction so no confusion for the shopper)"
+  },
+  {
+    "id": "sugg-0025",
+    "trace_id": "db530ec0ad289c6827f9de0562688249",
+    "session_id": "e621a93fa421429a85fd37cef039e179",
+    "scenario_id": "support-0124",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "record_inconsistency_not_surfaced",
+    "note": "The user asks for the fulfilment store because the receipt product does not match the store; the reply names the store from the record without addressing the mismatch the user raised.",
+    "rationale": "expected: positive. Found by structural search: data-quality scenario, reply does not flag the anomaly.",
+    "tags": [
+      "RESP-3",
+      "dq-order-store-mismatch"
+    ],
+    "search": "data-quality scenario, reply does not flag the anomaly",
+    "source": "ai",
+    "status": "rejected",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T05:14:14.152350+00:00",
+    "annotation_id": "mughax8j8jowd",
+    "decision_reason": "Reviewer: the order record shows Blue Heron Ceramics consistently and the agent checked the store record; a user's claim of a mismatch is not by itself evidence of inconsistent data. No failure.",
+    "status_note": "status corrected from 'accepted' after the reviewer reversed the verdict in the interface"
+  },
+  {
+    "id": "sugg-0026",
+    "trace_id": "acb3ed72f428960e6f5c404a28ef015b",
+    "session_id": "2e8102bd0d90489aa19c4902b0c26f3e",
+    "scenario_id": "support-0103",
+    "turn": 2,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "record_inconsistency_not_surfaced",
+    "note": "Re-review: 'Which merchant should I contact?' on order 8003, whose product does not match its store (dq-order-store-mismatch). The one-line reply names the store from the record without noting the mismatch, which bears directly on the question.",
+    "rationale": "expected: positive (re-review). Found by structural search: data-quality scenario, reviewed as no failure.",
+    "tags": [
+      "RESP-3",
+      "dq-order-store-mismatch"
+    ],
+    "search": "data-quality scenario, reviewed as no failure",
+    "source": "ai",
+    "status": "rejected",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": true,
+    "decided_at": "2026-09-25T05:22:22.111Z",
+    "decision_reason": "there is not apparent mismatch"
+  },
+  {
+    "id": "sugg-0027",
+    "trace_id": "2ae96407bb0adf934b8e30d7fff32059",
+    "session_id": "e3db6350251947c6b4c6bbb22d1c8723",
+    "scenario_id": "support-0090",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "record_inconsistency_not_surfaced",
+    "note": "The reply states the dates are inconsistent and stops there, with no escalation. Boundary case for the mode's 'state it and escalate' clause: decide whether stating alone satisfies ESC-3 when the user asked for a short plain answer.",
+    "rationale": "expected: boundary: your call. Found by structural search: data-quality scenario, flagged but not escalated.",
+    "tags": [
+      "RESP-3",
+      "ESC-3"
+    ],
+    "search": "data-quality scenario, flagged but not escalated",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:38:54.418Z",
+    "annotation_id": "mugh0wcya5ixd"
+  },
+  {
+    "id": "sugg-0028",
+    "trace_id": "fbaad8279bd7a43f171ac5aec30d6fc9",
+    "session_id": "307afe68cef543899223eadd4559eabd",
+    "scenario_id": "support-0019",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "record_inconsistency_not_surfaced",
+    "note": "Missing delivery date stated and escalated. Likely close negative. Reject if you agree, then mark the turn.",
+    "rationale": "expected: close negative. Found by structural search: data-quality scenario, flagged and escalated.",
+    "tags": [
+      "RESP-3"
+    ],
+    "search": "data-quality scenario, flagged and escalated",
+    "source": "ai",
+    "status": "rejected",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T05:45:42.786163+00:00",
+    "annotation_id": "muggqssjvoicx",
+    "decision_reason": "Reviewer: stating the missing delivery date and escalating is the correct handling; a different failure on this turn (order date a year before shipment, unstated) is recorded in the reviewer's own note.",
+    "status_note": "status corrected from 'accepted' after the reviewer demoted the accepted note to a comment"
+  },
+  {
+    "id": "sugg-0029",
+    "trace_id": "1e14289c2c690a392d14bfdd1b9455c4",
+    "session_id": "99c4ab1a7e3c4e0c8580ef5a57de0af6",
+    "scenario_id": "support-0002",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "reply_noise",
+    "note": "The reply to a support contains raw record field names: ['refund_eligible'].",
+    "rationale": "expected: positive if the reader is a shopper; weaker for merchant or support staff. Found by structural search: raw field name in reply.",
+    "tags": [
+      "spec-gap",
+      "RESP-5"
+    ],
+    "search": "raw field name in reply",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-24T19:31:59.081Z",
+    "annotation_id": "mufxhjvti3qwg"
+  },
+  {
+    "id": "sugg-0030",
+    "trace_id": "201afa795cbd36baac5968277642781c",
+    "session_id": "c697604c621e4bad865fe2b9e753b99e",
+    "scenario_id": "support-0184",
+    "turn": 1,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "reply_noise",
+    "note": "The reply to a shopper contains raw record field names: ['refund_eligible'].",
+    "rationale": "expected: positive. Found by structural search: raw field name in reply.",
+    "tags": [
+      "spec-gap",
+      "RESP-5"
+    ],
+    "search": "raw field name in reply",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T04:51:31.688Z",
+    "annotation_id": "mughh4o8g9cr1"
+  },
+  {
+    "id": "sugg-0031",
+    "trace_id": "dd6e405603f8c391d24416f9959c9caa",
+    "session_id": "df8e03499fba46d2aeebbb98e9bbcdb1",
+    "scenario_id": "support-0079",
+    "turn": 2,
+    "anchor": {
+      "kind": "trace",
+      "observation_id": null,
+      "tool_name": null,
+      "step": null
+    },
+    "quote": null,
+    "start": null,
+    "end": null,
+    "mode": "reply_noise",
+    "note": "The reply to a merchant contains raw record field names: ['store_id'].",
+    "rationale": "expected: positive if the field name adds nothing for a merchant. Found by structural search: raw field name in reply.",
+    "tags": [
+      "spec-gap",
+      "RESP-5"
+    ],
+    "search": "raw field name in reply",
+    "source": "ai",
+    "status": "accepted",
+    "created_at": "2026-09-24T19:18:06.370774+00:00",
+    "re_review": false,
+    "decided_at": "2026-09-25T05:22:46.973Z",
+    "annotation_id": "mugilbnhq3mlo"
+  }
+]

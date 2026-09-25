@@ -355,6 +355,14 @@ def _badges(steps: list[dict[str, Any]]) -> list[dict[str, str]]:
     return badges
 
 
+def _same_args(a: Any, b: Any) -> bool:
+    """True when two argument payloads are equal after JSON normalization."""
+    try:
+        return json.dumps(a, sort_keys=True, default=str) == json.dumps(b, sort_keys=True, default=str)
+    except (TypeError, ValueError):
+        return a == b
+
+
 def _build_turn(record: dict[str, Any], index: int, host: str | None) -> dict[str, Any]:
     """Group one trace's observations into steps and a reply."""
     trace_id = str(_get(record, "id", "trace_id"))
@@ -418,13 +426,18 @@ def _build_turn(record: dict[str, Any], index: int, host: str | None) -> dict[st
             result = {
                 "name": name,
                 "observation_id": obs.get("id"),
+                "input": obs.get("input"),
                 "output": obs.get("output"),
                 "summary": _summary(str(name), obs.get("output")),
                 "permission_denied": str(attrs.get("cartwheel.permission_denied", "")).lower() == "true",
                 "permission_reason": attrs.get("cartwheel.permission_denied.reason"),
                 "start_time": _get(obs, "startTime", "start_time"),
             }
-            target = next((s for s in pending if (s["tool_call"] or {}).get("name") == name), None) or (pending[0] if pending else None)
+            # Parallel calls to the same tool arrive as several TOOL observations whose
+            # order need not match the tool_call parts, so match on the arguments first.
+            same_args = [s for s in pending if (s["tool_call"] or {}).get("name") == name and _same_args(s["tool_call"].get("arguments"), obs.get("input"))]
+            same_name = [s for s in pending if (s["tool_call"] or {}).get("name") == name]
+            target = (same_args or same_name or pending or [None])[0]
             if target is None:
                 target = {
                     "narration": "",

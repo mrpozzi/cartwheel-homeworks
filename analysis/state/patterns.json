@@ -1,1 +1,346 @@
-{"modes": []}
+{
+  "modes": [
+    {
+      "name": "unneeded_escalation",
+      "status": "candidate",
+      "definition": "The agent calls escalate_to_human in a turn where no human involvement is required at all: the request was resolved from policy and the order record (an informational question, a past-window denial the policy settles, a request the agent simply cannot fulfil such as sending an email).",
+      "boundary": "Not this mode when the request is an account or payment change (ESC-2), a dispute, or a record inconsistency the agent cannot resolve (ESC-3). A ticket opened for an issue already under human review is duplicate_escalation, not this mode.",
+      "requirement_source": "ESC-1..ESC-4 read strictly, TOOL-9 side effect; proposed clarification: escalate only in the ESC cases",
+      "evaluator_type": "llm_judge",
+      "product_change": "Tighten the escalation criteria in the system prompt; consider a code check for a ticket opened after issue_refund returned queued_for_approval or after an earlier ticket in the session.",
+      "positives": [
+        "ee533187a06f9845950edc98f2768507",
+        "28fe4a91df30c98b4bea19591aa2e961",
+        "fd330d0712fe1b9edec31352718a52cc",
+        "4daa56cc329c1ed289be50631f535443",
+        "97a513e7ae1bf6bddec5ab40777d3aa1",
+        "7e82b5d7464ea7b203e81dacfb7e1eb6"
+      ],
+      "close_negatives": [
+        "af0e73122e140e12922a8d6933344d08",
+        "7462b89e7fadde64fc46dfcad801216c",
+        "7e75fa3e8302c23abcd084cd0aa872b0",
+        "91774c5fd20026ba2082b98cf4112c99",
+        "5c5dab0e8463c32b348a6c476e13a07c",
+        "db4aab5950f3aa59ea78bee142ead87a"
+      ],
+      "origin_annotations": [
+        "mufqbuwfeu8ze",
+        "mufr2p8o53vsb",
+        "mufux0oo2uqjo",
+        "mufwma7gnib8i",
+        "mugh8cnwi3l95",
+        "mughiz9f8r0cc"
+      ],
+      "notes": "Close negatives from rejected suggestions: support-0135 (store mismatch ticket) and support-0250 (invalid price ticket): escalating a record inconsistency is ESC-3 and correct.",
+      "created_at": "2026-09-24T18:55:58.204306+00:00",
+      "updated_at": "2026-09-25T05:24:46.779166+00:00"
+    },
+    {
+      "name": "duplicate_escalation",
+      "status": "candidate",
+      "created_at": "2026-09-25T04:23:48.276323+00:00",
+      "updated_at": "2026-09-25T05:24:46.779166+00:00",
+      "definition": "The agent opens a support ticket for an issue that is already under human review in the same session: issue_refund returned queued_for_approval for it, or an earlier turn already opened a ticket for it.",
+      "boundary": "The first ticket for an issue is not this mode even if the issue did not need one (that is unneeded_escalation). A ticket for a genuinely new issue in the same session is not this mode. Escalating a queued refund because the user reports a new problem with it is a judgment call to record.",
+      "requirement_source": "ESC-1 revision (decided 2026-09-25): above the threshold the queue is the human review; the agent explains the result and does not open a separate ticket. Motivating annotations: mufsrxnlq9lv7 (support-0085 t2), mufvlhb52bfvr (support-0228 t3). Note: the system prompt's Escalation section currently instructs the ticket, so the fix is a prompt change.",
+      "evaluator_type": "code_check",
+      "product_change": "Prompt: do not call escalate_to_human when issue_refund already queued the refund or a ticket for the same issue exists; code check: escalate_to_human after queued_for_approval in the same turn, or a second ticket in a session.",
+      "positives": [
+        "5346852cabfa8089f4dab49e5b31d7f9",
+        "c0beff276b2424fc485f7b02ed00bb47",
+        "8293d731af788f762488a404ce51d722",
+        "a63e106d6aaa33550c4e94b363e7714d",
+        "23b32cf8b64724ac8ce34ff92ffe9dcd",
+        "4703169366abe8489c787f3ddac082f6",
+        "938b439ce8b34d778a991af379acddeb",
+        "68e39606f0883f834c1c6bc209cc859d"
+      ],
+      "close_negatives": [
+        "af0e73122e140e12922a8d6933344d08",
+        "d4ef9700417663534643ae4c50ba8c22",
+        "102a3155e3c6454959fb6cc574ff59c7",
+        "730c7c020fa36720895ca71d19d79e99",
+        "97db58cf6317e888e491c2402fd31304"
+      ],
+      "origin_annotations": [
+        "mufsrxnlq9lv7",
+        "mufvlhb52bfvr",
+        "mufxi53d5sg94",
+        "mufxhvltmmv85",
+        "mughhm98245kq",
+        "mugih5i39yyue",
+        "mugiiow7qnv26",
+        "mugij80x8w33l"
+      ],
+      "notes": "Positives from support-0007 t1 and support-0004 t1 entered through accepted AI suggestions. Close negatives are queued refunds with no ticket in the same turn."
+    },
+    {
+      "name": "out_of_scope_request_fulfilled",
+      "status": "candidate",
+      "definition": "The agent answers, attempts, or engages with a request that SCOPE-2 says to refuse (legal advice, payment credentials, anything outside Cartwheel) instead of declining in one or two sentences and pointing to what it can help with. Engaging includes giving steps for another marketplace's process or opening a ticket and offering to organise a comparison after nominally declining.",
+      "boundary": "Declining and escalating a payment-card change is not this mode. A brief refusal that points to Cartwheel help is not this mode. The ticket opened on support-0089 is also an unneeded escalation; the same trace can carry both.",
+      "requirement_source": "SCOPE-2, RESP-5",
+      "evaluator_type": "llm_judge",
+      "product_change": "Scope enforcement in the system prompt with refusal examples for general-knowledge requests about purchased items.",
+      "positives": [
+        "174e0a701317da28efde381a8a3e0481",
+        "d9671dd1526cce4fcb8154064d295322",
+        "5e4b39475880c29d84e0ddea269db5f5",
+        "e4e9ee4b028913249c88404264df98e0",
+        "7a565f09e22ae1bfb72667ceac8ffba8"
+      ],
+      "close_negatives": [
+        "7462b89e7fadde64fc46dfcad801216c",
+        "d78cb9eae3e92cef8707f49ed676f788",
+        "4e90e242afc67a14f0935d5ab99227e1"
+      ],
+      "origin_annotations": [
+        "mufuio948iu3a",
+        "mufuiyyzmsghv",
+        "mufuj82z9el5o",
+        "muggtywc6gkty",
+        "mugh01rhbdels"
+      ],
+      "notes": "Positives now span three sessions (support-0139 x3, support-0026, support-0089). Close negative support-0035 (poem request declined in one sentence).",
+      "created_at": "2026-09-24T18:55:58.204306+00:00",
+      "updated_at": "2026-09-25T05:24:46.779166+00:00"
+    },
+    {
+      "name": "literal_search_reported_as_none",
+      "status": "candidate",
+      "definition": "After search_products returns zero results for a wording the literal matcher cannot hit (plural, synonym), the agent tells the user that no matching products exist without retrying an obvious variant, although matching products exist in the catalog.",
+      "boundary": "A retry that also fails is not this mode. A false positive in the results (an unrelated item returned and flagged as unrelated) is not this mode. Zero results when nothing matches under any wording is not this mode.",
+      "requirement_source": "spec gap; proposed requirement under SCOPE-1/RESP-3: retry an obvious variant before reporting that nothing matches. The root fix is in search_products (token normalization).",
+      "evaluator_type": "code_check",
+      "product_change": "Normalize singular/plural in search_products; or instruct the agent to retry variants before reporting none.",
+      "positives": [
+        "bc4352ce250d60601f5e71060acce32b",
+        "c3959f387f2f6888edbff4e461e8b576"
+      ],
+      "close_negatives": [
+        "a27ee2c97100011115aa89dcfa20f812",
+        "8ce4d17de919c18586ca94d6b73c9b43",
+        "d4cd2d97fd205665290852e23ad37588"
+      ],
+      "origin_annotations": [
+        "mufq10fj1z7eb",
+        "mufwc9vwezgoj"
+      ],
+      "notes": "support-0192 t1 entered through AI suggestion sugg-0001, accepted by the reviewer as annotation mufwc9vwezgoj. Workshop replays W1: three identical replays of the plural query; evaluator confirmed as code check, cause is the tool.",
+      "created_at": "2026-09-24T18:55:58.204306+00:00",
+      "updated_at": "2026-09-25T12:54:01.343231+00:00"
+    },
+    {
+      "name": "unsupported_assertion",
+      "status": "candidate",
+      "definition": "The reply or a tool argument states a specific value or promise (amount, limit, timeline, eligibility) that no tool result or retrieved policy in the session supports, without flagging it as an assumption or asking.",
+      "boundary": "A value taken from the order record or a retrieved policy is not this mode even when the reply paraphrases it. A policy applied outside its stated scope (refund timing promised for a cancellation) is this mode.",
+      "requirement_source": "RESP-3 (RESP-1 when the value is presented as policy)",
+      "evaluator_type": "llm_judge",
+      "product_change": "Grounding instruction: every number or promise must come from a tool result or a cited policy; ask for missing constraints instead of assuming.",
+      "positives": [
+        "46f110f950916a9716ee40fe3271d9d5",
+        "be4aef8cd1aa9d3c640cd34f017fdd7d"
+      ],
+      "close_negatives": [
+        "76b07754f752f2b721079c85b33a9fc2",
+        "05403f76ea39b0e3c58dde1d33e62564",
+        "bc13497cb0a4b414288888dadf4cf93f"
+      ],
+      "origin_annotations": [
+        "mufqmrs87g1w4",
+        "mufv2aeub3toc"
+      ],
+      "notes": "Formerly 'invented constraint'; widened after support-0166 t2 promised a refund timeline for a cancelled order using the refund policy. Reviewer's note on support-0166 t2 now states the record shows refund_eligible false, so the shopper should not be promised money back.",
+      "created_at": "2026-09-24T18:55:58.204306+00:00",
+      "updated_at": "2026-09-25T05:24:46.779166+00:00"
+    },
+    {
+      "name": "record_inconsistency_not_surfaced",
+      "status": "candidate",
+      "definition": "The order record needed for the answer is missing or inconsistent (delivered with no delivery date, dates out of order), and the agent either fails to state the inconsistency that bears on the question or works around it by asking the user for the value or computing from hypothetical values, instead of stating it and escalating.",
+      "boundary": "Stating the inconsistency and escalating is not this mode even when the reply is long. A hedged estimate offered after the gap is stated and the case is escalated (Workshop replay W8, workshop-0006) is not this mode; the mode is computing from hypothetical values or asking the user for the missing value instead of escalating. Asking the user for information the record legitimately lacks (which order they mean) is not this mode.",
+      "requirement_source": "RESP-3, ESC-3",
+      "evaluator_type": "llm_judge",
+      "product_change": "Data-quality rule in the prompt: never compute eligibility from user-supplied dates; state every inconsistency and escalate.",
+      "positives": [
+        "c2bcfbb1f0159609e0fad937eb22a0ce",
+        "b6432152d0ab0a0f7cce1ae216feda41",
+        "7e75fa3e8302c23abcd084cd0aa872b0",
+        "de8a8421243335b02b58f61be941dddb",
+        "eacc0b878e3f1c748189a28edd736dab",
+        "2ae96407bb0adf934b8e30d7fff32059",
+        "fbaad8279bd7a43f171ac5aec30d6fc9"
+      ],
+      "close_negatives": [
+        "91774c5fd20026ba2082b98cf4112c99",
+        "b4487977d3d34068db5a66792dbe5a25",
+        "db530ec0ad289c6827f9de0562688249",
+        "acb3ed72f428960e6f5c404a28ef015b"
+      ],
+      "origin_annotations": [
+        "mufud2ozctjwe",
+        "mufsve3w5o0iq",
+        "mufrkzqoplv1l",
+        "mugh1hzonebm3",
+        "mughgp6gs3nec",
+        "mugh0wcya5ixd",
+        "muggqssjvoicx",
+        "muggrl4v2e0gq"
+      ],
+      "notes": "Depth batch: negative prices stated as fact (support-0105, support-0164), a flagged-but-not-escalated case accepted as failure (support-0090), and an unstated 17-month order-to-ship gap (support-0019, reviewer's own note). Rejected: support-0031, support-0124, support-0103 t2, where the record itself was consistent and only the user claimed a mismatch. Observation kept outside any mode: support-0105 called search_products with an empty query, got invalid_argument, then guessed 'ceramic' for a 'lowest-priced listing' question (the only invalid_argument call in 466 traces). Boundary revised on 2026-09-25 after Workshop replay W8.",
+      "created_at": "2026-09-24T18:55:58.204306+00:00",
+      "updated_at": "2026-09-25T12:54:01.343231+00:00"
+    },
+    {
+      "name": "reply_noise",
+      "status": "candidate",
+      "definition": "The user-facing reply includes content the user did not need and did not ask for: raw internal field names or values, results the agent itself calls irrelevant, or policy details for entities the user has not identified.",
+      "boundary": "Plain-language statements of eligibility are not this mode. A long but relevant explanation is not this mode; the rule needs a concrete trigger, not a length judgment.",
+      "requirement_source": "spec gap near RESP-5; proposed RESP-6: replies contain no internal field names and only information relevant to the request",
+      "evaluator_type": "llm_judge",
+      "product_change": "Reply-style instruction in the system prompt.",
+      "positives": [
+        "85ddb86b3b89d38ac39c98d35303907b",
+        "8ce4d17de919c18586ca94d6b73c9b43",
+        "5f78fee36641f5f8dc4f02d128eb52b3",
+        "1e14289c2c690a392d14bfdd1b9455c4",
+        "201afa795cbd36baac5968277642781c",
+        "dd6e405603f8c391d24416f9959c9caa"
+      ],
+      "close_negatives": [
+        "bc13497cb0a4b414288888dadf4cf93f",
+        "b43fad9db064a5d20a85a75d6feac7ab",
+        "acb3ed72f428960e6f5c404a28ef015b"
+      ],
+      "origin_annotations": [
+        "mufr08q4ghlpg",
+        "mufrscl3lh2i0",
+        "mufvih5rbwlkt",
+        "mufxhjvti3qwg",
+        "mughh4o8g9cr1",
+        "mugilbnhq3mlo"
+      ],
+      "notes": "Softest group; at risk of becoming a taste judgment. Keep only if the trigger list stays concrete.",
+      "created_at": "2026-09-24T18:55:58.204306+00:00",
+      "updated_at": "2026-09-25T05:24:46.779166+00:00"
+    },
+    {
+      "name": "policy_claim_without_citation",
+      "status": "candidate",
+      "definition": "The reply states a rule derived from a policy document (a window length, a threshold, a fee, a timeline) without citing a policy identifier that was retrieved in the session for that rule.",
+      "boundary": "A rule cited with the right identifier in the same reply is not this mode. Values that exist only in the order record (a status, a total, a date) need no citation. Reviewer decision 2026-09-25 (support-0017): a number that also appears in a policy document, such as the 24-hour follow-up or the 5-10 day refund timing, needs the policy identifier even when a tool result carried it.",
+      "requirement_source": "RESP-1",
+      "evaluator_type": "code_check",
+      "product_change": "Citation instruction and retrieval of cw-returns before stating the platform default.",
+      "positives": [
+        "5f78fee36641f5f8dc4f02d128eb52b3",
+        "32961eb875c96104cca7f436962a6151",
+        "5be6added3f79aaa60ee1d1c6d25859a",
+        "b34b5cfac79048037d0eff90831da753",
+        "e528f10ba9b76ae47a9ecbef8a61e6a9",
+        "ae7feb519c7194f8088230f99bf85541",
+        "468148d3b589ff6212f3b0e38349b22c",
+        "56632fdc349bc49c70ce1c70327cbdf6"
+      ],
+      "close_negatives": [
+        "bc13497cb0a4b414288888dadf4cf93f",
+        "05403f76ea39b0e3c58dde1d33e62564",
+        "0401e76be3323c92d8e0a3d84dfc1024"
+      ],
+      "origin_annotations": [
+        "mufvih5rbwlkt",
+        "mufxk9sojebtu",
+        "muggz9upe693d",
+        "mughi9dfofoip",
+        "mugik7uvxo15o",
+        "mugijm5zdbd3c",
+        "mugik6brj5thu",
+        "mufxjqgirwsxs",
+        "mugi7lpb0aio0"
+      ],
+      "notes": "Grew from 1 to 8 positives in the depth batch; all but one are the refund timing stated after issue_refund without retrieving cw-refunds. The 24-hour SLA decision widens the mode to most escalation replies; revisit if that makes the mode uninformative.",
+      "created_at": "2026-09-24T18:55:58.204306+00:00",
+      "updated_at": "2026-09-25T05:24:46.779166+00:00"
+    },
+    {
+      "name": "unacknowledged_self_contradiction",
+      "status": "candidate",
+      "definition": "A reply contradicts a claim the agent made earlier in the same session without acknowledging that the earlier claim was wrong.",
+      "boundary": "Correcting the earlier claim explicitly is not this mode. A change caused by new user information is not this mode.",
+      "requirement_source": "RESP-3 (inconsistent information should be stated) or a spec gap",
+      "evaluator_type": "llm_judge",
+      "product_change": "Instruction to acknowledge and correct earlier answers when new evidence contradicts them.",
+      "positives": [
+        "d4cd2d97fd205665290852e23ad37588"
+      ],
+      "close_negatives": [
+        "34b096a769a8d754c2b34fbecec21c0f"
+      ],
+      "origin_annotations": [
+        "mufqrzsl80vuy"
+      ],
+      "notes": "Single positive; drop or merge unless the depth search finds more.",
+      "created_at": "2026-09-24T18:55:58.204306+00:00",
+      "updated_at": "2026-09-25T05:24:46.779166+00:00"
+    }
+  ],
+  "updated_at": "2026-09-25T12:54:01.343231+00:00",
+  "history": [
+    {
+      "at": "2026-09-24T18:55:58.204306+00:00",
+      "event": "first axial pass after batches B1 and B2 (60 sampled traces, 45 no-failure, 18 failure notes)"
+    },
+    {
+      "at": "2026-09-24T19:15:33.815611+00:00",
+      "event": "refresh after reviewer edits: support-0045 t1 re-reviewed as unneeded_escalation positive; sugg-0001 accepted; notes on support-0166 t2 and support-0201 t1 sharpened"
+    },
+    {
+      "at": "2026-09-25T04:23:48.276323+00:00",
+      "event": "reviewer decision: no ticket on top of a queued refund (ESC-1 revision); unneeded_escalation split into unneeded_escalation and duplicate_escalation"
+    },
+    {
+      "at": "2026-09-25T05:24:46.779166+00:00",
+      "event": "refresh after B3-depth: 25 accepted and 6 rejected suggestions folded into positives and close negatives; definitions of policy_claim_without_citation and out_of_scope_request_fulfilled revised per reviewer decisions"
+    },
+    {
+      "at": "2026-09-25T12:54:01.343231+00:00",
+      "event": "Part C: 24 Workshop replays inspected; 9 suggestions decided (7 accepted, 2 revised: W8 boundary of record_inconsistency_not_surfaced, W9 tool gap recorded)"
+    }
+  ],
+  "spec_revisions": [
+    {
+      "id": "ESC-1-rev1",
+      "decided_at": "2026-09-25T04:23:48.276323+00:00",
+      "target": "SPEC.md ESC-1",
+      "decision": "Above the refund threshold, the queued refund is the human review. The agent explains the queued status and does not open a separate support ticket for the same refund.",
+      "reason": "SPEC.md ESC-1, the access matrix, cw-refunds, cw-escalations, the issue_refund contract, and the scenario expectations all treat the queue as the human review; only the system prompt asks for an extra ticket. Duplicate tickets cost human time twice for one refund.",
+      "motivating_annotations": [
+        "mufsrxnlq9lv7",
+        "mufvlhb52bfvr"
+      ],
+      "status": "decided, SPEC.md edit pending (Part D)"
+    },
+    {
+      "id": "TOOL-gap-1",
+      "decided_at": "2026-09-25T12:54:01.343231+00:00",
+      "target": "SPEC.md section 4 (tools)",
+      "decision": "Record a tool gap: no tool lists a store's catalog, and search_products rejects an empty query, so a merchant asking for their lowest-priced listing forces the agent to guess a query (support-0105, Workshop replay W9). Candidate fix: allow an empty query with a store filter, or add a list_store_products tool. No failure mode is defined for it.",
+      "reason": "Workshop replay W9 showed the same empty-query error and a lucky-but-unsound answer; the behaviour is a capability gap rather than a model failure.",
+      "motivating_annotations": [
+        "mugh5veed3unw"
+      ],
+      "status": "recorded; SPEC.md note pending (Part D)"
+    }
+  ],
+  "workshop": {
+    "notes": "analysis/report/workshop_notes.md",
+    "runs": 24,
+    "suggestions": 9,
+    "accepted": 7,
+    "revised": 2,
+    "rejected": 0,
+    "decided_at": "2026-09-25T12:54:01.343231+00:00"
+  }
+}

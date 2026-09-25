@@ -1,0 +1,312 @@
+{
+  "traces": {
+    "a63e106d6aaa33550c4e94b363e7714d": {
+      "tags": [],
+      "comment": "",
+      "ts": "2026-09-24T12:32:41.523Z"
+    },
+    "af0f9d4f72a8e1e6c7078277296e18d2": {
+      "tags": [],
+      "comment": "",
+      "ts": "2026-09-24T12:32:47.348Z"
+    },
+    "bc4352ce250d60601f5e71060acce32b": {
+      "tags": [
+        "spec-gap",
+        "search_products"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T16:34:57.648Z"
+    },
+    "8838918510f4305c2563f005aef1a331": {
+      "tags": [
+        "spec-gap"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T16:21:49.567Z"
+    },
+    "d4cd2d97fd205665290852e23ad37588": {
+      "tags": [
+        "spec-gap"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T16:24:10.583Z"
+    },
+    "28fe4a91df30c98b4bea19591aa2e961": {
+      "tags": [
+        "spec-gap",
+        "escalate_to_human",
+        "ESC-3"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T17:01:30.661Z"
+    },
+    "46f110f950916a9716ee40fe3271d9d5": {
+      "tags": [
+        "made-up-info"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T16:36:05.343Z"
+    },
+    "c3959f387f2f6888edbff4e461e8b576": {
+      "tags": [
+        "spec-gap",
+        "search_products"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T16:37:40.916Z"
+    },
+    "7e75fa3e8302c23abcd084cd0aa872b0": {
+      "tags": [
+        "RESP-3"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T17:16:23.341Z"
+    },
+    "8ce4d17de919c18586ca94d6b73c9b43": {
+      "tags": [
+        "spec-gap",
+        "search_products",
+        "too-much-info"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T16:51:43.971Z"
+    },
+    "5346852cabfa8089f4dab49e5b31d7f9": {
+      "tags": [
+        "escalate_to_human"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T17:20:07.694Z"
+    },
+    "b6432152d0ab0a0f7cce1ae216feda41": {
+      "tags": [
+        "too-much-info"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T17:23:21.810Z"
+    },
+    "c2bcfbb1f0159609e0fad937eb22a0ce": {
+      "tags": [
+        "escalate_to_human",
+        "ESC-3"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T18:04:37.687Z"
+    },
+    "174e0a701317da28efde381a8a3e0481": {
+      "tags": [
+        "PURPOSE-1",
+        "too-much-info"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T18:08:21.203Z"
+    },
+    "d9671dd1526cce4fcb8154064d295322": {
+      "tags": [
+        "PURPOSE-1",
+        "too-much-info"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T18:08:58.899Z"
+    },
+    "5e4b39475880c29d84e0ddea269db5f5": {
+      "tags": [
+        "too-much-info",
+        "too-many-calls"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T18:09:15.606Z"
+    },
+    "fd330d0712fe1b9edec31352718a52cc": {
+      "tags": [
+        "escalate_to_human"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T18:20:04.024Z"
+    },
+    "5f78fee36641f5f8dc4f02d128eb52b3": {
+      "tags": [
+        "too-much-info",
+        "RESP-1"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T19:11:54.430Z"
+    },
+    "c0beff276b2424fc485f7b02ed00bb47": {
+      "tags": [
+        "escalate_to_human",
+        "spec-gap"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T18:39:11.243Z"
+    },
+    "f922350e0074210310931746f7e7e169": {
+      "tags": [
+        "too-much-info"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T18:41:41.545Z"
+    },
+    "4daa56cc329c1ed289be50631f535443": {
+      "tags": [
+        "escalate_to_human",
+        "spec-gap"
+      ],
+      "comment": "",
+      "ts": "2026-09-24T19:07:46.326Z"
+    },
+    "fbaad8279bd7a43f171ac5aec30d6fc9": {
+      "tags": [
+        "spec-gap",
+        "RESP-3"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T04:32:22.880Z"
+    },
+    "e4e9ee4b028913249c88404264df98e0": {
+      "tags": [
+        "too-much-info",
+        "SCOPE-2"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T04:33:40.313Z"
+    },
+    "7a565f09e22ae1bfb72667ceac8ffba8": {
+      "tags": [
+        "SCOPE-2",
+        "too-much-info"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T04:38:23.873Z"
+    },
+    "2ae96407bb0adf934b8e30d7fff32059": {
+      "tags": [
+        "escalate_to_human",
+        "ESC-3",
+        "RESP-3"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T04:38:47.198Z"
+    },
+    "de8a8421243335b02b58f61be941dddb": {
+      "tags": [
+        "RESP-3",
+        "dq-product-invalid-price"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T04:39:36.367Z"
+    },
+    "97a513e7ae1bf6bddec5ab40777d3aa1": {
+      "tags": [
+        "escalate_to_human",
+        "ESC-4"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T04:44:52.255Z"
+    },
+    "eacc0b878e3f1c748189a28edd736dab": {
+      "tags": [
+        "dq-product-invalid-price",
+        "RESP-3"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T04:51:19.571Z"
+    },
+    "201afa795cbd36baac5968277642781c": {
+      "tags": [
+        "RESP-5",
+        "spec-gap"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T04:51:39.040Z"
+    },
+    "23b32cf8b64724ac8ce34ff92ffe9dcd": {
+      "tags": [
+        "issue_refund",
+        "escalate_to_human",
+        "ESC-1"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T04:52:07.472Z"
+    },
+    "b34b5cfac79048037d0eff90831da753": {
+      "tags": [
+        "RESP-1",
+        "cw-refunds"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T04:52:37.317Z"
+    },
+    "7e82b5d7464ea7b203e81dacfb7e1eb6": {
+      "tags": [
+        "ESC-4",
+        "escalate_to_human"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T04:53:04.743Z"
+    },
+    "699de8ac66fada8ad1d0c6ea9eb4f417": {
+      "tags": [
+        "RESP-1",
+        "cw-refunds"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T05:12:15.578Z"
+    },
+    "468148d3b589ff6212f3b0e38349b22c": {
+      "tags": [
+        "RESP-1",
+        "cw-refunds"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T05:12:11.603Z"
+    },
+    "4703169366abe8489c787f3ddac082f6": {
+      "tags": [
+        "escalate_to_human",
+        "ESC-1",
+        "issue_refund"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T05:20:01.350Z"
+    },
+    "938b439ce8b34d778a991af379acddeb": {
+      "tags": [
+        "escalate_to_human"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T05:20:51.433Z"
+    },
+    "68e39606f0883f834c1c6bc209cc859d": {
+      "tags": [
+        "escalate_to_human"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T05:21:11.337Z"
+    },
+    "ae7feb519c7194f8088230f99bf85541": {
+      "tags": [
+        "cw-refunds",
+        "RESP-1"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T05:21:35.634Z"
+    },
+    "dd6e405603f8c391d24416f9959c9caa": {
+      "tags": [
+        "spec-gap",
+        "RESP-5"
+      ],
+      "comment": "",
+      "ts": "2026-09-25T05:22:54.020Z"
+    }
+  },
+  "sessions": {
+    "d163ea8258094ab78f1d4e22ac9426ea": {
+      "tags": [],
+      "comment": "",
+      "ts": "2026-09-25T05:11:12.832Z"
+    }
+  }
+}
