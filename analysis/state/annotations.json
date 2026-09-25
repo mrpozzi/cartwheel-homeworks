@@ -1,1 +1,2907 @@
-{"annotations": []}
+{
+  "annotations": [
+    {
+      "id": "mufkajnx7508r",
+      "trace_id": "bd18c4ba8a2b4846713ec76e13863724",
+      "session_id": "64cec3e691964869a24caabf81d2bf64",
+      "scenario_id": "support-0061",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T13:22:37.197Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufkj2fazlzxn",
+      "trace_id": "20b2009c2fed5baa8fc8fc59564ae372",
+      "session_id": "85c77d918f2f46908c94b5c508e9dc4c",
+      "scenario_id": "support-0077",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T13:29:14.758Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufkjn9jp0q6o",
+      "trace_id": "a27ee2c97100011115aa89dcfa20f812",
+      "session_id": "df8e03499fba46d2aeebbb98e9bbcdb1",
+      "scenario_id": "support-0079",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T13:29:41.767Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufkofaxahphe",
+      "trace_id": "4bd987f93aa1408c625ba73112762f45",
+      "session_id": "74b4c56b835549b499df07ee850bbde5",
+      "scenario_id": "support-0092",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T13:33:24.729Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufkp1dsre0u3",
+      "trace_id": "76b07754f752f2b721079c85b33a9fc2",
+      "session_id": "74b4c56b835549b499df07ee850bbde5",
+      "scenario_id": "support-0092",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T13:33:53.344Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufkphtxj5huv",
+      "trace_id": "0b5a319a513e72ba8dbe3828fdadbd94",
+      "session_id": "2e8102bd0d90489aa19c4902b0c26f3e",
+      "scenario_id": "support-0103",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T13:34:14.661Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufkpnibs70gv",
+      "trace_id": "acb3ed72f428960e6f5c404a28ef015b",
+      "session_id": "2e8102bd0d90489aa19c4902b0c26f3e",
+      "scenario_id": "support-0103",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T13:34:22.019Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufpz5nhwxx0z",
+      "trace_id": "bc13497cb0a4b414288888dadf4cf93f",
+      "session_id": "edab047c6b5e46459e0836ef8eb82333",
+      "scenario_id": "support-0104",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:01:43.517Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufq10fj1z7eb",
+      "trace_id": "bc4352ce250d60601f5e71060acce32b",
+      "session_id": "7d18b8fc1f934f18b5ad31400934ba72",
+      "scenario_id": "support-0153",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "exact query failed but should be more flexible and furthermore the next turn seems to progress with scarves without any further input so there is a discrepancy",
+      "tags": [],
+      "ts": "2026-09-24T16:03:10.063Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufq2p2pnqwj9",
+      "trace_id": "05403f76ea39b0e3c58dde1d33e62564",
+      "session_id": "0370bd6aec46443cad013d58e63f17df",
+      "scenario_id": "support-0158",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:04:28.657Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufq3gxrd2c3h",
+      "trace_id": "b43fad9db064a5d20a85a75d6feac7ab",
+      "session_id": "6eaad47047ab4950814ef8061f754c9d",
+      "scenario_id": "support-0185",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:05:04.767Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufq6jfa3ngl2",
+      "trace_id": "55045f207327a5d4da234b45d0cc0199",
+      "session_id": "9d15a04b742942ba89c46fe8ee4b0cce",
+      "scenario_id": "support-0192",
+      "turn": 4,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:07:27.959Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufq7t73y7ttv",
+      "trace_id": "af0e73122e140e12922a8d6933344d08",
+      "session_id": "cd1e28172fbd47879e1feba1d551994f",
+      "scenario_id": "support-0231",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:08:27.279Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufq8phogvbej",
+      "trace_id": "34b096a769a8d754c2b34fbecec21c0f",
+      "session_id": "cd1e28172fbd47879e1feba1d551994f",
+      "scenario_id": "support-0231",
+      "turn": 5,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:09:09.132Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufqbuwfeu8ze",
+      "trace_id": "ee533187a06f9845950edc98f2768507",
+      "session_id": "fcee4327f55543c882a50fd7adfa4111",
+      "scenario_id": "support-0243",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Not technically wrong but we should cover this case, sending a email is hardly what we need to open a ticket for",
+      "tags": [],
+      "ts": "2026-09-24T16:11:36.111Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufqcjrw5vjit",
+      "trace_id": "0401e76be3323c92d8e0a3d84dfc1024",
+      "session_id": "341d4e4679ae431a8a391942af8a178e",
+      "scenario_id": "support-0246",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:12:08.348Z",
+      "author": "human",
+      "batch": "B1-uniform"
+    },
+    {
+      "id": "mufqmrs87g1w4",
+      "trace_id": "46f110f950916a9716ee40fe3271d9d5",
+      "session_id": "7d18b8fc1f934f18b5ad31400934ba72",
+      "scenario_id": "support-0153",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "cheaper than what? the agent went on a limb and made up the $25",
+      "tags": [],
+      "ts": "2026-09-24T16:20:05.288Z",
+      "author": "human",
+      "batch": null
+    },
+    {
+      "id": "mufqq3o704cc7",
+      "trace_id": "8838918510f4305c2563f005aef1a331",
+      "session_id": "fcee4327f55543c882a50fd7adfa4111",
+      "scenario_id": "support-0243",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:22:40.663Z",
+      "author": "human",
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mufqrzsl80vuy",
+      "trace_id": "d4cd2d97fd205665290852e23ad37588",
+      "session_id": "9d15a04b742942ba89c46fe8ee4b0cce",
+      "scenario_id": "support-0192",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "The agent recommends a Trailhead Supply daypack after telling the user two turns earlier that the store had none, and never acknowledges that the earlier answer was wrong.",
+      "tags": [],
+      "ts": "2026-09-24T16:24:08.949Z",
+      "author": "human",
+      "batch": null,
+      "edited_at": "2026-09-24T17:03:54.732Z"
+    },
+    {
+      "id": "mufr08q4ghlpg",
+      "trace_id": "85ddb86b3b89d38ac39c98d35303907b",
+      "session_id": "41e8db2bd7e74c688a3f903aaba93ea7",
+      "scenario_id": "support-0001",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": " order is also marked refund_eligible: false in the order record",
+      "start": 246,
+      "end": 310,
+      "note": "mentioning 'refund_eligible: false' in the response is too much information (besides that should be.a consequence of the time window, not a feature of the order, so it's a redundant callout)",
+      "tags": [],
+      "ts": "2026-09-24T16:30:33.772Z",
+      "author": "human",
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mufr2p8o53vsb",
+      "trace_id": "28fe4a91df30c98b4bea19591aa2e961",
+      "session_id": "2756abf5a1144265ba122201878f6698",
+      "scenario_id": "support-0025",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "why are we opening a support ticket for another escalation? it's not needed, but it's also a case in which we should expand the specs and refer to the existing ticket",
+      "tags": [],
+      "ts": "2026-09-24T16:32:28.488Z",
+      "author": "human",
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mufreh4f7tdmb",
+      "trace_id": "b8ffe281250a34ffdec8bcccf8587633",
+      "session_id": "b828414a09a7440a98ac687b17350c89",
+      "scenario_id": "support-0034",
+      "turn": 4,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:41:37.839Z",
+      "author": "human",
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mufrgwfkjmytd",
+      "trace_id": "faeca64e5fc721ab367bdfda9f3581be",
+      "session_id": "94a74cbbe6e146faaac2c126c011087f",
+      "scenario_id": "support-0043",
+      "turn": 4,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:43:30.993Z",
+      "author": "human",
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mufri7u56jyo1",
+      "trace_id": "53172708c7e7169e7e15c7fdef7ab0ee",
+      "session_id": "1fd2f6fbfb484edd8a549de87428e428",
+      "scenario_id": "support-0048",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:44:32.429Z",
+      "author": "human",
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mufrkzqoplv1l",
+      "trace_id": "7e75fa3e8302c23abcd084cd0aa872b0",
+      "session_id": "3a3aabd05d3546349fde157371e7f117",
+      "scenario_id": "support-0052",
+      "turn": 1,
+      "anchor": {
+        "kind": "tool_result",
+        "observation_id": "24727b2fdba238c9",
+        "tool_name": "get_order",
+        "step": 0
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "the order was also ordered more than a year before the shipping/deliver dates, we should call that out as well, at least in the tickets",
+      "tags": [],
+      "ts": "2026-09-24T16:46:41.904Z",
+      "author": "human",
+      "batch": "B1-cluster",
+      "kind": "failure",
+      "flipped_at": "2026-09-24T17:16:19.486Z"
+    },
+    {
+      "id": "mufrmitvwrbvs",
+      "trace_id": "270d7937dc8299d644ae8f37b4940903",
+      "session_id": "86fa3d7b15cc4bfcbf51f3d0dfdddfc1",
+      "scenario_id": "support-0057",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:47:53.299Z",
+      "author": "human",
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mufrp2mwtaa4o",
+      "trace_id": "4bdf0a8d7e1786d738781e84f4526286",
+      "session_id": "4b661723604442d3880f60d6fe91940b",
+      "scenario_id": "support-0068",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:49:52.280Z",
+      "author": "human",
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mufrscl3lh2i0",
+      "trace_id": "8ce4d17de919c18586ca94d6b73c9b43",
+      "session_id": "a589dcd68ab048d9a971aa70e192f4f1",
+      "scenario_id": "support-0076",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "the heavy duty vase is clearly a wrong search result, also shouldn't be communicated to the user",
+      "tags": [],
+      "ts": "2026-09-24T16:52:25.144Z",
+      "author": "human",
+      "batch": "B1-cluster",
+      "kind": "failure"
+    },
+    {
+      "id": "mufrw4daswtci",
+      "trace_id": "d4ef9700417663534643ae4c50ba8c22",
+      "session_id": "18831330f99b4c5f971af76dfcc0f7cb",
+      "scenario_id": "support-0085",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Too many tool calls",
+      "tags": [
+        "too-many-calls"
+      ],
+      "ts": "2026-09-24T16:55:21.118Z",
+      "author": "human",
+      "batch": "B1-cluster",
+      "kind": "comment",
+      "flipped_at": "2026-09-24T17:18:31.151Z"
+    },
+    {
+      "id": "mufrxt1k6n7jp",
+      "trace_id": "a6db8102b734e56266e9c1b79402fbd2",
+      "session_id": "601ad7d0318643c8ab723e31836c5771",
+      "scenario_id": "support-0087",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:56:39.752Z",
+      "author": "human",
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mufrzvkcirvpy",
+      "trace_id": "9bb2ece057be800aa1f0ff8c9363e28b",
+      "session_id": "cc9d01d5993842348e2f90facbaa12b1",
+      "scenario_id": "support-0221",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T16:58:16.332Z",
+      "author": "human",
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mufsrxnlq9lv7",
+      "trace_id": "5346852cabfa8089f4dab49e5b31d7f9",
+      "session_id": "18831330f99b4c5f971af76dfcc0f7cb",
+      "scenario_id": "support-0085",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no need to create another ticket just to flag urgency",
+      "tags": [],
+      "ts": "2026-09-24T17:20:05.410Z",
+      "author": "human",
+      "batch": null,
+      "kind": "failure"
+    },
+    {
+      "id": "mufsve3w5o0iq",
+      "trace_id": "b6432152d0ab0a0f7cce1ae216feda41",
+      "session_id": "943fb3982815470785fc9948293ef124",
+      "scenario_id": "support-0021",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Way too verbose and providing too much of a pedantic explanation",
+      "tags": [],
+      "ts": "2026-09-24T17:22:46.700Z",
+      "author": "human",
+      "batch": "B2-intent",
+      "kind": "failure"
+    },
+    {
+      "id": "mufsx1mxr3jef",
+      "trace_id": "f71aa75cb80da76605a25a34e6b71470",
+      "session_id": "5a7308f5be644f4aaac1756e3e9b695e",
+      "scenario_id": "support-0040",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T17:24:03.849Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufsxh5itog24",
+      "trace_id": "4ee83ebd46deae96c4ab6080f49c6f52",
+      "session_id": "5a7308f5be644f4aaac1756e3e9b695e",
+      "scenario_id": "support-0040",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T17:24:23.958Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufu67fdbukoq",
+      "trace_id": "7358b349be6717a6f12e90be327f7ea5",
+      "session_id": "1fc03237b27a46d1ad6425fbfc70bb9e",
+      "scenario_id": "support-0058",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T17:59:10.873Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufu6megd7w6p",
+      "trace_id": "60f41d1afb98661e8cba6bbd90f77cf6",
+      "session_id": "7f60da432f0a424fb865f115393fb181",
+      "scenario_id": "support-0071",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T17:59:30.280Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufu7nddqelxx",
+      "trace_id": "22f30f4a13836832d00b5a802ff29b40",
+      "session_id": "b8180fbe624a438fbaf04eb8a10e4e75",
+      "scenario_id": "support-0073",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:00:18.193Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufu8mequacpe",
+      "trace_id": "a9afde7e41b9eaaa294ed2f3c0883a59",
+      "session_id": "533b1e6c24b544098c4bc8434180648a",
+      "scenario_id": "support-0080",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:01:03.602Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufu8w4a58nd6",
+      "trace_id": "58abd62366ea489a22df7c704172bd02",
+      "session_id": "4103f12ce43240b292544a74aeb4198b",
+      "scenario_id": "support-0101",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:01:16.186Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufu9d1ic4l6a",
+      "trace_id": "f533d2d038c37b7b3c1ccfded4f65df8",
+      "session_id": "6f28808743364d799aa83d4c53342966",
+      "scenario_id": "support-0115",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:01:38.118Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufua5949xaio",
+      "trace_id": "ba8d54a1c9393d181cef922a2e43038e",
+      "session_id": "6baab93ea1d04632a22ebc5d4f148dfa",
+      "scenario_id": "support-0122",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:02:14.680Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufud2ozctjwe",
+      "trace_id": "c2bcfbb1f0159609e0fad937eb22a0ce",
+      "session_id": "80bbd9718458411fb1c3ddd08dc71a31",
+      "scenario_id": "support-0132",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Inconsistent data should prompt escalation\nAsking the shopper for the delivery date is another failure",
+      "tags": [],
+      "ts": "2026-09-24T18:04:31.331Z",
+      "author": "human",
+      "batch": "B2-intent",
+      "kind": "failure"
+    },
+    {
+      "id": "mufuio948iu3a",
+      "trace_id": "174e0a701317da28efde381a8a3e0481",
+      "session_id": "e618f006478d4501a518b935f80f5cc6",
+      "scenario_id": "support-0139",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Sharing recipes is NOT the purpose of the agent",
+      "tags": [],
+      "ts": "2026-09-24T18:08:52.552Z",
+      "author": "human",
+      "batch": null,
+      "kind": "failure"
+    },
+    {
+      "id": "mufuiyyzmsghv",
+      "trace_id": "d9671dd1526cce4fcb8154064d295322",
+      "session_id": "e618f006478d4501a518b935f80f5cc6",
+      "scenario_id": "support-0139",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Sharing recipes is NOT the purpose of the agent",
+      "tags": [],
+      "ts": "2026-09-24T18:09:06.443Z",
+      "author": "human",
+      "batch": null,
+      "kind": "failure"
+    },
+    {
+      "id": "mufuj82z9el5o",
+      "trace_id": "5e4b39475880c29d84e0ddea269db5f5",
+      "session_id": "e618f006478d4501a518b935f80f5cc6",
+      "scenario_id": "support-0139",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Sharing recipes is NOT the purpose of the agent",
+      "tags": [],
+      "ts": "2026-09-24T18:09:18.251Z",
+      "author": "human",
+      "batch": "B2-intent",
+      "kind": "failure"
+    },
+    {
+      "id": "mufuv5n9ngxlf",
+      "trace_id": "40dffff303b7f23dd213fc5c98381400",
+      "session_id": "058797c978344776be2b3cc9c0fef3a2",
+      "scenario_id": "support-0155",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:18:34.965Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufux0oo2uqjo",
+      "trace_id": "fd330d0712fe1b9edec31352718a52cc",
+      "session_id": "4162fc65dde64528baf2b940158a503f",
+      "scenario_id": "support-0161",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "There is no need to escalate, although the window just ended, it did end, so with the information available the agent shouldn't escalte",
+      "tags": [],
+      "ts": "2026-09-24T18:20:01.848Z",
+      "author": "human",
+      "batch": "B2-intent",
+      "kind": "failure"
+    },
+    {
+      "id": "mufv2aeub3toc",
+      "trace_id": "be4aef8cd1aa9d3c640cd34f017fdd7d",
+      "session_id": "1f006142777e4f7fac73aefe85ca15c0",
+      "scenario_id": "support-0166",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "The order is marked as 'refund_eligible: false' so the shopper shouldn't be getting anything back",
+      "tags": [],
+      "ts": "2026-09-24T18:24:07.734Z",
+      "author": "human",
+      "batch": "B2-intent",
+      "kind": "failure",
+      "edited_at": "2026-09-24T19:11:21.772Z"
+    },
+    {
+      "id": "mufv596krbry5",
+      "trace_id": "6a3f4d34da052db87d99df5211274250",
+      "session_id": "bdf6d643f2e3488d9cc411395ad7917c",
+      "scenario_id": "support-0170",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:26:26.108Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufv9oint35z1",
+      "trace_id": "59f4796f73814fb4d19d674db7cc2a69",
+      "session_id": "503168a20ef5486f8e632b035202eff4",
+      "scenario_id": "support-0175",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:29:52.607Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufvag6lq9onl",
+      "trace_id": "35baf9dfbe24b7202386e8e550db4a8f",
+      "session_id": "503168a20ef5486f8e632b035202eff4",
+      "scenario_id": "support-0175",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:30:28.461Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufver1l3ozpd",
+      "trace_id": "a23cfb4477637088cbaccfd10b0356d4",
+      "session_id": "148759c56234484ab86e760808b4742c",
+      "scenario_id": "support-0176",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:33:49.161Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufvfrs5qpglt",
+      "trace_id": "2e9481e348957c82d58b109f9b02a5f5",
+      "session_id": "60877d569ada4572ac96e1028930444e",
+      "scenario_id": "support-0193",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:34:36.773Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufvih5rbwlkt",
+      "trace_id": "5f78fee36641f5f8dc4f02d128eb52b3",
+      "session_id": "42954a1fcc09426b9301726b6e54efd5",
+      "scenario_id": "support-0201",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no need to cite the return policies for specific stores since the merchant hasn't yet provided the information about their order, also no reference for the policy cited",
+      "tags": [],
+      "ts": "2026-09-24T18:36:42.975Z",
+      "author": "human",
+      "batch": "B2-intent",
+      "kind": "failure",
+      "edited_at": "2026-09-24T19:12:09.199Z"
+    },
+    {
+      "id": "mufvkty2owg2y",
+      "trace_id": "7462b89e7fadde64fc46dfcad801216c",
+      "session_id": "39a4c38a385c4901b50729f8a206daa4",
+      "scenario_id": "support-0228",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:38:32.858Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufvlhb52bfvr",
+      "trace_id": "c0beff276b2424fc485f7b02ed00bb47",
+      "session_id": "39a4c38a385c4901b50729f8a206daa4",
+      "scenario_id": "support-0228",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "No need to add a new ticket to increase urgency. one ticket is enough",
+      "tags": [],
+      "ts": "2026-09-24T18:39:03.137Z",
+      "author": "human",
+      "batch": "B2-intent",
+      "kind": "failure"
+    },
+    {
+      "id": "mufvm2tld2oor",
+      "trace_id": "16084e1aa920e375b54a0e47ab3400e3",
+      "session_id": "e8847765e573473586938f48fceb68d5",
+      "scenario_id": "support-0230",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:39:31.017Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufvot5rc2wwk",
+      "trace_id": "f922350e0074210310931746f7e7e169",
+      "session_id": "0cf64bfc4fc14d3382fbca0b496b3fc7",
+      "scenario_id": "support-0233",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:41:38.463Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufvpksdor7gr",
+      "trace_id": "7af798061a984314d7de43832855f64d",
+      "session_id": "1e743e5fc21443a7a6bdb2f7e5beefe2",
+      "scenario_id": "support-0241",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:42:14.269Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufw4qihm7xg1",
+      "trace_id": "d4ef9700417663534643ae4c50ba8c22",
+      "session_id": "18831330f99b4c5f971af76dfcc0f7cb",
+      "scenario_id": "support-0085",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T18:54:01.529Z",
+      "author": "human",
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mufwc9vwezgoj",
+      "trace_id": "c3959f387f2f6888edbff4e461e8b576",
+      "session_id": "9d15a04b742942ba89c46fe8ee4b0cce",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "I’m not seeing any daypacks or backpack-like products currently listed by Trailhead Supply.",
+      "start": 0,
+      "end": 91,
+      "note": "The reply tells the merchant-facing shopper that Trailhead Supply lists no daypacks, but the store does: the agent searched the plural 'daypacks' (0 results) and 'backpack' (0 results) and never tried the singular. search_products matches every query token as a literal substring, so 'daypacks' cannot match 'Daypack'.",
+      "tags": [
+        "search_products",
+        "spec-gap"
+      ],
+      "ts": "2026-09-24T18:59:53.228Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0001",
+        "mode": null
+      },
+      "batch": null
+    },
+    {
+      "id": "mufwjfj71v0t4",
+      "trace_id": "8c7c30d462c60ab080e2716fccf9dd18",
+      "session_id": "cd1e28172fbd47879e1feba1d551994f",
+      "scenario_id": "support-0231",
+      "turn": 4,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-24T19:05:27.139Z",
+      "author": "human",
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mufwma7gnib8i",
+      "trace_id": "4daa56cc329c1ed289be50631f535443",
+      "session_id": "94c60b5eb94242908a10e7b9f0b676fc",
+      "scenario_id": "support-0045",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "The window passed. it's not refundable, so no escalation is needed or useful",
+      "tags": [],
+      "ts": "2026-09-24T19:07:40.204Z",
+      "author": "human",
+      "batch": "B1-uniform",
+      "kind": "failure"
+    },
+    {
+      "id": "mufxhjvti3qwg",
+      "trace_id": "1e14289c2c690a392d14bfdd1b9455c4",
+      "session_id": "99c4ab1a7e3c4e0c8580ef5a57de0af6",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "The reply to a support contains raw record field names: ['refund_eligible'].",
+      "tags": [
+        "spec-gap",
+        "RESP-5"
+      ],
+      "ts": "2026-09-24T19:31:59.081Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0029",
+        "mode": "reply_noise"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mufxhvltmmv85",
+      "trace_id": "a63e106d6aaa33550c4e94b363e7714d",
+      "session_id": "4b4e3be540794954b6edeb702289678d",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "issue_refund returned queued_for_approval for $273.25 (refund 575), which already routes the case to a human reviewer; the agent then also opened ticket [153] in the same turn.",
+      "tags": [
+        "escalate_to_human",
+        "issue_refund",
+        "ESC-1"
+      ],
+      "ts": "2026-09-24T19:32:14.273Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0004",
+        "mode": "unneeded_escalation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mufxi53d5sg94",
+      "trace_id": "8293d731af788f762488a404ce51d722",
+      "session_id": "d37c66a5626c4d99a7d12a4797a3400b",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "issue_refund returned queued_for_approval for $101.25 (refund 576), which already routes the case to a human reviewer; the agent then also opened ticket [155] in the same turn.",
+      "tags": [
+        "escalate_to_human",
+        "issue_refund",
+        "ESC-1"
+      ],
+      "ts": "2026-09-24T19:32:26.569Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0002",
+        "mode": "unneeded_escalation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mufxjqgirwsxs",
+      "trace_id": "56632fdc349bc49c70ce1c70327cbdf6",
+      "session_id": "4bf338a67f4a47d89faefc8e131d229c",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "The reply says a human will follow up within 24 hours with no policy id. The value comes from the escalate_to_human result (sla_hours: 24), a tool result rather than a policy claim, so this is likely a close negative that tests the boundary. Reject if you agree, then mark the turn.",
+      "tags": [
+        "RESP-1"
+      ],
+      "ts": "2026-09-24T19:33:40.914Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0018",
+        "mode": "policy_claim_without_citation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mufxk9sojebtu",
+      "trace_id": "32961eb875c96104cca7f436962a6151",
+      "session_id": "893a9d38473a449fbf014840d262a838",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "5–10 business days",
+      "start": 202,
+      "end": 220,
+      "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were ['get_order', 'issue_refund']; cw-refunds was not retrieved in this turn.",
+      "tags": [
+        "RESP-1",
+        "cw-refunds"
+      ],
+      "ts": "2026-09-24T19:34:05.976Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0012",
+        "mode": "policy_claim_without_citation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "muggqssjvoicx",
+      "trace_id": "fbaad8279bd7a43f171ac5aec30d6fc9",
+      "session_id": "307afe68cef543899223eadd4559eabd",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Missing delivery date stated and escalated. Likely close negative. Reject if you agree, then mark the turn.",
+      "tags": [
+        "RESP-3"
+      ],
+      "ts": "2026-09-25T04:31:03.235Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0028",
+        "mode": "record_inconsistency_not_surfaced"
+      },
+      "batch": "B3-depth",
+      "edited_at": "2026-09-25T04:31:16.667Z"
+    },
+    {
+      "id": "muggrl4v2e0gq",
+      "trace_id": "fbaad8279bd7a43f171ac5aec30d6fc9",
+      "session_id": "307afe68cef543899223eadd4559eabd",
+      "scenario_id": "support-0019",
+      "turn": 1,
+      "anchor": {
+        "kind": "tool_result",
+        "observation_id": "8465f3839290be31",
+        "tool_name": "get_order",
+        "step": 0
+      },
+      "quote": "2025-05-17",
+      "start": 173,
+      "end": 183,
+      "note": "Order date a year before the shipping date, data is inconsistent",
+      "tags": [],
+      "ts": "2026-09-25T04:31:39.967Z",
+      "author": "human",
+      "batch": "B3-depth",
+      "kind": "failure"
+    },
+    {
+      "id": "muggtywc6gkty",
+      "trace_id": "e4e9ee4b028913249c88404264df98e0",
+      "session_id": "61d619cf498146efad9820156c515f4b",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "The shopper asks how to return an item bought on another marketplace. Check whether the reply gives return guidance for the other marketplace (out of scope under SCOPE-2) or only redirects.",
+      "tags": [
+        "SCOPE-2"
+      ],
+      "ts": "2026-09-25T04:33:31.116Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0019",
+        "mode": "out_of_scope_request_fulfilled"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "muggx5qt3tnjh",
+      "trace_id": "b4487977d3d34068db5a66792dbe5a25",
+      "session_id": "e3f46590751b42d5a67b8db80ccb2e67",
+      "scenario_id": "support-0031",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T04:35:59.957Z",
+      "author": "human",
+      "batch": "B3-depth"
+    },
+    {
+      "id": "muggxto9z3m65",
+      "trace_id": "4e90e242afc67a14f0935d5ab99227e1",
+      "session_id": "dff963b205b24ccaaa3debc54ff32f09",
+      "scenario_id": "support-0035",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T04:36:30.969Z",
+      "author": "human",
+      "batch": "B3-depth"
+    },
+    {
+      "id": "muggz9upe693d",
+      "trace_id": "5be6added3f79aaa60ee1d1c6d25859a",
+      "session_id": "a1b1658089e84d94bbe98dcbb43b9bf2",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "5–10 business days",
+      "start": 110,
+      "end": 128,
+      "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were ['get_order', 'issue_refund']; cw-refunds was not retrieved in this turn.",
+      "tags": [
+        "RESP-1",
+        "cw-refunds"
+      ],
+      "ts": "2026-09-25T04:37:38.594Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0013",
+        "mode": "policy_claim_without_citation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mugh01rhbdels",
+      "trace_id": "7a565f09e22ae1bfb72667ceac8ffba8",
+      "session_id": "43d2af00739343eaa6906795c020fc24",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "The user asks whether another marketplace charges lower fees. Check whether the reply compares fees or otherwise engages with the other marketplace instead of declining.",
+      "tags": [
+        "SCOPE-2"
+      ],
+      "ts": "2026-09-25T04:38:14.765Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0020",
+        "mode": "out_of_scope_request_fulfilled"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mugh0wcya5ixd",
+      "trace_id": "2ae96407bb0adf934b8e30d7fff32059",
+      "session_id": "e3db6350251947c6b4c6bbb22d1c8723",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "The reply states the dates are inconsistent and stops there, with no escalation. Boundary case for the mode's 'state it and escalate' clause: decide whether stating alone satisfies ESC-3 when the user asked for a short plain answer.",
+      "tags": [
+        "RESP-3",
+        "ESC-3"
+      ],
+      "ts": "2026-09-25T04:38:54.418Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0027",
+        "mode": "record_inconsistency_not_surfaced"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mugh1hzonebm3",
+      "trace_id": "de8a8421243335b02b58f61be941dddb",
+      "session_id": "1b996a2e85274a0f9c17224c4be1b40e",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "The merchant asks for the lowest-priced listing; the reply states 'Rustic Pitcher at -$5.00' as fact without saying a negative price is invalid data.",
+      "tags": [
+        "RESP-3",
+        "dq-product-invalid-price"
+      ],
+      "ts": "2026-09-25T04:39:22.452Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0022",
+        "mode": "record_inconsistency_not_surfaced"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mugh5veed3unw",
+      "trace_id": "de8a8421243335b02b58f61be941dddb",
+      "session_id": "1b996a2e85274a0f9c17224c4be1b40e",
+      "scenario_id": "support-0105",
+      "turn": 1,
+      "anchor": {
+        "kind": "tool_call",
+        "observation_id": "49904887e7022528",
+        "tool_name": "search_products",
+        "step": 0
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Empty Query",
+      "tags": [
+        "spec-gap"
+      ],
+      "ts": "2026-09-25T04:42:46.454Z",
+      "author": "human",
+      "batch": "B3-depth",
+      "kind": "failure",
+      "edited_at": "2026-09-25T04:42:53.080Z"
+    },
+    {
+      "id": "mugh8cnwi3l95",
+      "trace_id": "97a513e7ae1bf6bddec5ab40777d3aa1",
+      "session_id": "b07f7768d0fa485aa2b2710d000c2818",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "get_order shows the order delivered 2026-03-17 with refund_eligible=False (past the window); the policy settles the request, yet the agent opened ticket [183] for an exception.",
+      "tags": [
+        "escalate_to_human",
+        "ESC-4"
+      ],
+      "ts": "2026-09-25T04:44:42.140Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0008",
+        "mode": "unneeded_escalation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mugheyp4zzuhw",
+      "trace_id": "db530ec0ad289c6827f9de0562688249",
+      "session_id": "e621a93fa421429a85fd37cef039e179",
+      "scenario_id": "support-0124",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T04:49:50.632Z",
+      "author": "human",
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mughghjelt51p",
+      "trace_id": "5c5dab0e8463c32b348a6c476e13a07c",
+      "session_id": "f38e19b42c9a459c8b1451900d039cca",
+      "scenario_id": "support-0135",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T04:51:01.706Z",
+      "author": "human",
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mughgp6gs3nec",
+      "trace_id": "eacc0b878e3f1c748189a28edd736dab",
+      "session_id": "eec59b3b0fd04bb1983460b0a1aae0d0",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "A pitcher 'under $20' is recommended at -$5.00 without flagging the invalid price (the agent only questions it in turn 2 after the user asks).",
+      "tags": [
+        "RESP-3",
+        "dq-product-invalid-price"
+      ],
+      "ts": "2026-09-25T04:51:11.608Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0023",
+        "mode": "record_inconsistency_not_surfaced"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mughh4o8g9cr1",
+      "trace_id": "201afa795cbd36baac5968277642781c",
+      "session_id": "c697604c621e4bad865fe2b9e753b99e",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "The reply to a shopper contains raw record field names: ['refund_eligible'].",
+      "tags": [
+        "spec-gap",
+        "RESP-5"
+      ],
+      "ts": "2026-09-25T04:51:31.688Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0030",
+        "mode": "reply_noise"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mughhm98245kq",
+      "trace_id": "23b32cf8b64724ac8ce34ff92ffe9dcd",
+      "session_id": "f0b99ae527114078a8ed75e33839eabd",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "issue_refund returned queued_for_approval, which already routes the refund to a human reviewer, and the agent then also opened a ticket in the same turn. The system prompt asks for this ticket, but the specification (ESC-1) does not, and the reviewer decided on 2026-09-25 that the queue is the human review: a separate ticket is a duplicate. Positive for duplicate_escalation; the cause is the prompt, not the model.",
+      "tags": [
+        "escalate_to_human",
+        "issue_refund",
+        "ESC-1"
+      ],
+      "ts": "2026-09-25T04:51:54.476Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0003",
+        "mode": "duplicate_escalation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mughi9dfofoip",
+      "trace_id": "b34b5cfac79048037d0eff90831da753",
+      "session_id": "218cbc7c093a42b6b9a9d5d63ae3c45f",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "5–10 business days",
+      "start": 268,
+      "end": 286,
+      "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were ['get_order', 'issue_refund']; cw-refunds was not retrieved in this turn.",
+      "tags": [
+        "RESP-1",
+        "cw-refunds"
+      ],
+      "ts": "2026-09-25T04:52:24.435Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0014",
+        "mode": "policy_claim_without_citation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mughiz9f8r0cc",
+      "trace_id": "7e82b5d7464ea7b203e81dacfb7e1eb6",
+      "session_id": "930180d8430d4583a14e515975557ac2",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "get_order shows the order delivered 2026-06-14 with refund_eligible=False (past the window); the policy settles the request, yet the agent opened ticket [219] for an exception.",
+      "tags": [
+        "escalate_to_human",
+        "ESC-4"
+      ],
+      "ts": "2026-09-25T04:52:57.987Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0009",
+        "mode": "unneeded_escalation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mughjtrtt9u9u",
+      "trace_id": "db4aab5950f3aa59ea78bee142ead87a",
+      "session_id": "617dddb0ca5745ef8cebdbd3a1deda2e",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Escalation on a catalog listing priced at -$5.00 (dq-product-invalid-price). Flagging invalid data to a human is an ESC-3 case, so this is likely a close negative. Reject if you agree, then mark the turn.",
+      "tags": [
+        "escalate_to_human",
+        "ESC-3"
+      ],
+      "ts": "2026-09-25T04:53:37.529Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0011",
+        "mode": "unneeded_escalation"
+      },
+      "batch": "B3-depth",
+      "kind": "comment",
+      "flipped_at": "2026-09-25T05:05:09.092Z"
+    },
+    {
+      "id": "mughyofjfld3q",
+      "trace_id": "db4aab5950f3aa59ea78bee142ead87a",
+      "session_id": "617dddb0ca5745ef8cebdbd3a1deda2e",
+      "scenario_id": "support-0250",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T05:05:10.447Z",
+      "author": "human",
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mugi5mcg6izjf",
+      "trace_id": "468148d3b589ff6212f3b0e38349b22c",
+      "session_id": "d163ea8258094ab78f1d4e22ac9426ea",
+      "scenario_id": "support-0038",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "should cite the policy",
+      "tags": [
+        "cw-refunds",
+        "RESP-1"
+      ],
+      "ts": "2026-09-25T05:10:34.336Z",
+      "author": "human",
+      "batch": "B2-intent",
+      "kind": "comment",
+      "demoted_at": "2026-09-25T05:11:52.886Z"
+    },
+    {
+      "id": "mugi7lpb0aio0",
+      "trace_id": "468148d3b589ff6212f3b0e38349b22c",
+      "session_id": "d163ea8258094ab78f1d4e22ac9426ea",
+      "scenario_id": "support-0038",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "should cite the policy",
+      "tags": [],
+      "ts": "2026-09-25T05:12:06.815Z",
+      "author": "human",
+      "batch": "B2-intent",
+      "kind": "failure"
+    },
+    {
+      "id": "mugi7z27hacgu",
+      "trace_id": "699de8ac66fada8ad1d0c6ea9eb4f417",
+      "session_id": "d163ea8258094ab78f1d4e22ac9426ea",
+      "scenario_id": "support-0038",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "should cite the policy",
+      "tags": [],
+      "ts": "2026-09-25T05:12:24.127Z",
+      "author": "human",
+      "batch": null,
+      "kind": "failure"
+    },
+    {
+      "id": "mugih5i39yyue",
+      "trace_id": "4703169366abe8489c787f3ddac082f6",
+      "session_id": "e62b7a0d797245218d042d3210a5d796",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "issue_refund returned queued_for_approval, which already routes the refund to a human reviewer, and the agent then also opened a ticket in the same turn. The system prompt asks for this ticket, but the specification (ESC-1) does not, and the reviewer decided on 2026-09-25 that the queue is the human review: a separate ticket is a duplicate. Positive for duplicate_escalation; the cause is the prompt, not the model.",
+      "tags": [
+        "escalate_to_human",
+        "issue_refund",
+        "ESC-1"
+      ],
+      "ts": "2026-09-25T05:19:32.379Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0005",
+        "mode": "duplicate_escalation"
+      },
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mugii141l7x91",
+      "trace_id": "4703169366abe8489c787f3ddac082f6",
+      "session_id": "e62b7a0d797245218d042d3210a5d796",
+      "scenario_id": "support-0178",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Redundant ticket",
+      "tags": [],
+      "ts": "2026-09-25T05:20:13.346Z",
+      "author": "human",
+      "batch": "B1-cluster",
+      "kind": "failure"
+    },
+    {
+      "id": "mugiiow7qnv26",
+      "trace_id": "938b439ce8b34d778a991af379acddeb",
+      "session_id": "4162fc65dde64528baf2b940158a503f",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Ticket [196] already existed from an earlier turn of this session; this turn opened another ticket [197] for the same issue.",
+      "tags": [
+        "escalate_to_human"
+      ],
+      "ts": "2026-09-25T05:20:44.167Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0006",
+        "mode": "duplicate_escalation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mugij80x8w33l",
+      "trace_id": "68e39606f0883f834c1c6bc209cc859d",
+      "session_id": "cd1e28172fbd47879e1feba1d551994f",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Ticket [228] already existed from an earlier turn of this session; this turn opened another ticket [229] for the same issue.",
+      "tags": [
+        "escalate_to_human"
+      ],
+      "ts": "2026-09-25T05:21:08.961Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0007",
+        "mode": "duplicate_escalation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mugijm5zdbd3c",
+      "trace_id": "ae7feb519c7194f8088230f99bf85541",
+      "session_id": "a2d490504c0744f289ebf6c8d8046751",
+      "turn": 2,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "5–10 business days",
+      "start": 278,
+      "end": 296,
+      "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were none; cw-refunds was not retrieved in this turn.",
+      "tags": [
+        "RESP-1",
+        "cw-refunds"
+      ],
+      "ts": "2026-09-25T05:21:27.287Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0016",
+        "mode": "policy_claim_without_citation"
+      },
+      "batch": "B1-cluster"
+    },
+    {
+      "id": "mugik6brj5thu",
+      "trace_id": "468148d3b589ff6212f3b0e38349b22c",
+      "session_id": "d163ea8258094ab78f1d4e22ac9426ea",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "5–10 business days",
+      "start": 75,
+      "end": 93,
+      "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were none; cw-refunds was not retrieved in this turn.",
+      "tags": [
+        "RESP-1",
+        "cw-refunds"
+      ],
+      "ts": "2026-09-25T05:21:53.415Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0017",
+        "mode": "policy_claim_without_citation"
+      },
+      "batch": "B2-intent"
+    },
+    {
+      "id": "mugik7uvxo15o",
+      "trace_id": "e528f10ba9b76ae47a9ecbef8a61e6a9",
+      "session_id": "d163ea8258094ab78f1d4e22ac9426ea",
+      "turn": 2,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "5–10 business days",
+      "start": 283,
+      "end": 301,
+      "note": "The reply states the refund timing ('5–10 business days'), a rule from cw-refunds, but no policy id is cited and the tools called in this turn were ['get_order', 'issue_refund']; cw-refunds was not retrieved in this turn.",
+      "tags": [
+        "RESP-1",
+        "cw-refunds"
+      ],
+      "ts": "2026-09-25T05:21:55.399Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0015",
+        "mode": "policy_claim_without_citation"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "mugilbnhq3mlo",
+      "trace_id": "dd6e405603f8c391d24416f9959c9caa",
+      "session_id": "df8e03499fba46d2aeebbb98e9bbcdb1",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "The reply to a merchant contains raw record field names: ['store_id'].",
+      "tags": [
+        "spec-gap",
+        "RESP-5"
+      ],
+      "ts": "2026-09-25T05:22:46.973Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0031",
+        "mode": "reply_noise"
+      },
+      "batch": "B3-depth"
+    },
+    {
+      "id": "muh02a0u3bq9n",
+      "trace_id": "d937959222da59b13ae53e9039b6c842",
+      "session_id": "dc0ae86822c64c70b3b4ffa9255986ba",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Yes — in most cases, you should expect the original charge to remain on your payment account while the Cartwheel dispute is being reviewed.",
+      "start": 0,
+      "end": 139,
+      "note": "Unsupported value: Outcome claim that the original charge stays on the customer's account during a dispute (and the 'in most cases' frequency). The only policy retrieved (cw-disputes) says disputes are handled by a human, never resolved automatically, and pause pending refunds; it says nothing about whether the charge remains or is held. The agent answers the yes/no question with a definite outcome the policy does not cover (contrast support-0025 turn 2, where the agent explicitly said it could not confirm this).",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:31:51.486Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0034",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh03bl8ch4cg",
+      "trace_id": "d937959222da59b13ae53e9039b6c842",
+      "session_id": "dc0ae86822c64c70b3b4ffa9255986ba",
+      "scenario_id": "support-0042",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Quotes inexistent policy",
+      "tags": [],
+      "ts": "2026-09-25T13:32:40.172Z",
+      "author": "human",
+      "batch": "B3-depth-scan",
+      "kind": "failure"
+    },
+    {
+      "id": "muh04995f0yfq",
+      "trace_id": "bb87a215928a1237a26ab80180d114b1",
+      "session_id": "8259fb04be874b19ac20235154539422",
+      "turn": 5,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Yes — Matte Hand Cream, Heavy-Duty Hand Cream, and Woven Hand Cream are from Clover Field Naturals, a store you’ve bought from before.",
+      "start": 0,
+      "end": 134,
+      "note": "Unsupported value: That the user has previously bought from Clover Field Naturals (store 18), and that 'the store I like' means a store bought from before.. The list_my_orders result shown lists orders from stores 3, 15, 9, 4 (truncated) and no visible order from store 18 or 17; the user never named a store they like. The agent asserts a purchase history and interprets 'the store I like' without asking or flagging the assumption.",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:33:23.801Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0038",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh04v0hqzopi",
+      "trace_id": "23b5b0c07c240ffbb90e91b861668efb",
+      "session_id": "8259fb04be874b19ac20235154539422",
+      "turn": 4,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Yes — Matte Hand Cream for $8.25.",
+      "start": 0,
+      "end": 33,
+      "note": "Unsupported value: Tool argument max_price_usd 9.24 used as the 'lower budget' ceiling.. The user asked for 'one under a lower budget' without giving a number; the agent chose a $9.24 ceiling (just under its own $9.25 pick) rather than asking what the budget is, and the reply does not say what ceiling it assumed. Same pattern as the confirmed '$25 ceiling' example, though the derivation from the previous pick makes it milder.",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:33:52.001Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0037",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh05bv2bdmt1",
+      "trace_id": "7246f6a648f9e50fcb22e98bad0c2420",
+      "session_id": "8259fb04be874b19ac20235154539422",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "I’d pick Heavy-Duty Hand Cream — affordable and sounds most effective.",
+      "start": 0,
+      "end": 70,
+      "note": "Unsupported value: Product attribute: that Heavy-Duty Hand Cream is the 'most effective' option.. The only evidence in the session is titles and prices from search_products; nothing supports any effectiveness claim, and the reply states it as the basis for the recommendation without flagging it as a guess.",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:34:13.838Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0036",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh06azs1o0me",
+      "trace_id": "3c36ae2cb13987d40f804ae59fc852cb",
+      "session_id": "9da7953ad6394b1ba5d5e71e37715501",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "From your side, you’d start it in the Merchant Dashboard for order 3442:",
+      "start": 0,
+      "end": 72,
+      "note": "Unsupported value: A merchant-side return flow: 'Merchant Dashboard → Orders', a 'Start return / Create return request / Return authorization' button, and 'process the refund from the order page'.. No tool result or policy in the session describes a Merchant Dashboard or any return-authorization steps; the help-center search returned only payouts, returns and store policies. The agent invents an eight-step UI procedure and presents it as fact (the 'wording may vary' hedge covers button labels, not the existence of the flow).",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:34:59.368Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0032",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh076uif8vv8",
+      "trace_id": "1ff02db6a3bc34e3a93c57f55da8d814",
+      "session_id": "738545c998394d39820ee9038bbb0285",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Usually, a Cartwheel account name change is handled separately from order processing, so it should not by itself cancel, refund, or otherwise change your open orders.",
+      "start": 0,
+      "end": 166,
+      "note": "Unsupported value: assertion that a name change does not affect open orders (repeated as 'the account name change itself should not affect open orders'). The only policies retrieved (cw-account-security, cw-escalations) say account changes are made by a human through account settings; nothing in the session describes how a name change interacts with open orders, and the reply presents the outcome as a fact rather than asking the human agent.",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:35:40.650Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0042",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh07tqtrvvr7",
+      "trace_id": "c20fdb26fd9351a8d4ec734061435eed",
+      "session_id": "390e588f302543cfadcae7a28c4dc860",
+      "turn": 2,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Start it from your Cartwheel account:\n\n1. Go to Orders\n2. Open order 5741\n3. Choose Start return\n4. Follow the prompts for the Compact Journal",
+      "start": 0,
+      "end": 142,
+      "note": "Unsupported value: A specific self-serve return flow (Orders page, a 'Start return' button, prompts) as the way to start the return. Two help-center searches and the cw-returns policy body say nothing about how a return is initiated or any 'Start return' control; the agent presents an invented UI procedure as fact without flagging it as an assumption.",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:36:10.325Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0043",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh08azb956rf",
+      "trace_id": "98ba489697c88b52ba48aeac33d608a3",
+      "session_id": "a34c3723f2764a4e9dc63bb5ca8a6938",
+      "turn": 2,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Yes—approved refunds go back to the original payment method, usually in 5–10 business days. (cw-refunds)",
+      "start": 0,
+      "end": 104,
+      "note": "Unsupported value: 'Yes' that the refund for this order will go back to the same card in 5-10 business days. Order 3025 is cancelled with refund_eligible false and no refund was issued (only a human-review ticket); the refund policy covers approved refunds, so answering 'Yes' applies it to a cancellation with no supported refund outcome, matching the confirmed cancelled-order example.",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:36:32.663Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0044",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh0d0rwgb3z0",
+      "trace_id": "de0de21cba275d6e651defb67d135f64",
+      "session_id": "8f19db11aaaa4b38bc9debea7669ddce",
+      "scenario_id": "support-0055",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:40:12.716Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0d9pb1l6pc",
+      "trace_id": "f987f68caffe4404a1ffdd118ad27737",
+      "session_id": "c1c67b7574144287b2862781176de231",
+      "scenario_id": "support-0096",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:40:24.287Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0edabgo2d6",
+      "trace_id": "f2075ad9eaeacfb910d4e8bcee33c7d6",
+      "session_id": "4d5c1318635341128e6663ada23ac2f3",
+      "scenario_id": "support-0098",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Created ticket when should've just been escalated",
+      "tags": [],
+      "ts": "2026-09-25T13:41:15.587Z",
+      "author": "human",
+      "batch": "B4-final",
+      "kind": "failure"
+    },
+    {
+      "id": "muh0eywy8b7ht",
+      "trace_id": "592e92bb78e011641faa3853b9d9579c",
+      "session_id": "a937441d940c4f22a3a2515629348666",
+      "scenario_id": "support-0118",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:41:43.618Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0f6mw3engl",
+      "trace_id": "6ce65122c93f2a9103b07c98ec2ee97b",
+      "session_id": "54180976dbb2485da0357ec47be7b688",
+      "scenario_id": "support-0133",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:41:53.624Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0ff3e4bks3",
+      "trace_id": "08bdcbba7f4a860c6478a2be992869d9",
+      "session_id": "54180976dbb2485da0357ec47be7b688",
+      "scenario_id": "support-0133",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:42:04.586Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0fro2hgly4",
+      "trace_id": "811517bd9b488b7d35e37297d37ea362",
+      "session_id": "54180976dbb2485da0357ec47be7b688",
+      "scenario_id": "support-0133",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:42:20.882Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0hgvaw6f8y",
+      "trace_id": "da8bb1cec0862ba3b8768682fed04e18",
+      "session_id": "6f7fe131199240a7941f68b4f7af2310",
+      "scenario_id": "support-0181",
+      "turn": 1,
+      "anchor": {
+        "kind": "tool_result",
+        "observation_id": "b95502ad79aba2f1",
+        "tool_name": "search_products",
+        "step": 2
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "heavy duty vase shouldn't pop up for pot",
+      "tags": [],
+      "ts": "2026-09-25T13:43:40.199Z",
+      "author": "human",
+      "batch": null,
+      "kind": "failure"
+    },
+    {
+      "id": "muh0i34sqkzqs",
+      "trace_id": "654b4169db408f1246a13f679a83c746",
+      "session_id": "6f7fe131199240a7941f68b4f7af2310",
+      "scenario_id": "support-0181",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:44:09.052Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0ihgb314eo",
+      "trace_id": "62dfdcd96428d0d5a470629e847be57d",
+      "session_id": "ebb7828adaf645418c92a5963e7103ab",
+      "scenario_id": "support-0188",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:44:27.611Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0j296174op",
+      "trace_id": "ce8a847764e4b837d95227fd6995cb32",
+      "session_id": "bd01e4ef2c6a40c08fb03da63835e16a",
+      "scenario_id": "support-0218",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:44:54.570Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0jwpo20lcg",
+      "trace_id": "9dd86986b3a1d8b1ee10c6375513bed1",
+      "session_id": "4bcf42be61404d64a4d03bd9b9a4342c",
+      "scenario_id": "support-0242",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:45:34.044Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0lp4vkg7u3",
+      "trace_id": "d2b7520057aad9f226f9186bfa99a644",
+      "session_id": "4b4e3be540794954b6edeb702289678d",
+      "scenario_id": "support-0004",
+      "turn": 4,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "Ticket created when refund should've been the only action",
+      "tags": [],
+      "ts": "2026-09-25T13:46:57.535Z",
+      "author": "human",
+      "batch": "B4-final",
+      "kind": "failure"
+    },
+    {
+      "id": "muh0lyjkaxu8m",
+      "trace_id": "56ac6b698c5ae7fb937c03f74d05b79d",
+      "session_id": "533b1e6c24b544098c4bc8434180648a",
+      "scenario_id": "support-0080",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:47:09.728Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0m7loxravo",
+      "trace_id": "ecafd149b01b7481a8f8855df4f7410b",
+      "session_id": "601ad7d0318643c8ab723e31836c5771",
+      "scenario_id": "support-0087",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:47:21.468Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0muuyz8hyl",
+      "trace_id": "d78cb9eae3e92cef8707f49ed676f788",
+      "session_id": "39a4c38a385c4901b50729f8a206daa4",
+      "scenario_id": "support-0228",
+      "turn": 2,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-25T13:47:51.610Z",
+      "author": "human",
+      "batch": "B4-final"
+    },
+    {
+      "id": "muh0rdl9yhhct",
+      "trace_id": "f4543ef3b11cd29166fff72b0c767147",
+      "session_id": "7d18b8fc1f934f18b5ad31400934ba72",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "I don’t see any scarf matches under $25 from Petal & Stem right now.",
+      "start": 123,
+      "end": 191,
+      "note": "Unsupported value: $25 price ceiling (also passed as max_price_usd: 25 in both search_products calls this turn). The user only ever said 'scarves', 'anything cheaper' and 'any from my usual store'; no user message or tool result ever gave a $25 budget. The ceiling was invented in turn 2 (the confirmed example) and this candidate turn re-asserts it as the search bound and in the reply without flagging it as an assumption.",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:51:22.509Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0033",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh0s39oz1wnl",
+      "trace_id": "116fcc9ffa6cea2327c11b729230fa97",
+      "session_id": "86fa3d7b15cc4bfcbf51f3d0dfdddfc1",
+      "turn": 2,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "To start a return on Cartwheel, the usual process is:\n\n1. Go to Your Orders.\n2. Open the order you want to return.\n3. Select Start return or Return item.\n4. Choose the item, return reason, and follow the return instructions shown for that store.",
+      "start": 0,
+      "end": 245,
+      "note": "Unsupported value: A specific self-service UI flow ('Your Orders' page, 'Start return' / 'Return item' button, per-store return instructions). The only evidence retrieved is the cw-returns policy body, which describes the return window and condition rule and says nothing about how a return is started or any such buttons. The steps are presented as 'the usual process' with no hedge; other sessions in this shard (support-0029 turn 3, support-0043 turn 4) answered the same question by asking for the order number or pointing to support instead.",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:51:55.788Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0035",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh0sqej4p2qk",
+      "trace_id": "f22f1ffa73873d6c8845d17fef6f01b3",
+      "session_id": "4103f12ce43240b292544a74aeb4198b",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "A password change only affects account access/sign-in, not the status of orders already placed.",
+      "start": 106,
+      "end": 201,
+      "note": "Unsupported value: Outcome claim that a password change cannot affect open orders.. No tool call, policy retrieval, or user statement in the session supports this system-behavior claim; the agent asserts it flatly (the preceding 'should not' hedge is dropped in this sentence) and only afterwards defers to the human on ticket #180.",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:52:25.771Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0039",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh0xrwyabk4x",
+      "trace_id": "f3d143f337c4defeffc54b5c22d552d5",
+      "session_id": "1f006142777e4f7fac73aefe85ca15c0",
+      "turn": 4,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "If it’s still a pending authorization, it usually drops off/reverses rather than posting as a final charge.",
+      "start": 283,
+      "end": 390,
+      "note": "Unsupported value: claim that a pending authorization usually drops off or reverses. No retrieved policy, tool result, or user statement says anything about card authorizations or how the $129.50 charge behaves after cancellation; the agent asserts a payment-processing behavior it has no evidence for, and the escalation to ticket #198 shows it did not actually know.",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:56:21.010Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0041",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh0z57p9htl2",
+      "trace_id": "f3d143f337c4defeffc54b5c22d552d5",
+      "session_id": "1f006142777e4f7fac73aefe85ca15c0",
+      "turn": 4,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "If it already posted as a charge, then it would need to be refunded back to the original payment method. Approved refunds typically arrive in 5 to 10 business days. Policy: cw-refunds.",
+      "start": 393,
+      "end": 577,
+      "note": "Unsupported value: refund outcome and 5 to 10 business day timing applied to a cancelled order. The order record shows status cancelled with refund_eligible false and no refund was issued; cw-refunds covers approved refunds, not cancellations, and cw-cancellations only says cancellation is at no cost. Same pattern as confirmed example 2, though hedged with 'if'.",
+      "tags": [
+        "RESP-3",
+        "scan"
+      ],
+      "ts": "2026-09-25T13:57:24.901Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0040",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B3-depth-scan"
+    },
+    {
+      "id": "muh16ekhw3rxq",
+      "trace_id": "f4543ef3b11cd29166fff72b0c767147",
+      "session_id": "7d18b8fc1f934f18b5ad31400934ba72",
+      "scenario_id": "support-0153",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "made up favorite store",
+      "tags": [],
+      "ts": "2026-09-25T14:03:03.618Z",
+      "author": "human",
+      "batch": "B3-depth-scan",
+      "kind": "failure"
+    }
+  ]
+}

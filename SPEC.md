@@ -82,7 +82,7 @@ Successful results contain `ok: true` and the result fields. Expected failures c
 | --- | --- | --- |
 | `search_help_center` | `results` containing policy identifiers, titles, snippets, and retrieval scores. | `invalid_argument` for an empty or whitespace-only query; execution exception if retrieval fails. |
 | `get_policy` | `policy_id`, `title`, `audience`, and the full `body` of the requested policy. | `not_found` for an unknown policy identifier. |
-| `search_products` | `products` and `count`, filtered and sorted by price, then product identifier. Each product includes its identifier, store identifier, title, and price. The result limit is clamped to 1 through 25. No matches yields an empty list and count zero. | `invalid_argument` for an empty query or a nonpositive price ceiling; `not_found` for an unknown store. |
+| `search_products` | `products` and `count`, filtered and sorted by price, then product identifier. Each product includes its identifier, store identifier, title, and price. The result limit is clamped to 1 through 25. No matches yields an empty list and count zero. Query tokens match case-insensitively and singular and plural forms are treated as equivalent, so a plural query finds singular titles. An empty query with a store filter lists that store's catalog. | `invalid_argument` for an empty query without a store filter or a nonpositive price ceiling; `not_found` for an unknown store. |
 | `get_order` | An authorized `order` record, including dates, status, store name, and refund eligibility. | `not_found` for an unknown order; `permission_denied` for an order outside the caller's scope. |
 | `list_my_orders` | `orders` and `count` for the shopper's own orders or the merchant's store, newest first, with at most 20 records. No orders yields an empty list and count zero. | `invalid_argument` for a support caller; execution exception if the database query fails. |
 | `find_order` | Up to five fuzzy product-name matches in `orders`, scoped to the shopper, merchant store, or authorized support caller. No matches yields an empty list. | Execution exception if search or database access fails. |
@@ -94,7 +94,7 @@ Successful results contain `ok: true` and the result fields. Expected failures c
 
 The following cases always go to a human:
 
-- **ESC-1.** Refunds above the threshold; the tool queues the refund, and the agent explains the result.
+- **ESC-1.** Refunds above the threshold; the tool queues the refund for human review, and the agent explains the queued status. The queue is the human review: the agent does not open a separate support ticket for the same refund.
 - **ESC-2.** Account changes of any kind.
 - **ESC-3.** Disputes and requests the agent cannot resolve from the help center and the
   order record.
@@ -109,3 +109,4 @@ Requirements that do not fit in the sections above, including tone and style gui
 - **RESP-3.** State when required information is missing or inconsistent, rather than inventing a value.
 - **RESP-4.** Explain refusals and escalations without revealing inaccessible order or user information.
 - **RESP-5.** Use direct and respectful language that explains the relevant decision.
+- **RESP-6.** Write replies in plain language. Never expose raw record field names or internal identifiers from tool results (for example `refund_eligible: false`, `store_id`, `product_id`); order numbers and ticket numbers may be shown.
