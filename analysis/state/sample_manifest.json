@@ -410,6 +410,85 @@
         "c20fdb26fd9351a8d4ec734061435eed": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)",
         "98ba489697c88b52ba48aeac33d608a3": "retrieved by a model-assisted scan for unsupported_assertion (high or medium confidence)"
       }
+    },
+    {
+      "name": "B5-hw5-unsupported",
+      "method": "hw5_topup_model_assisted",
+      "n": 21,
+      "seed": null,
+      "selected_at": "2026-09-25T16:52:00.730872+00:00",
+      "params": {
+        "mode": "unsupported_assertion",
+        "suggestion_ids": [
+          "sugg-0045",
+          "sugg-0046",
+          "sugg-0047",
+          "sugg-0048",
+          "sugg-0049",
+          "sugg-0050",
+          "sugg-0051",
+          "sugg-0052",
+          "sugg-0053",
+          "sugg-0054",
+          "sugg-0055",
+          "sugg-0056",
+          "sugg-0057",
+          "sugg-0058",
+          "sugg-0059",
+          "sugg-0060",
+          "sugg-0061",
+          "sugg-0062",
+          "sugg-0063",
+          "sugg-0064",
+          "sugg-0065"
+        ]
+      },
+      "trace_ids": [
+        "1b36c6e5c77958dd9b2b664411534070",
+        "281071d1cffe0a2fc9835c0eb3dc0f18",
+        "bcc03d9edc985e3aec1e3cfc6f5d5199",
+        "8aab59a3d88cced1c4402d058bb0ea49",
+        "928b8cde599fc670c9b317a0bb2d2958",
+        "8809ee68716367dabb9f2801e98a9411",
+        "e83bb3a034ac4ee5edd19dc46755f40f",
+        "93c7e93ffc1a390fb1a61e3e48612f2f",
+        "c87307f0722c0e2575b813e5fc70f748",
+        "f04a1f6a81fb1ced0440dc2f4b4cc9ab",
+        "940129e44988ad47870dc4c1448eb8d8",
+        "c9fd0fc90546cf6e4a47b2afae6ba61d",
+        "040758c7892a5db085a8091e8bf02ee6",
+        "dedbd9caf8a513514526af8668fb4973",
+        "a5c031e90d92b5a2b11b44e9fe979fcd",
+        "799e8da81264aaafbec362bfc1440486",
+        "4f3aecf8be1803404309c26cd9639b1a",
+        "03cd2a706f4c3cd469371fd61afabb69",
+        "5c0fff4a8678abd21418520f6b6540aa",
+        "7e55d9e9d46e96a95c7ba57545b076b4",
+        "2fcaaf1c7d2249c75646ad42f1f4512a"
+      ],
+      "reasons": {
+        "1b36c6e5c77958dd9b2b664411534070": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "281071d1cffe0a2fc9835c0eb3dc0f18": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "bcc03d9edc985e3aec1e3cfc6f5d5199": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "8aab59a3d88cced1c4402d058bb0ea49": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "928b8cde599fc670c9b317a0bb2d2958": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "8809ee68716367dabb9f2801e98a9411": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "e83bb3a034ac4ee5edd19dc46755f40f": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "93c7e93ffc1a390fb1a61e3e48612f2f": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "c87307f0722c0e2575b813e5fc70f748": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "f04a1f6a81fb1ced0440dc2f4b4cc9ab": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "940129e44988ad47870dc4c1448eb8d8": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "c9fd0fc90546cf6e4a47b2afae6ba61d": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "040758c7892a5db085a8091e8bf02ee6": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "dedbd9caf8a513514526af8668fb4973": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "a5c031e90d92b5a2b11b44e9fe979fcd": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "799e8da81264aaafbec362bfc1440486": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "4f3aecf8be1803404309c26cd9639b1a": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "03cd2a706f4c3cd469371fd61afabb69": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "5c0fff4a8678abd21418520f6b6540aa": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "7e55d9e9d46e96a95c7ba57545b076b4": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up",
+        "2fcaaf1c7d2249c75646ad42f1f4512a": "low-confidence scan hit for unsupported_assertion, pushed for the Homework 5 label top-up"
+      }
     }
   ],
   "unit": "one Langfuse trace (one user turn); the interface shows the whole session",
@@ -420,5 +499,5 @@
     "trace_count": 466,
     "session_count": 250
   },
-  "updated_at": "2026-09-25T14:00:06.475998+00:00"
+  "updated_at": "2026-09-25T16:52:00.729333+00:00"
 }
