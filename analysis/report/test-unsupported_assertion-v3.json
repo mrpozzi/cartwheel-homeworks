@@ -52,5 +52,12 @@
   "prompt_path": "analysis/prompts/unsupported_assertion-v3.txt",
   "frozen_at": "2026-09-29T00:59:47.839630+00:00",
   "decision": "do_not_use",
-  "decision_rationale": "Reviewer decision 2026-09-29: the judge is too brittle for production use. On the held-out test split it catches only 10 of 19 failures (TNR 0.53, 95% Wilson interval 0.32 to 0.73), and catching failures is the reason to run it. TPR 0.74 (0.57 to 0.86). Development had shown TNR 0.83, partly because the labels corrected during review favoured the frozen version. At most a triage signal for what to read first, not an automatic gate."
+  "decision_rationale": "Reviewer decision 2026-09-29: the judge is too brittle for production use. On the held-out test split it catches only 10 of 19 failures (TNR 0.53, 95% Wilson interval 0.32 to 0.73), and catching failures is the reason to run it. TPR 0.74 (0.57 to 0.86). Development had shown TNR 0.83, partly because the labels corrected during review favoured the frozen version. At most a triage signal for what to read first, not an automatic gate.",
+  "post_hoc_comparison": {
+    "judge_id": "unsupported_assertion-v2",
+    "report": "analysis/report/test-unsupported_assertion-v2.json",
+    "tpr": 0.8065,
+    "tnr": 0.7368,
+    "note": "v2 scored on the same test split after v3's result was known; see that report's comparison_note"
+  }
 }

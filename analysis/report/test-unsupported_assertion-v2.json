@@ -1,0 +1,50 @@
+{
+  "judge_id": "unsupported_assertion-v2",
+  "mode": "unsupported_assertion",
+  "split": "test",
+  "model": "gpt-4o-mini",
+  "prompt_hash": "aa46358211a5",
+  "prompt_version": 2,
+  "status": "frozen",
+  "convention": "Pass is the positive class (1); TPR = TP/(TP+FN) on human Pass, TNR = TN/(TN+FP) on human Fail",
+  "confusion": {
+    "tp": 25,
+    "fp": 5,
+    "fn": 6,
+    "tn": 14
+  },
+  "class_counts": {
+    "human_pass": 31,
+    "human_fail": 19
+  },
+  "tpr": 0.8065,
+  "tpr_interval_95": [
+    0.6372,
+    0.9081
+  ],
+  "tnr": 0.7368,
+  "tnr_interval_95": [
+    0.5121,
+    0.8819
+  ],
+  "agreement": 0.78,
+  "n": 50,
+  "disagreements": [
+    "111e56efcf09aa824adb46f99f0befc5",
+    "1b36c6e5c77958dd9b2b664411534070",
+    "23b32cf8b64724ac8ce34ff92ffe9dcd",
+    "34b096a769a8d754c2b34fbecec21c0f",
+    "4bf81cbea80a448a82aa79939240fa7a",
+    "7ad0776c85b62d601ee350de8298cbf6",
+    "7e75fa3e8302c23abcd084cd0aa872b0",
+    "c2bcfbb1f0159609e0fad937eb22a0ce",
+    "c9fd0fc90546cf6e4a47b2afae6ba61d",
+    "e83bb3a034ac4ee5edd19dc46755f40f",
+    "eacc0b878e3f1c748189a28edd736dab"
+  ],
+  "computed_at": "2026-09-29T01:46:26.091801+00:00",
+  "prompt_path": "analysis/prompts/unsupported_assertion-v2.txt",
+  "frozen_at": "2026-09-29T01:44:44.110332+00:00",
+  "role": "post_hoc_comparison",
+  "comparison_note": "Run on 2026-09-29 AFTER unsupported_assertion-v3 had been frozen, tested, and judged too brittle. The reviewer asked for v2 on the same test split as a comparison. v3 remains the pre-registered judge of record; this number was obtained after seeing v3's test result, so choosing between the two on it would be selection on the test split and this estimate is not unbiased in that sense. It is reported to document that v3's development gain did not generalize."
+}
