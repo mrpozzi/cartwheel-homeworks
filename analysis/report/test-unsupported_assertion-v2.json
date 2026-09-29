@@ -45,6 +45,6 @@
   "computed_at": "2026-09-29T01:46:26.091801+00:00",
   "prompt_path": "analysis/prompts/unsupported_assertion-v2.txt",
   "frozen_at": "2026-09-29T01:44:44.110332+00:00",
-  "role": "post_hoc_comparison",
-  "comparison_note": "Run on 2026-09-29 AFTER unsupported_assertion-v3 had been frozen, tested, and judged too brittle. The reviewer asked for v2 on the same test split as a comparison. v3 remains the pre-registered judge of record; this number was obtained after seeing v3's test result, so choosing between the two on it would be selection on the test split and this estimate is not unbiased in that sense. It is reported to document that v3's development gain did not generalize."
+  "role": "final test of the judge of record",
+  "selection_note": "v2 became the judge of record on 2026-09-29 after the reviewer retracted v3. Sequence, stated for transparency: v3 was frozen and tested first (TPR 0.74, TNR 0.53); v2 was then frozen and scored on the same test split as a comparison (TPR 0.81, TNR 0.74); the reviewer then retracted v3 on principle (third revision beyond the cap; development gain driven by label corrections). Because v2's test run happened after v3's test result was known, this estimate is not a strictly pre-registered one, although the choice of v2 rests on the cap and the development evidence rather than on the test numbers."
 }

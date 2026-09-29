@@ -5,7 +5,7 @@
   "model": "gpt-4o-mini",
   "prompt_hash": "c6e700a16746",
   "prompt_version": 3,
-  "status": "draft",
+  "status": "retracted",
   "convention": "Pass is the positive class (1); TPR = TP/(TP+FN) on human Pass, TNR = TN/(TN+FP) on human Fail",
   "confusion": {
     "tp": 22,
@@ -197,5 +197,7 @@
       "judge_verdict": "Fail",
       "human_label_after_review": "Pass"
     }
-  }
+  },
+  "role": "retracted",
+  "retraction_note": "Retracted by the reviewer on 2026-09-29. v3 was a third revision beyond the handout's cap of two, and its development gain (agreement 0.82 after 9 disagreements, up from 14) followed label corrections made while reviewing its own disagreements, which is the signature of fitting the development set rather than improving the judge; on the held-out test split it caught 10 of 19 failures. Its prompt, verdicts, critiques, review decisions, and reports are kept as the record of that experiment. v2, the last revision within the cap, is the judge of record."
 }

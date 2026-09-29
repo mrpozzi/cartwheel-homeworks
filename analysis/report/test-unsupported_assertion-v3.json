@@ -5,7 +5,7 @@
   "model": "gpt-4o-mini",
   "prompt_hash": "c6e700a16746",
   "prompt_version": 3,
-  "status": "frozen",
+  "status": "retracted",
   "convention": "Pass is the positive class (1); TPR = TP/(TP+FN) on human Pass, TNR = TN/(TN+FP) on human Fail",
   "confusion": {
     "tp": 23,
@@ -53,11 +53,6 @@
   "frozen_at": "2026-09-29T00:59:47.839630+00:00",
   "decision": "do_not_use",
   "decision_rationale": "Reviewer decision 2026-09-29: the judge is too brittle for production use. On the held-out test split it catches only 10 of 19 failures (TNR 0.53, 95% Wilson interval 0.32 to 0.73), and catching failures is the reason to run it. TPR 0.74 (0.57 to 0.86). Development had shown TNR 0.83, partly because the labels corrected during review favoured the frozen version. At most a triage signal for what to read first, not an automatic gate.",
-  "post_hoc_comparison": {
-    "judge_id": "unsupported_assertion-v2",
-    "report": "analysis/report/test-unsupported_assertion-v2.json",
-    "tpr": 0.8065,
-    "tnr": 0.7368,
-    "note": "v2 scored on the same test split after v3's result was known; see that report's comparison_note"
-  }
+  "role": "retracted",
+  "retraction_note": "Retracted by the reviewer on 2026-09-29. v3 was a third revision beyond the handout's cap of two, and its development gain (agreement 0.82 after 9 disagreements, up from 14) followed label corrections made while reviewing its own disagreements, which is the signature of fitting the development set rather than improving the judge; on the held-out test split it caught 10 of 19 failures. Its prompt, verdicts, critiques, review decisions, and reports are kept as the record of that experiment. v2, the last revision within the cap, is the judge of record."
 }

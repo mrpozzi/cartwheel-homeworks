@@ -242,5 +242,6 @@
     }
   },
   "frozen_at": "2026-09-29T01:44:44.110332+00:00",
-  "role": "post_hoc_comparison (frozen only to unlock the test split; v3 is the judge of record)"
+  "role": "judge of record",
+  "selection_note": "v2 became the judge of record on 2026-09-29 after the reviewer retracted v3. Sequence, stated for transparency: v3 was frozen and tested first (TPR 0.74, TNR 0.53); v2 was then frozen and scored on the same test split as a comparison (TPR 0.81, TNR 0.74); the reviewer then retracted v3 on principle (third revision beyond the cap; development gain driven by label corrections). Because v2's test run happened after v3's test result was known, this estimate is not a strictly pre-registered one, although the choice of v2 rests on the cap and the development evidence rather than on the test numbers."
 }
