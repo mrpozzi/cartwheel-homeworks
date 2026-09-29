@@ -1,0 +1,120 @@
+{
+  "judge_id": "unsupported_assertion-v1",
+  "decisions": {
+    "281071d1cffe0a2fc9835c0eb3dc0f18": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:43:09.254796+00:00"
+    },
+    "47403c42b85cbb1da7f03ab7307f679c": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:44:50.312570+00:00"
+    },
+    "b8ffe281250a34ffdec8bcccf8587633": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:45:42.091815+00:00"
+    },
+    "ff778106b3bf465b8d98bbdfc74d6c94": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:46:27.909231+00:00"
+    },
+    "4ee83ebd46deae96c4ab6080f49c6f52": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:46:50.986868+00:00"
+    },
+    "928b8cde599fc670c9b317a0bb2d2958": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:49:51.137965+00:00"
+    },
+    "faeca64e5fc721ab367bdfda9f3581be": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:51:44.934538+00:00"
+    },
+    "d744ceb4348a0f478534704fcfdfd71b": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:52:05.754402+00:00"
+    },
+    "ee533187a06f9845950edc98f2768507": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:52:34.971433+00:00"
+    },
+    "97db58cf6317e888e491c2402fd31304": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:53:07.642327+00:00"
+    },
+    "16084e1aa920e375b54a0e47ab3400e3": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:53:24.454445+00:00"
+    },
+    "e0bbb01af81c1414d78f620f74a4b1fe": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:56:57.440501+00:00"
+    },
+    "60f41d1afb98661e8cba6bbd90f77cf6": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:58:03.055870+00:00"
+    },
+    "93c7e93ffc1a390fb1a61e3e48612f2f": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-28T23:59:22.139265+00:00"
+    },
+    "a9afde7e41b9eaaa294ed2f3c0883a59": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:00:18.606786+00:00"
+    },
+    "03cd2a706f4c3cd469371fd61afabb69": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:01:19.746406+00:00"
+    },
+    "654b4169db408f1246a13f679a83c746": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:01:54.515116+00:00"
+    },
+    "5346852cabfa8089f4dab49e5b31d7f9": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:04:25.893259+00:00"
+    },
+    "de8a8421243335b02b58f61be941dddb": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:04:58.713784+00:00"
+    },
+    "3217c303cace5bc06634d4429f4a8aa3": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:05:35.442818+00:00"
+    },
+    "7b584023687a1258e3b94db068271249": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:06:33.901285+00:00"
+    },
+    "592e92bb78e011641faa3853b9d9579c": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:07:13.733317+00:00"
+    },
+    "040758c7892a5db085a8091e8bf02ee6": {
+      "decision": "definition_unclear",
+      "note": null,
+      "ts": "2026-09-29T00:08:16.697165+00:00"
+    }
+  }
+}

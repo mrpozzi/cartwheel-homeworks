@@ -1,0 +1,56 @@
+{
+  "judge_id": "unsupported_assertion-v3",
+  "mode": "unsupported_assertion",
+  "split": "test",
+  "model": "gpt-4o-mini",
+  "prompt_hash": "c6e700a16746",
+  "prompt_version": 3,
+  "status": "frozen",
+  "convention": "Pass is the positive class (1); TPR = TP/(TP+FN) on human Pass, TNR = TN/(TN+FP) on human Fail",
+  "confusion": {
+    "tp": 23,
+    "fp": 9,
+    "fn": 8,
+    "tn": 10
+  },
+  "class_counts": {
+    "human_pass": 31,
+    "human_fail": 19
+  },
+  "tpr": 0.7419,
+  "tpr_interval_95": [
+    0.5675,
+    0.863
+  ],
+  "tnr": 0.5263,
+  "tnr_interval_95": [
+    0.3171,
+    0.7267
+  ],
+  "agreement": 0.66,
+  "n": 50,
+  "disagreements": [
+    "111e56efcf09aa824adb46f99f0befc5",
+    "13aa4ca543593259a1259737d944bcde",
+    "23b32cf8b64724ac8ce34ff92ffe9dcd",
+    "2fcaaf1c7d2249c75646ad42f1f4512a",
+    "34b096a769a8d754c2b34fbecec21c0f",
+    "4bf81cbea80a448a82aa79939240fa7a",
+    "7358b349be6717a6f12e90be327f7ea5",
+    "7ad0776c85b62d601ee350de8298cbf6",
+    "7e75fa3e8302c23abcd084cd0aa872b0",
+    "97a513e7ae1bf6bddec5ab40777d3aa1",
+    "bbc253b16c28a311c3e21077ddf2f1f4",
+    "be4aef8cd1aa9d3c640cd34f017fdd7d",
+    "ce8a847764e4b837d95227fd6995cb32",
+    "db4aab5950f3aa59ea78bee142ead87a",
+    "dedbd9caf8a513514526af8668fb4973",
+    "eacc0b878e3f1c748189a28edd736dab",
+    "f04a1f6a81fb1ced0440dc2f4b4cc9ab"
+  ],
+  "computed_at": "2026-09-29T01:00:53.296132+00:00",
+  "prompt_path": "analysis/prompts/unsupported_assertion-v3.txt",
+  "frozen_at": "2026-09-29T00:59:47.839630+00:00",
+  "decision": "do_not_use",
+  "decision_rationale": "Reviewer decision 2026-09-29: the judge is too brittle for production use. On the held-out test split it catches only 10 of 19 failures (TNR 0.53, 95% Wilson interval 0.32 to 0.73), and catching failures is the reason to run it. TPR 0.74 (0.57 to 0.86). Development had shown TNR 0.83, partly because the labels corrected during review favoured the frozen version. At most a triage signal for what to read first, not an automatic gate."
+}

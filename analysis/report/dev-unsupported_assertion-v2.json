@@ -1,0 +1,196 @@
+{
+  "judge_id": "unsupported_assertion-v2",
+  "mode": "unsupported_assertion",
+  "split": "dev",
+  "model": "gpt-4o-mini",
+  "prompt_hash": "aa46358211a5",
+  "prompt_version": 2,
+  "status": "draft",
+  "convention": "Pass is the positive class (1); TPR = TP/(TP+FN) on human Pass, TNR = TN/(TN+FP) on human Fail",
+  "confusion": {
+    "tp": 19,
+    "fp": 2,
+    "fn": 10,
+    "tn": 18
+  },
+  "class_counts": {
+    "human_pass": 29,
+    "human_fail": 20
+  },
+  "tpr": 0.6552,
+  "tpr_interval_95": [
+    0.4734,
+    0.8006
+  ],
+  "tnr": 0.9,
+  "tnr_interval_95": [
+    0.699,
+    0.9721
+  ],
+  "agreement": 0.7551,
+  "n": 49,
+  "disagreements": [
+    "281071d1cffe0a2fc9835c0eb3dc0f18",
+    "3217c303cace5bc06634d4429f4a8aa3",
+    "47403c42b85cbb1da7f03ab7307f679c",
+    "5c5dab0e8463c32b348a6c476e13a07c",
+    "654b4169db408f1246a13f679a83c746",
+    "7b584023687a1258e3b94db068271249",
+    "a23cfb4477637088cbaccfd10b0356d4",
+    "a9afde7e41b9eaaa294ed2f3c0883a59",
+    "b6432152d0ab0a0f7cce1ae216feda41",
+    "e0bbb01af81c1414d78f620f74a4b1fe",
+    "f2075ad9eaeacfb910d4e8bcee33c7d6",
+    "ff778106b3bf465b8d98bbdfc74d6c94"
+  ],
+  "computed_at": "2026-09-29T00:17:28.860726+00:00",
+  "prompt_path": "analysis/prompts/unsupported_assertion-v2.txt",
+  "rescored_after_label_review": {
+    "confusion": {
+      "tp": 19,
+      "fp": 2,
+      "fn": 12,
+      "tn": 16
+    },
+    "tpr": 0.6129,
+    "tpr_interval_95": [
+      0.4382,
+      0.7627
+    ],
+    "tnr": 0.8889,
+    "tnr_interval_95": [
+      0.672,
+      0.969
+    ],
+    "agreement": 0.7143,
+    "n": 49,
+    "disagreements": [
+      "281071d1cffe0a2fc9835c0eb3dc0f18",
+      "3217c303cace5bc06634d4429f4a8aa3",
+      "47403c42b85cbb1da7f03ab7307f679c",
+      "5c5dab0e8463c32b348a6c476e13a07c",
+      "5ed431f03b586163e690fc1eca71bfa3",
+      "654b4169db408f1246a13f679a83c746",
+      "7b584023687a1258e3b94db068271249",
+      "a23cfb4477637088cbaccfd10b0356d4",
+      "a9afde7e41b9eaaa294ed2f3c0883a59",
+      "b6432152d0ab0a0f7cce1ae216feda41",
+      "e0bbb01af81c1414d78f620f74a4b1fe",
+      "f2075ad9eaeacfb910d4e8bcee33c7d6",
+      "f54376ad6e4a19e09b8f358203e33b8a",
+      "faeca64e5fc721ab367bdfda9f3581be"
+    ],
+    "label_state": "after the v3 review (2026-09-29): final development labels",
+    "computed_at": "2026-09-29T00:54:38.129035+00:00"
+  },
+  "disagreement_review": {
+    "281071d1cffe0a2fc9835c0eb3dc0f18": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:26:13.163466+00:00",
+      "scenario_id": "support-0010",
+      "turn": 1,
+      "judge_verdict": "Pass",
+      "human_label_after_review": "Fail"
+    },
+    "b6432152d0ab0a0f7cce1ae216feda41": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:26:59.175583+00:00",
+      "scenario_id": "support-0021",
+      "turn": 2,
+      "judge_verdict": "Pass",
+      "human_label_after_review": "Fail"
+    },
+    "47403c42b85cbb1da7f03ab7307f679c": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:28:06.312651+00:00",
+      "scenario_id": "support-0031",
+      "turn": 2,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "ff778106b3bf465b8d98bbdfc74d6c94": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:28:28.750636+00:00",
+      "scenario_id": "support-0036",
+      "turn": 1,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Fail"
+    },
+    "a9afde7e41b9eaaa294ed2f3c0883a59": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:28:50.158816+00:00",
+      "scenario_id": "support-0080",
+      "turn": 3,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "e0bbb01af81c1414d78f620f74a4b1fe": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:29:16.309450+00:00",
+      "scenario_id": "support-0228",
+      "turn": 4,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "f2075ad9eaeacfb910d4e8bcee33c7d6": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:29:31.416232+00:00",
+      "scenario_id": "support-0098",
+      "turn": 1,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "7b584023687a1258e3b94db068271249": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:29:48.211666+00:00",
+      "scenario_id": "support-0121",
+      "turn": 1,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "5c5dab0e8463c32b348a6c476e13a07c": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:30:00.170412+00:00",
+      "scenario_id": "support-0135",
+      "turn": 1,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "3217c303cace5bc06634d4429f4a8aa3": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:30:10.636775+00:00",
+      "scenario_id": "support-0141",
+      "turn": 1,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "a23cfb4477637088cbaccfd10b0356d4": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:30:36.957349+00:00",
+      "scenario_id": "support-0176",
+      "turn": 1,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "654b4169db408f1246a13f679a83c746": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:31:02.011159+00:00",
+      "scenario_id": "support-0181",
+      "turn": 2,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "judge_id": "unsupported_assertion-v3",
+  "decisions": {
+    "85ddb86b3b89d38ac39c98d35303907b": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:47:04.992224+00:00"
+    },
+    "281071d1cffe0a2fc9835c0eb3dc0f18": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:47:26.480938+00:00"
+    },
+    "ee533187a06f9845950edc98f2768507": {
+      "decision": "definition_unclear",
+      "note": null,
+      "ts": "2026-09-29T00:48:10.843359+00:00"
+    },
+    "e0bbb01af81c1414d78f620f74a4b1fe": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:48:43.483810+00:00"
+    },
+    "5ed431f03b586163e690fc1eca71bfa3": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:49:21.429577+00:00"
+    },
+    "47403c42b85cbb1da7f03ab7307f679c": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:49:35.483789+00:00"
+    },
+    "ff778106b3bf465b8d98bbdfc74d6c94": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:50:17.546839+00:00"
+    },
+    "faeca64e5fc721ab367bdfda9f3581be": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:51:05.345149+00:00"
+    },
+    "bd18c4ba8a2b4846713ec76e13863724": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:51:25.395149+00:00"
+    },
+    "a9afde7e41b9eaaa294ed2f3c0883a59": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:51:45.386423+00:00"
+    },
+    "f54376ad6e4a19e09b8f358203e33b8a": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:52:39.739778+00:00"
+    },
+    "654b4169db408f1246a13f679a83c746": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:52:56.233465+00:00"
+    },
+    "05403f76ea39b0e3c58dde1d33e62564": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:53:16.352099+00:00"
+    }
+  }
+}
