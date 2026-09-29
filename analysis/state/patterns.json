@@ -257,7 +257,7 @@
       ],
       "notes": "Formerly 'invented constraint'; widened after support-0166 t2 promised a refund timeline for a cancelled order using the refund policy. Reviewer's note on support-0166 t2 now states the record shows refund_eligible false, so the shopper should not be promised money back. Needs a third positive: model-assisted scan launched 2026-09-25; close negative support-0150 t2 (agent asks for the budget instead of assuming). Model-assisted scan (2026-09-25): 13 cards pushed, 8 accepted so far; positives now span invented interface flows (support-0113, 0191), refund promises on cancelled orders (0166, 0196), outcome claims from policy silence (0042, 0179), and invented product or budget facts (0093). Mode made final.",
       "created_at": "2026-09-24T18:55:58.204306+00:00",
-      "updated_at": "2026-09-29T02:01:10.189489+00:00",
+      "updated_at": "2026-09-29T14:57:58.345254+00:00",
       "history": [
         {
           "at": "2026-09-26T05:55:41.265665+00:00",
@@ -274,11 +274,15 @@
         {
           "at": "2026-09-29T02:01:10.189489+00:00",
           "event": "HW5: v3 retracted by the reviewer (over the cap; development gain from label corrections); v2 is the judge of record"
+        },
+        {
+          "at": "2026-09-29T14:57:58.345254+00:00",
+          "event": "HW5: reviewer decision on v2 = trial (directionally useful; pilot on a small set of requests)"
         }
       ],
-      "judge_decision": null,
+      "judge_decision": "trial",
       "judge_id": "unsupported_assertion-v2",
-      "judge_decision_rationale": "pending: the reviewer retracted v3 (decision do_not_use no longer applies) and has not yet ruled on v2 (test TPR 0.81 [0.64, 0.91], TNR 0.74 [0.51, 0.88])"
+      "judge_decision_rationale": "Reviewer decision 2026-09-29 on v2: directionally useful even though the confidence interval is wide (test TPR 0.81 [0.64, 0.91], TNR 0.74 [0.51, 0.88]; 14 of 19 failures caught). Not a gate yet: try it on a small set of requests to see whether noise, rather than the lower bound of the interval, is the real issue. v3 served only as a confirmation that high development agreement after label corrections is a smell."
     },
     {
       "name": "literal_search_reported_as_none",
@@ -327,7 +331,7 @@
       "updated_at": "2026-09-25T13:19:49.585349+00:00"
     }
   ],
-  "updated_at": "2026-09-29T02:01:10.189489+00:00",
+  "updated_at": "2026-09-29T14:57:58.345254+00:00",
   "history": [
     {
       "at": "2026-09-24T18:55:58.204306+00:00",
