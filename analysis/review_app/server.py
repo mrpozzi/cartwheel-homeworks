@@ -30,6 +30,8 @@ API::
     GET  /api/labels             live label per trace and mode
     POST /api/labels             one judgment {trace_id, mode, label, note}
     POST /api/labels/sync        retry Langfuse writes for unsynced labels
+    GET  /api/judges             HW5 judge versions with their verdicts, critiques, and review decisions
+    POST /api/judge_review       one disagreement decision {judge_id, trace_id, decision, note}
 """
 
 from __future__ import annotations
@@ -38,6 +40,7 @@ import argparse
 import datetime as _dt
 import json
 import sys
+import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
@@ -126,6 +129,15 @@ def _langfuse_write(trace_id: str, mode: str, label: int, note: str | None) -> d
         if not langfuse_io.is_configured():
             return {"synced": False, "error": "Langfuse not configured"}
         client = langfuse_io._client()
+        # The SDK queues scores and swallows delivery failures, so a score
+        # written while Langfuse is down would otherwise be recorded as synced.
+        try:
+            reachable = bool(client.auth_check())
+        except Exception as exc:
+            reachable = False
+            print(f"[labels] Langfuse auth check failed: {type(exc).__name__}", file=sys.stderr)
+        if not reachable:
+            return {"synced": False, "error": "Langfuse unreachable; retry with POST /api/labels/sync"}
         if mode not in _SCORE_CONFIGS:
             try:
                 langfuse_io.ensure_score_config(mode, client=client)
@@ -138,6 +150,23 @@ def _langfuse_write(trace_id: str, mode: str, label: int, note: str | None) -> d
         return {"synced": False, "error": f"{type(exc).__name__}: {exc}"}
 
 
+# Label files are read, modified, and rewritten on every click, and the
+# threading server handles clicks in parallel, so the file update is
+# serialized. The Langfuse attempt stays outside the lock because it can take
+# seconds when the host is down.
+_LABEL_LOCK = threading.Lock()
+
+
+def _langfuse_reachable() -> bool:
+    """True when Langfuse is configured and answers an auth check."""
+    try:
+        from analysis.helpers import langfuse_io
+
+        return langfuse_io.is_configured() and bool(langfuse_io._client().auth_check())
+    except Exception:
+        return False
+
+
 def write_label(trace_id: str, mode: str, label: int, note: str | None, sync: bool = True) -> dict[str, Any]:
     """Append a judgment, supersede the prior live record, and mirror it to Langfuse."""
     if mode not in _known_modes():
@@ -146,45 +175,161 @@ def write_label(trace_id: str, mode: str, label: int, note: str | None, sync: bo
         raise ValueError(f"unknown trace id '{trace_id}'")
     if label not in (0, 1):
         raise ValueError("label must be 0 (absent) or 1 (present)")
-    path = _labels_path(mode)
-    rows = _state.read_jsonl(path)
-    label_id = f"{trace_id}#{sum(1 for r in rows if r.get('trace_id') == trace_id)}"
-    for row in rows:
-        if row.get("trace_id") == trace_id and not row.get("superseded_by"):
-            row["superseded_by"] = label_id
-    record = {
-        "trace_id": trace_id,
-        "mode": mode,
-        "label": label,
-        "source": "human",
-        "note": note or None,
-        "ts": _utcnow(),
-        "label_id": label_id,
-        "session_id": TRACE_TO_SESSION.get(trace_id),
-        "langfuse": _langfuse_write(trace_id, mode, label, note) if sync else {"synced": False, "error": "sync skipped"},
-    }
-    _state.write_jsonl(path, rows + [record])
+    langfuse = _langfuse_write(trace_id, mode, label, note) if sync else {"synced": False, "error": "sync skipped"}
+    with _LABEL_LOCK:
+        path = _labels_path(mode)
+        rows = _state.read_jsonl(path)
+        label_id = f"{trace_id}#{sum(1 for r in rows if r.get('trace_id') == trace_id)}"
+        for row in rows:
+            if row.get("trace_id") == trace_id and not row.get("superseded_by"):
+                row["superseded_by"] = label_id
+        record = {
+            "trace_id": trace_id,
+            "mode": mode,
+            "label": label,
+            "source": "human",
+            "note": note or None,
+            "ts": _utcnow(),
+            "label_id": label_id,
+            "session_id": TRACE_TO_SESSION.get(trace_id),
+            "langfuse": langfuse,
+        }
+        _state.write_jsonl(path, rows + [record])
     return record
+
+
+_RESYNC_GUARD = threading.Lock()
+
+
+def resync_in_background() -> bool:
+    """After a successful score write, push labels left unsynced by an earlier outage.
+
+    Runs ``sync_unsynced`` on a daemon thread, one run at a time, so a label
+    saved while Langfuse was down reaches it as soon as any later label write
+    succeeds, without waiting for the retry button.
+    """
+    if not _RESYNC_GUARD.acquire(blocking=False):
+        return False
+
+    def run() -> None:
+        try:
+            result = sync_unsynced()
+            if result.get("retried"):
+                print(f"[labels] background resync: {result}", file=sys.stderr)
+        except Exception as exc:  # never let a resync failure surface as a request error
+            print(f"[labels] background resync failed: {type(exc).__name__}: {exc}", file=sys.stderr)
+        finally:
+            _RESYNC_GUARD.release()
+
+    threading.Thread(target=run, name="label-resync", daemon=True).start()
+    return True
 
 
 def sync_unsynced() -> dict[str, Any]:
     """Retry the Langfuse write for every live label that is not synced."""
+    if not _langfuse_reachable():
+        return {"retried": 0, "synced": 0, "error": "Langfuse unreachable; nothing retried"}
     retried = 0
     synced = 0
-    for mode, live in _live_labels().items():
+    for mode in sorted(_known_modes()):
         path = _labels_path(mode)
-        rows = _state.read_jsonl(path)
-        changed = False
-        for row in rows:
-            if row.get("superseded_by") or (row.get("langfuse") or {}).get("synced"):
-                continue
+        with _LABEL_LOCK:
+            pending = [
+                row for row in _state.read_jsonl(path)
+                if not row.get("superseded_by") and not (row.get("langfuse") or {}).get("synced")
+            ]
+        for item in pending:
+            result = _langfuse_write(item["trace_id"], mode, int(item["label"]), item.get("note"))
             retried += 1
-            row["langfuse"] = _langfuse_write(row["trace_id"], mode, int(row["label"]), row.get("note"))
-            synced += int(bool(row["langfuse"].get("synced")))
-            changed = True
-        if changed:
-            _state.write_jsonl(path, rows)
+            synced += int(bool(result.get("synced")))
+            with _LABEL_LOCK:
+                rows = _state.read_jsonl(path)
+                for row in rows:
+                    same = row.get("label_id") == item.get("label_id") if item.get("label_id") else (
+                        row.get("trace_id") == item["trace_id"] and row.get("ts") == item.get("ts")
+                    )
+                    if same:
+                        row["langfuse"] = result
+                _state.write_jsonl(path, rows)
     return {"retried": retried, "synced": synced}
+
+
+# ---------------------------------------------------------------------------
+# judges (Homework 5): verdicts and critiques beside the human labels
+# ---------------------------------------------------------------------------
+
+
+def _judges() -> list[dict[str, Any]]:
+    """Every registered judge with its cached verdicts (1 = Pass, 0 = Fail) and critiques.
+
+    Judge records are written by ``analysis.helpers.register_judge`` and
+    ``run_judge``; predictions are stored per prompt hash. Records with the
+    pass-positive convention are returned as stored; older failure-flag
+    records are converted so the interface always shows Pass = 1.
+    """
+    judges_dir = _state.state_path("judges")
+    out: list[dict[str, Any]] = []
+    if not judges_dir.exists():
+        return out
+    splits = _state.read_json(_state.state_path("splits.json"), default={})
+    for path in sorted(judges_dir.glob("*.json")):
+        if path.name.startswith("_"):  # version history and review files, not judge records
+            continue
+        judge = _state.read_json(path, default=None)
+        if not isinstance(judge, dict) or not judge.get("judge_id"):
+            continue
+        pass_positive = judge.get("label_convention") == "pass_positive"
+        preds = (judge.get("predictions") or {}).get(judge.get("prompt_hash"), {})
+        critiques = (judge.get("critiques") or {}).get(judge.get("prompt_hash"), {})
+        mode_splits = splits.get(judge.get("mode"), {})
+        split_of = {tid: name for name in ("train", "dev", "test") for tid in mode_splits.get(name, [])}
+        out.append(
+            {
+                "judge_id": judge["judge_id"],
+                "mode": judge.get("mode"),
+                "version": judge.get("version"),
+                "model": judge.get("model"),
+                "status": judge.get("status"),
+                "created_at": judge.get("created_at"),
+                "verdicts": {tid: (int(p) if pass_positive else 1 - int(p)) for tid, p in preds.items()},
+                "critiques": {tid: str(c) for tid, c in critiques.items()},
+                "splits": {tid: split_of.get(tid) for tid in preds},
+                "review": _judge_review(judge["judge_id"])["decisions"],
+            }
+        )
+    return out
+
+
+REVIEW_DECISIONS = ("judge_wrong", "label_wrong", "definition_unclear")
+
+
+def _review_path(judge_id: str) -> Path:
+    return _state.state_path("judges", f"_review_{judge_id}.json")
+
+
+def _judge_review(judge_id: str) -> dict[str, Any]:
+    """The reviewer's decision per disagreeing trace for one judge version."""
+    return _state.read_json(_review_path(judge_id), default={"judge_id": judge_id, "decisions": {}})
+
+
+def write_judge_review(judge_id: str, trace_id: str, decision: str, note: str | None) -> dict[str, Any] | None:
+    """Record (or clear) the reviewer's decision on one judge disagreement."""
+    if not _state.state_path("judges", f"{judge_id}.json").exists():
+        raise ValueError(f"unknown judge '{judge_id}'")
+    if trace_id not in TRACE_TO_SESSION:
+        raise ValueError(f"unknown trace id '{trace_id}'")
+    if decision not in REVIEW_DECISIONS + ("clear",):
+        raise ValueError(f"decision must be one of {REVIEW_DECISIONS} or 'clear'")
+    with _LABEL_LOCK:
+        review = _judge_review(judge_id)
+        if decision == "clear":
+            review["decisions"].pop(trace_id, None)
+            record = None
+        else:
+            record = {"decision": decision, "note": note or None, "ts": _utcnow()}
+            review["decisions"][trace_id] = record
+        _state.write_json(_review_path(judge_id), review)
+    return record
 
 
 # ---------------------------------------------------------------------------
@@ -296,6 +441,9 @@ class ReviewHandler(BaseHTTPRequestHandler):
         if path == "/api/labels":
             self._send_json(_live_labels())
             return
+        if path == "/api/judges":
+            self._send_json(_judges())
+            return
         if path in API_FILES:
             self._send_json(_read(path))
             return
@@ -319,10 +467,25 @@ class ReviewHandler(BaseHTTPRequestHandler):
             except (ValueError, TypeError) as exc:
                 self._send_json({"error": str(exc)}, status=400)
                 return
+            if record["langfuse"].get("synced"):
+                resync_in_background()
             self._send_json({"ok": True, "record": record})
             return
         if path == "/api/labels/sync":
             self._send_json({"ok": True, **sync_unsynced()})
+            return
+        if path == "/api/judge_review":
+            if not isinstance(data, dict):
+                self._send_json({"error": "expected a JSON object"}, status=400)
+                return
+            try:
+                record = write_judge_review(
+                    str(data.get("judge_id")), str(data.get("trace_id")), str(data.get("decision")), data.get("note") or None
+                )
+            except (ValueError, TypeError) as exc:
+                self._send_json({"error": str(exc)}, status=400)
+                return
+            self._send_json({"ok": True, "record": record})
             return
         if path not in API_FILES or path in READ_ONLY:
             self._send_json({"error": f"cannot POST to {path}"}, status=404)

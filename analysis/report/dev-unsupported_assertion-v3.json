@@ -1,0 +1,203 @@
+{
+  "judge_id": "unsupported_assertion-v3",
+  "mode": "unsupported_assertion",
+  "split": "dev",
+  "model": "gpt-4o-mini",
+  "prompt_hash": "c6e700a16746",
+  "prompt_version": 3,
+  "status": "retracted",
+  "convention": "Pass is the positive class (1); TPR = TP/(TP+FN) on human Pass, TNR = TN/(TN+FP) on human Fail",
+  "confusion": {
+    "tp": 22,
+    "fp": 6,
+    "fn": 6,
+    "tn": 15
+  },
+  "class_counts": {
+    "human_pass": 28,
+    "human_fail": 21
+  },
+  "tpr": 0.7857,
+  "tpr_interval_95": [
+    0.6046,
+    0.8979
+  ],
+  "tnr": 0.7143,
+  "tnr_interval_95": [
+    0.5004,
+    0.8619
+  ],
+  "agreement": 0.7551,
+  "n": 49,
+  "disagreements": [
+    "05403f76ea39b0e3c58dde1d33e62564",
+    "281071d1cffe0a2fc9835c0eb3dc0f18",
+    "47403c42b85cbb1da7f03ab7307f679c",
+    "5ed431f03b586163e690fc1eca71bfa3",
+    "654b4169db408f1246a13f679a83c746",
+    "a9afde7e41b9eaaa294ed2f3c0883a59",
+    "bd18c4ba8a2b4846713ec76e13863724",
+    "e0bbb01af81c1414d78f620f74a4b1fe",
+    "ee533187a06f9845950edc98f2768507",
+    "f54376ad6e4a19e09b8f358203e33b8a",
+    "faeca64e5fc721ab367bdfda9f3581be",
+    "ff778106b3bf465b8d98bbdfc74d6c94"
+  ],
+  "computed_at": "2026-09-29T00:40:30.638895+00:00",
+  "prompt_path": "analysis/prompts/unsupported_assertion-v3.txt",
+  "revision_note": "Third revision, beyond the handout's cap of two, made deliberately: the reviewer judged it a low-hanging-fruit improvement on v2. v2 and v1 had equal agreement on the corrected labels (11 disagreements each) and 7 of v2's 11 errors were one sentence type, the bare follow-up line after an escalation. v3 changes no rule; it adds an explicit 'most common mistakes' section listing the misjudged sentence types with their verdicts, and one training example (support-0068 t2).",
+  "rescored_after_label_review": {
+    "confusion": {
+      "tp": 25,
+      "fp": 3,
+      "fn": 6,
+      "tn": 15
+    },
+    "tpr": 0.8065,
+    "tpr_interval_95": [
+      0.6372,
+      0.9081
+    ],
+    "tnr": 0.8333,
+    "tnr_interval_95": [
+      0.6078,
+      0.9416
+    ],
+    "agreement": 0.8163,
+    "n": 49,
+    "disagreements": [
+      "05403f76ea39b0e3c58dde1d33e62564",
+      "281071d1cffe0a2fc9835c0eb3dc0f18",
+      "47403c42b85cbb1da7f03ab7307f679c",
+      "654b4169db408f1246a13f679a83c746",
+      "a9afde7e41b9eaaa294ed2f3c0883a59",
+      "bd18c4ba8a2b4846713ec76e13863724",
+      "e0bbb01af81c1414d78f620f74a4b1fe",
+      "ee533187a06f9845950edc98f2768507",
+      "ff778106b3bf465b8d98bbdfc74d6c94"
+    ],
+    "label_state": "after the v3 review (2026-09-29): final development labels",
+    "computed_at": "2026-09-29T00:54:38.131375+00:00"
+  },
+  "disagreement_review": {
+    "85ddb86b3b89d38ac39c98d35303907b": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:47:04.992224+00:00",
+      "scenario_id": "support-0001",
+      "turn": 1,
+      "judge_verdict": "Pass",
+      "human_label_after_review": "Pass"
+    },
+    "281071d1cffe0a2fc9835c0eb3dc0f18": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:47:26.480938+00:00",
+      "scenario_id": "support-0010",
+      "turn": 1,
+      "judge_verdict": "Pass",
+      "human_label_after_review": "Fail"
+    },
+    "ee533187a06f9845950edc98f2768507": {
+      "decision": "definition_unclear",
+      "note": null,
+      "ts": "2026-09-29T00:48:10.843359+00:00",
+      "scenario_id": "support-0243",
+      "turn": 2,
+      "judge_verdict": "Pass",
+      "human_label_after_review": "Fail"
+    },
+    "e0bbb01af81c1414d78f620f74a4b1fe": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:48:43.483810+00:00",
+      "scenario_id": "support-0228",
+      "turn": 4,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "5ed431f03b586163e690fc1eca71bfa3": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:49:21.429577+00:00",
+      "scenario_id": "support-0025",
+      "turn": 2,
+      "judge_verdict": "Pass",
+      "human_label_after_review": "Pass"
+    },
+    "47403c42b85cbb1da7f03ab7307f679c": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:49:35.483789+00:00",
+      "scenario_id": "support-0031",
+      "turn": 2,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "ff778106b3bf465b8d98bbdfc74d6c94": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:50:17.546839+00:00",
+      "scenario_id": "support-0036",
+      "turn": 1,
+      "judge_verdict": "Pass",
+      "human_label_after_review": "Fail"
+    },
+    "faeca64e5fc721ab367bdfda9f3581be": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:51:05.345149+00:00",
+      "scenario_id": "support-0043",
+      "turn": 4,
+      "judge_verdict": "Pass",
+      "human_label_after_review": "Pass"
+    },
+    "bd18c4ba8a2b4846713ec76e13863724": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:51:25.395149+00:00",
+      "scenario_id": "support-0061",
+      "turn": 1,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "a9afde7e41b9eaaa294ed2f3c0883a59": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:51:45.386423+00:00",
+      "scenario_id": "support-0080",
+      "turn": 3,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "f54376ad6e4a19e09b8f358203e33b8a": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:52:39.739778+00:00",
+      "scenario_id": "support-0197",
+      "turn": 1,
+      "judge_verdict": "Pass",
+      "human_label_after_review": "Pass"
+    },
+    "654b4169db408f1246a13f679a83c746": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:52:56.233465+00:00",
+      "scenario_id": "support-0181",
+      "turn": 2,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    },
+    "05403f76ea39b0e3c58dde1d33e62564": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:53:16.352099+00:00",
+      "scenario_id": "support-0158",
+      "turn": 1,
+      "judge_verdict": "Fail",
+      "human_label_after_review": "Pass"
+    }
+  },
+  "role": "retracted",
+  "retraction_note": "Retracted by the reviewer on 2026-09-29. v3 was a third revision beyond the handout's cap of two, and its development gain (agreement 0.82 after 9 disagreements, up from 14) followed label corrections made while reviewing its own disagreements, which is the signature of fitting the development set rather than improving the judge; on the held-out test split it caught 10 of 19 failures. Its prompt, verdicts, critiques, review decisions, and reports are kept as the record of that experiment. v2, the last revision within the cap, is the judge of record."
+}

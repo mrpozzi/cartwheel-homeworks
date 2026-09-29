@@ -1,0 +1,65 @@
+{
+  "judge_id": "unsupported_assertion-v2",
+  "decisions": {
+    "281071d1cffe0a2fc9835c0eb3dc0f18": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:26:13.163466+00:00"
+    },
+    "b6432152d0ab0a0f7cce1ae216feda41": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:26:59.175583+00:00"
+    },
+    "47403c42b85cbb1da7f03ab7307f679c": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:28:06.312651+00:00"
+    },
+    "ff778106b3bf465b8d98bbdfc74d6c94": {
+      "decision": "label_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:28:28.750636+00:00"
+    },
+    "a9afde7e41b9eaaa294ed2f3c0883a59": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:28:50.158816+00:00"
+    },
+    "e0bbb01af81c1414d78f620f74a4b1fe": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:29:16.309450+00:00"
+    },
+    "f2075ad9eaeacfb910d4e8bcee33c7d6": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:29:31.416232+00:00"
+    },
+    "7b584023687a1258e3b94db068271249": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:29:48.211666+00:00"
+    },
+    "5c5dab0e8463c32b348a6c476e13a07c": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:30:00.170412+00:00"
+    },
+    "3217c303cace5bc06634d4429f4a8aa3": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:30:10.636775+00:00"
+    },
+    "a23cfb4477637088cbaccfd10b0356d4": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:30:36.957349+00:00"
+    },
+    "654b4169db408f1246a13f679a83c746": {
+      "decision": "judge_wrong",
+      "note": null,
+      "ts": "2026-09-29T00:31:02.011159+00:00"
+    }
+  }
+}

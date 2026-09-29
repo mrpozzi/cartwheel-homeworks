@@ -3538,6 +3538,806 @@
         "mode": "unsupported_assertion"
       },
       "batch": "B5-hw5-unsupported"
+    },
+    {
+      "id": "muhzbixudgz82",
+      "trace_id": "bbc253b16c28a311c3e21077ddf2f1f4",
+      "session_id": "dd2b400cad6246a396aab845c2416e01",
+      "turn": 2,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "the **Amazon app/site → Your Orders**",
+      "start": 372,
+      "end": 409,
+      "note": "Unsupported value (invented interface flows): Cartwheel facts (no in-transit orders, #7548 delivered June 19) match list_my_orders and find_order returned nothing; the only unsupported specifics are Amazon-side navigation (\"Your Orders\", \"tracking link in Amazon's shipment email\"), an external-site interface path with no source in the session.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T05:58:49.506Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0081",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzc9i4rnr90",
+      "trace_id": "7c7b52cb270b2602273e5653c76a2757",
+      "session_id": "bd4e315dd4db45e0ac421582995373b3",
+      "turn": 4,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "If the agent approves the return/refund, they’ll give you the next steps — for example, whether you need to ship it back and how to do that.",
+      "start": 816,
+      "end": 956,
+      "note": "Unsupported value (human agent promise): No tool or policy in the session describes what the reviewing agent will provide; the shipping-back step is invented from policy silence. Refund/ticket/window figures are all supported.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T05:59:23.932Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0067",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzcs57l3wln",
+      "trace_id": "111e56efcf09aa824adb46f99f0befc5",
+      "session_id": "bd4e315dd4db45e0ac421582995373b3",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "A human will follow up with the next steps and any confirmation once the refund review is completed.",
+      "start": 818,
+      "end": 918,
+      "note": "Unsupported value (human agent promise): Refund id, $219.50, queued status, ticket 158 and 24h all match issue_refund/escalate_to_human; the closing promise that the human will send next steps and a confirmation goes beyond the returned ticket id and SLA.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T05:59:48.091Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0076",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzd9se9x2ms",
+      "trace_id": "738fa44c1bc5902011e7e4552f1a9655",
+      "session_id": "4ce35106d9694770964d934ed3d6846d",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "they’re the team that can review exceptions to Meridian Cycles’ 21-day return window",
+      "start": 181,
+      "end": 265,
+      "note": "(demoted to a comment on 2026-09-26; Boundary ruling 2026-09-26: the reply restates the ticket topic or the human's activity without promising a deliverable or outcome, the same wording as Pass-labeled escalation replies (0045, 0068, 0017, 0031 t1); Pass for unsupported_assertion.) Unsupported value (human agent promise): Ticket and 24h SLA are from the tool, but the flat statement that the human team can review exceptions rests on no retrieved policy; earlier turn hedged it as 'whether an exception is possible'.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:00:10.958Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0082",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2",
+      "kind": "comment"
+    },
+    {
+      "id": "muhze13d9jzx7",
+      "trace_id": "ff778106b3bf465b8d98bbdfc74d6c94",
+      "session_id": "bde66fef6840448394e5f4b4a183f6fb",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "or whether it’s listed under a different store/channel view in your dashboard",
+      "start": 409,
+      "end": 486,
+      "note": "Unsupported value (invented interface flows or dashboard paths): Ticket 165 and 24h are from escalate_to_human and permission_denied is from get_order, but the suggestion presupposes a merchant dashboard with \"store/channel views\" that no tool or policy describes; framed as a suggestion, so reviewer should decide whether it counts as an invented interface path.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:00:46.345Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0078",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzee448dp84",
+      "trace_id": "1fdc5eaa68256e756d09c0097825d3ea",
+      "session_id": "bde66fef6840448394e5f4b4a183f6fb",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "A support agent will follow up after verifying whether the order belongs to your store or whether there’s an access/order-number issue.",
+      "start": 184,
+      "end": 319,
+      "note": "(demoted to a comment on 2026-09-26; Boundary ruling 2026-09-26: the reply restates the ticket topic or the human's activity without promising a deliverable or outcome, the same wording as Pass-labeled escalation replies (0045, 0068, 0017, 0031 t1); Pass for unsupported_assertion.) Unsupported value (promises about what a human agent will do): Ticket #165 exists from turn 1 and the verification request matches the ticket context the agent wrote, but the tool returned only ticket id and SLA; reviewer should decide whether restating the ticket purpose as what the human \"will\" do counts as a promise.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:01:03.220Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0084",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2",
+      "kind": "comment"
+    },
+    {
+      "id": "muhzezebly70r",
+      "trace_id": "d744ceb4348a0f478534704fcfdfd71b",
+      "session_id": "ffba13f6e25540418cd6a7cb8779d140",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "the name suggests it’s meant for exactly what you described: daily carry, errands, commuting, and short outings",
+      "start": 295,
+      "end": 406,
+      "note": "Unsupported value (product qualities, budgets, or preferences invented from titles and prices or from vague user words): The $75 cap is the user's own, and all prices/stores/return windows trace to search_products and get_store_info, but the recommendation ranks products on qualities invented from titles and prices: 'meant for ... commuting', 'a little more polished' (Modern Daypack), 'basic daypack' and 'safer middle ground' over the 'ultra-cheap option', none of which any tool result describes. Same pattern as the earlier 'sounds more decorative' fail.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:01:30.803Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0068",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzfok708vkk",
+      "trace_id": "8d9d83f8b844ea218413e921e52a7c3f",
+      "session_id": "79d78f9d968c41a581d0270b815d056e",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "1. **Send the order number and return reason** — for example, “I want to return order 1234 because it didn’t fit.”",
+      "start": 53,
+      "end": 167,
+      "note": "Unsupported value (invented interface flows): search_help_center returned no return-start procedure, and the agent supplied a numbered flow; the steps describe the assistant's own lookup workflow rather than a UI path, and the 30-day and condition clauses are from the retrieved cw-returns snippet, so it leans pass but the reviewer should decide whether a made-up procedure counts.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:02:03.415Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0085",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzg2kdtli3j",
+      "trace_id": "7b584023687a1258e3b94db068271249",
+      "session_id": "59aa78bf26b44b44b647a21bfaa83e65",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "A human agent should follow up within **24 hours** to investigate the duplicate charge and help get the extra charge reversed if confirmed.",
+      "start": 548,
+      "end": 687,
+      "note": "Unsupported value (human agent promise): No dispute or billing policy was retrieved; 'needs the payments/support team to verify' and the reversal promise go beyond ticket 184 and the 24h SLA. Order facts and 14-day window are supported.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:02:21.565Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0075",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzgd6wwxdm6",
+      "trace_id": "90dae81b809fcaf0991d58c30604f7a9",
+      "session_id": "2093e7178cf14544a701cdcdaa1de59f",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "A human support agent will follow up within **24 hours** with the safe steps to switch the payout bank account for your Copperline Tools store.",
+      "start": 152,
+      "end": 295,
+      "note": "Unsupported value (human agent promise): Only escalate_to_human ran (ticket 186, sla 24h); the promise that the agent will deliver switch-over steps, and the 'secure' ticket, are not from any tool or policy.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:02:35.336Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0070",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzgksu95qdp",
+      "trace_id": "243d0eded5c79c216beb46ab9d0c89b0",
+      "session_id": "08a678e5b6c043d1a1a0b3d4f0ed524a",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "they sound more gift-worthy than the basic options, and they’re still affordable at **$24.50**",
+      "start": 35,
+      "end": 129,
+      "note": "Unsupported value (product qualities, budgets, or preferences invented from titles and prices): search_products returned only titles and prices; \"more gift-worthy than the basic options\" and \"affordable\" are qualities invented from the title \"Handmade Headphones\" and its price, with no product details or user budget.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:02:45.198Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0066",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzgvguwzy32",
+      "trace_id": "3217c303cace5bc06634d4429f4a8aa3",
+      "session_id": "452130faac5c4a6eb441bdbfffd4c11e",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "a human support agent will follow up within 24 hours to verify the order and update the address if possible",
+      "start": 82,
+      "end": 189,
+      "note": "(demoted to a comment on 2026-09-26; Boundary ruling 2026-09-26: the reply restates the ticket topic or the human's activity without promising a deliverable or outcome, the same wording as Pass-labeled escalation replies (0045, 0068, 0017, 0031 t1); Pass for unsupported_assertion.) Unsupported value (human agent promise): Ticket 189 and 24h are from the tool, but what the human will do (verify the order, update the address) is asserted beyond the tool result; 'if possible' partly hedges it and mirrors the agent's own ticket context.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:02:59.022Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0079",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2",
+      "kind": "comment"
+    },
+    {
+      "id": "muhzh5zm36u1a",
+      "trace_id": "13aa4ca543593259a1259737d944bcde",
+      "session_id": "8ae1bae56e4a4410b4a6b547b4183759",
+      "turn": 2,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Yes — that **does matter**, and it helps your dispute.",
+      "start": 0,
+      "end": 54,
+      "note": "Unsupported value (outcome or system-behaviour claims made from policy silence): The retrieved cw-disputes body says only that disputes are handled by a human within 60 days of delivery; nothing supports the claim that prior carrier contact helps the dispute, that it makes this \"a damaged delivery / damaged item dispute, not just a late return request\", or that the shopper need not \"start over with the store or carrier\". Ticket, dates and >$100 rule are supported.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:03:12.658Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0071",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzhl2vq5daj",
+      "trace_id": "f91b0360d1e4f39b4196329f0057117b",
+      "session_id": "e8cd60bf79cd41e6b7a6137e1ce14a84",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Shopper information that is part of that merchant’s own order and needed to fulfill or support it. **cw-roles**",
+      "start": 947,
+      "end": 1058,
+      "note": "Unsupported value (values stated as fact never retrieved): Retrieved cw-roles only says merchants can see and manage orders of their own store; the itemised shareable fields (shipping details, return status, shopper info) and the 'unless already public information' carve-out are attributed to cw-roles but appear in no retrieved text.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:03:32.215Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0072",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzia0gvsazn",
+      "trace_id": "510dce8acb983cc1b0a7516562ac3bf1",
+      "session_id": "f78cb6fe53874ce28727e718765617f6",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "They’ll check whether product 553 was archived or whether the order UI is showing the wrong product label.",
+      "start": 991,
+      "end": 1097,
+      "note": "Unsupported value (promises about what a human agent will do): escalate_to_human returned only ticket 200 and sla_hours 24; the flat promise of what the human agent will check goes beyond that (same shape as \"They'll advise what evidence is needed\", labelled fail). Order fields, the empty catalog searches and the other-store Jam Trio hits are all supported, and \"no fulfillment action\" is hedged.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:04:04.528Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0073",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzijn7s4psb",
+      "trace_id": "8d5da791633023263dd2e1be8dbca446",
+      "session_id": "2a48d4fa85ef48549f987e0375435dff",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Still inexpensive, a good everyday option.",
+      "start": 141,
+      "end": 183,
+      "note": "Unsupported value (invented product qualities): Titles and prices match search_products; 'good everyday option' and 'best value' are qualities inferred from price alone, though most labels are price tiers.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:04:17.011Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0087",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzjkajwt6e8",
+      "trace_id": "f54376ad6e4a19e09b8f358203e33b8a",
+      "session_id": "38c13f3d63a04deb8b473e869d7d38f1",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "that doesn’t block a billing dispute — it just means the duplicate-charge review needs to go through the human dispute process",
+      "start": 791,
+      "end": 917,
+      "note": "Unsupported value (outcome or system-behaviour claims made from policy silence): All numbers trace to get_order/escalate_to_human and cw-disputes was retrieved, but the reply asserts that refund ineligibility does not block a dispute, which cw-disputes never says (it only states the 60-day window and human handling); it also says the human 'will review the payment records', a step beyond the ticket id and SLA. Borderline: it is arguably just the policy's stated scope applied.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:05:04.507Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0088",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzjz3u702q3",
+      "trace_id": "d95f70bca98cf6f0b75d4931525f9918",
+      "session_id": "62aa1ce1d2a74812ae60084c545d960f",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Please let the customer know a human support agent will follow up to complete the delivery address change securely.",
+      "start": 122,
+      "end": 237,
+      "note": "Unsupported value (promises about what a human agent will do): Ticket 223 and 24h from escalate_to_human and the system prompt routes account changes to a human, but \"to complete the delivery address change securely\" promises an outcome and quality the tool did not return; no policy retrieved this turn.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:05:23.706Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0080",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzkj1g7synt",
+      "trace_id": "4bf81cbea80a448a82aa79939240fa7a",
+      "session_id": "34b8c2595e93489b9c7c1af4a81762dc",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "That usually means there’s a data or tracking sync error in the order record, rather than the package actually being delivered before it shipped.",
+      "start": 348,
+      "end": 493,
+      "note": "Unsupported value (system-behaviour claim from policy silence): Dates repeat get_order, but the explanation that this 'usually means' a data/tracking sync error is a system-behaviour claim with no policy or tool support (same shape as 'a pending authorization usually drops off'); escalation is only offered.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:05:49.540Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0074",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzkqpd7dh2z",
+      "trace_id": "97db58cf6317e888e491c2402fd31304",
+      "session_id": "359f7c0406594393a615c5b606a257ae",
+      "turn": 1,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "A support agent will follow up.",
+      "start": 132,
+      "end": 163,
+      "note": "(demoted to a comment on 2026-09-26; Boundary ruling 2026-09-26: the reply restates the ticket topic or the human's activity without promising a deliverable or outcome, the same wording as Pass-labeled escalation replies (0045, 0068, 0017, 0031 t1); Pass for unsupported_assertion.) Unsupported value (promises about what a human agent will do): No escalate_to_human was called this turn, so there is no ticket or SLA; the issue_refund note says only that a human support agent \"will review it\", and \"follow up\" slightly extends that. $440.50, refund 604 and the $100 limit are all from issue_refund.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:05:59.473Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0090",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2",
+      "kind": "comment"
+    },
+    {
+      "id": "muhzlm5zpgbyi",
+      "trace_id": "5ed431f03b586163e690fc1eca71bfa3",
+      "session_id": "2756abf5a1144265ba122201878f6698",
+      "turn": 2,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "the support team should confirm the exact payout/charge impact for order 4071 within about 24 hours",
+      "start": 958,
+      "end": 1057,
+      "note": "Unsupported value (promises about what a human agent will do beyond the ticket id and SLA): Dispute, payout and escalation policies were retrieved and the agent explicitly says it cannot confirm a hold; but ticket 162 (opened in turn 1) was about the dispute and no new ticket mentions the payout question, so the promise that the team will confirm the payout impact goes beyond the ticket and SLA, softened only by \"should\".",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:06:40.247Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0077",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzmk597s66h",
+      "trace_id": "47403c42b85cbb1da7f03ab7307f679c",
+      "session_id": "e3f46590751b42d5a67b8db80ccb2e67",
+      "turn": 2,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "you **don’t need to contact the store separately right now** unless you want to",
+      "start": 83,
+      "end": 162,
+      "note": "Unsupported value (other): Store name, ticket 163 and 24h come from turn-1 tools; the escalation context did contain both \"jam trio\" and Blue Heron Ceramics, so \"I included that mismatch\" is roughly supported, but the statement that the shopper need not contact the store rests on no retrieved policy.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:07:24.285Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0083",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhzmt8ge4l43",
+      "trace_id": "7ad0776c85b62d601ee350de8298cbf6",
+      "session_id": "c1c67b7574144287b2862781176de231",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Your Travel Pencil Set shipped on June 26 and is expected to arrive by July 3 under standard delivery timing.",
+      "start": 201,
+      "end": 310,
+      "note": "Unsupported value (values stated as fact that were never retrieved): The only support is the cw-shipping snippet \"up to 7 days in transit\", a policy upper bound; the agent turns it into an expected arrival date for the customer and adds \"it is still within the normal delivery window\" with no tracking or carrier data retrieved. Matches the rubric example of a delivery date presented as on track from a policy upper bound; the \"under standard delivery timing\" qualifier is the reason for medium confidence.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:07:36.064Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0069",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "muhznpl9xso33",
+      "trace_id": "a670303cd88fa7e4d6a33d0f9ee240af",
+      "session_id": "bdf6d643f2e3488d9cc411395ad7917c",
+      "turn": 3,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "Once the package is marked returned or delivered, support can advise the next step for a return/refund under the return policy.",
+      "start": 554,
+      "end": 681,
+      "note": "(demoted to a comment on 2026-09-26; Boundary ruling 2026-09-26: the reply restates the ticket topic or the human's activity without promising a deliverable or outcome, the same wording as Pass-labeled escalation replies (0045, 0068, 0017, 0031 t1); Pass for unsupported_assertion.) Unsupported value (system-behaviour claim from policy silence): Ticket and SLA trace to the tool, but the refused-delivery outcome (package 'marked returned') and what support will then do are not covered by any retrieved policy; fairly soft wording.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:08:17.997Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0086",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2",
+      "kind": "comment"
+    },
+    {
+      "id": "muhznxmm6daof",
+      "trace_id": "e0bbb01af81c1414d78f620f74a4b1fe",
+      "session_id": "39a4c38a385c4901b50729f8a206daa4",
+      "turn": 4,
+      "anchor": {
+        "kind": "reply",
+        "observation_id": null,
+        "tool_name": null,
+        "step": null
+      },
+      "quote": "because Cartwheel handles that through secure support flows",
+      "start": 108,
+      "end": 167,
+      "note": "Unsupported value (outcome or system-behaviour claims made from policy silence): No policy was retrieved in the session; the system prompt says the assistant refuses card changes and routes account changes to a human, which loosely supports this, but \"Cartwheel handles that through secure support flows\" is a system-behaviour claim stated as fact (the unretrieved cw-account-security policy actually says changes happen through account settings). Ticket 227 and 24h are from escalate_to_human.",
+      "tags": [
+        "RESP-3",
+        "scan",
+        "hw5-topup"
+      ],
+      "ts": "2026-09-26T06:08:28.414Z",
+      "author": "ai-accepted",
+      "origin": {
+        "suggestion_id": "sugg-0089",
+        "mode": "unsupported_assertion"
+      },
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "dsphi7wr3jnju",
+      "trace_id": "3217c303cace5bc06634d4429f4a8aa3",
+      "session_id": "452130faac5c4a6eb441bdbfffd4c11e",
+      "scenario_id": "support-0141",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-26T06:41:51.339021+00:00",
+      "author": "human",
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "yyk1kyfj6ry10",
+      "trace_id": "738fa44c1bc5902011e7e4552f1a9655",
+      "session_id": "4ce35106d9694770964d934ed3d6846d",
+      "scenario_id": "support-0022",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-26T06:41:51.339021+00:00",
+      "author": "human",
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "4gnd12uuqaw4e",
+      "trace_id": "1fdc5eaa68256e756d09c0097825d3ea",
+      "session_id": "bde66fef6840448394e5f4b4a183f6fb",
+      "scenario_id": "support-0036",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-26T06:41:51.339021+00:00",
+      "author": "human",
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "672vnh626zia7",
+      "trace_id": "a670303cd88fa7e4d6a33d0f9ee240af",
+      "session_id": "bdf6d643f2e3488d9cc411395ad7917c",
+      "scenario_id": "support-0170",
+      "turn": 3,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-26T06:41:51.339021+00:00",
+      "author": "human",
+      "batch": "B6-hw5-scan2"
+    },
+    {
+      "id": "lrrgwbuumnhnw",
+      "trace_id": "97db58cf6317e888e491c2402fd31304",
+      "session_id": "359f7c0406594393a615c5b606a257ae",
+      "scenario_id": "support-0238",
+      "turn": 1,
+      "anchor": {
+        "kind": "trace"
+      },
+      "quote": null,
+      "start": null,
+      "end": null,
+      "note": "no failure observed",
+      "no_failure": true,
+      "tags": [],
+      "ts": "2026-09-26T06:41:51.339021+00:00",
+      "author": "human",
+      "batch": "B6-hw5-scan2"
     }
   ]
 }

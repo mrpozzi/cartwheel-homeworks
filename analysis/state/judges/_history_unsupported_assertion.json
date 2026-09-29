@@ -1,0 +1,20 @@
+{
+  "versions": [
+    {
+      "judge_id": "unsupported_assertion-v0",
+      "prompt_hash": "b3ba6c18d0c0"
+    },
+    {
+      "judge_id": "unsupported_assertion-v1",
+      "prompt_hash": "5cd130ca28f3"
+    },
+    {
+      "judge_id": "unsupported_assertion-v2",
+      "prompt_hash": "aa46358211a5"
+    },
+    {
+      "judge_id": "unsupported_assertion-v3",
+      "prompt_hash": "c6e700a16746"
+    }
+  ]
+}

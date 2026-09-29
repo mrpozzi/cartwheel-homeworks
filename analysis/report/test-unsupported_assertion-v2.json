@@ -1,0 +1,52 @@
+{
+  "judge_id": "unsupported_assertion-v2",
+  "mode": "unsupported_assertion",
+  "split": "test",
+  "model": "gpt-4o-mini",
+  "prompt_hash": "aa46358211a5",
+  "prompt_version": 2,
+  "status": "frozen",
+  "convention": "Pass is the positive class (1); TPR = TP/(TP+FN) on human Pass, TNR = TN/(TN+FP) on human Fail",
+  "confusion": {
+    "tp": 25,
+    "fp": 5,
+    "fn": 6,
+    "tn": 14
+  },
+  "class_counts": {
+    "human_pass": 31,
+    "human_fail": 19
+  },
+  "tpr": 0.8065,
+  "tpr_interval_95": [
+    0.6372,
+    0.9081
+  ],
+  "tnr": 0.7368,
+  "tnr_interval_95": [
+    0.5121,
+    0.8819
+  ],
+  "agreement": 0.78,
+  "n": 50,
+  "disagreements": [
+    "111e56efcf09aa824adb46f99f0befc5",
+    "1b36c6e5c77958dd9b2b664411534070",
+    "23b32cf8b64724ac8ce34ff92ffe9dcd",
+    "34b096a769a8d754c2b34fbecec21c0f",
+    "4bf81cbea80a448a82aa79939240fa7a",
+    "7ad0776c85b62d601ee350de8298cbf6",
+    "7e75fa3e8302c23abcd084cd0aa872b0",
+    "c2bcfbb1f0159609e0fad937eb22a0ce",
+    "c9fd0fc90546cf6e4a47b2afae6ba61d",
+    "e83bb3a034ac4ee5edd19dc46755f40f",
+    "eacc0b878e3f1c748189a28edd736dab"
+  ],
+  "computed_at": "2026-09-29T01:46:26.091801+00:00",
+  "prompt_path": "analysis/prompts/unsupported_assertion-v2.txt",
+  "frozen_at": "2026-09-29T01:44:44.110332+00:00",
+  "role": "final test of the judge of record",
+  "selection_note": "v2 became the judge of record on 2026-09-29 after the reviewer retracted v3. Sequence, stated for transparency: v3 was frozen and tested first (TPR 0.74, TNR 0.53); v2 was then frozen and scored on the same test split as a comparison (TPR 0.81, TNR 0.74); the reviewer then retracted v3 on principle (third revision beyond the cap; development gain driven by label corrections). Because v2's test run happened after v3's test result was known, this estimate is not a strictly pre-registered one, although the choice of v2 rests on the cap and the development evidence rather than on the test numbers.",
+  "decision": "trial",
+  "decision_rationale": "Reviewer decision 2026-09-29 on v2: directionally useful even though the confidence interval is wide (test TPR 0.81 [0.64, 0.91], TNR 0.74 [0.51, 0.88]; 14 of 19 failures caught). Not a gate yet: try it on a small set of requests to see whether noise, rather than the lower bound of the interval, is the real issue. v3 served only as a confirmation that high development agreement after label corrections is a smell."
+}

@@ -3,7 +3,7 @@
    All state is loaded from and saved to the file-backed API in server.py. */
 
 'use strict';
-const APP_VERSION = '2026-09-25j';
+const APP_VERSION = '2026-09-29a';
 /* debug ring buffer: the last 80 popover-related events, viewable from the Progress view */
 const DBG = [];
 function dbg(msg) { DBG.push(new Date().toISOString().slice(11, 23) + ' ' + msg); if (DBG.length > 80) DBG.shift(); try { localStorage.setItem('cw_hw4_debug', JSON.stringify(DBG)); } catch { /* ignore */ } }
@@ -15,7 +15,7 @@ const state = {
   current: null, currentId: null,
   annotations: [], traceNotes: { traces: {}, sessions: {} },
   patterns: { modes: [] }, suggestions: [], manifest: { batches: [] },
-  labels: {}, spec: [], tags: {}, source: {},
+  labels: {}, spec: [], tags: {}, source: {}, judges: [], judgeId: '', labelsDisagree: false, replyOpen: new Set(),
   filters: { search: '', batch: '', role: '', reviewed: '', tag: '', tool: '', badge: '' },
   order: 'scenario_asc', shuffleSeed: 1,
   filtered: [],
@@ -141,6 +141,7 @@ async function loadAll() {
   state.suggestions = Array.isArray(suggestions) ? suggestions : [];
   state.manifest = manifest && manifest.batches ? manifest : { batches: [] };
   state.labels = labels || {}; state.spec = spec || []; state.tags = tags || {};
+  try { state.judges = await api('/api/judges'); } catch { state.judges = []; }
   state.sessionIndex = {}; state.traceIndex = {};
   for (const s of sessions) { state.sessionIndex[s.session_id] = s; s.turns.forEach((t) => { state.traceIndex[t.trace_id] = { session_id: s.session_id, index: t.index }; }); }
   const src = state.source.used || '?';
@@ -633,28 +634,96 @@ function labelRows() {
   if (state.labelsFocusSession) ids = ids.filter((t) => (state.traceIndex[t] || {}).session_id === state.labelsFocusSession);
   return ids.map((t) => ({ tid: t, ...(state.traceIndex[t] || {}) })).filter((r) => r.session_id).sort((a, b) => (state.sessionIndex[a.session_id].scenario_id || '').localeCompare(state.sessionIndex[b.session_id].scenario_id || '') || a.index - b.index);
 }
+/* HW5: judge verdicts beside the human label. Verdicts use 1 = Pass; mode labels use 1 = failure present. */
+function humanPassOf(mode, tid) { const l = labelOf(mode, tid); return l ? (l.label === 0 ? 1 : 0) : null; }
+function judgeDisagrees(judge, tid) {
+  const v = (judge.verdicts || {})[tid]; const h = humanPassOf(judge.mode, tid);
+  return v !== undefined && h !== null && v !== h;
+}
+function judgeCell(judge, tid) {
+  const v = (judge.verdicts || {})[tid];
+  if (v === undefined) return '<td class="judge"><span class="dim">not run</span></td>';
+  const h = humanPassOf(judge.mode, tid); const agree = h === null ? null : h === v;
+  const agreement = agree === null ? '<span class="badge muted">no human label</span>' : agree ? '<span class="badge ok">agrees</span>' : `<span class="badge danger">${v === 1 ? 'missed failure' : 'false fail'}</span>`;
+  const split = (judge.splits || {})[tid];
+  const crit = (judge.critiques || {})[tid] || '';
+  const rv = (judge.review || {})[tid]; const d = rv ? rv.decision : '';
+  const btn = (k, label, title) => `<button class="rv ${d === k ? 'on' : ''}" data-rv="${k}" data-rvj="${esc(judge.judge_id)}" data-rvt="${esc(tid)}" title="${title}">${label}</button>`;
+  const decisions = agree === null ? '' : `<div class="rvrow">${btn('judge_wrong', 'judge wrong', 'my label stands; the prompt needs fixing')}${btn('label_wrong', 'label wrong', 'the judge is right: flips my label to the judge verdict')}${btn('definition_unclear', 'definition unclear', 'the boundary needs clarifying; recheck affected labels')}${d ? `<button class="rv" data-rv="clear" data-rvj="${esc(judge.judge_id)}" data-rvt="${esc(tid)}" title="remove my decision">×</button>` : ''}</div>${rv && rv.note ? `<div class="dim rvnote">${esc(rv.note)}</div>` : ''}`;
+  const reply = `<details class="reply" data-reply="${esc(tid)}" data-judge="${esc(judge.judge_id)}" ${state.replyOpen.has(tid) ? 'open' : ''}><summary>reply &amp; your note</summary><div class="rbody"></div></details>`;
+  return `<td class="judge ${agree === false ? 'disagree' : ''}"><div><span class="badge ${v === 1 ? 'ok' : 'danger'}">judge ${v === 1 ? 'Pass' : 'Fail'}</span> ${agreement}${split ? ` <span class="badge muted">${esc(split)}</span>` : ''}</div>${reply}${crit ? `<details class="critique"><summary>judge critique</summary><div>${esc(crit)}</div></details>` : ''}${decisions}</td>`;
+}
+/* the inline reply panel: the evaluated turn with the reviewer's flagged text and the judge's quoted text highlighted */
+function replyPanelHtml(t, tid, judge) {
+  const display = String(t.reply || '').replace(/\*\*/g, '');
+  const norm = (q) => String(q || '').replace(/\*\*/g, '').trim();
+  const bits = new Array(display.length).fill(0);
+  const add = (q, bit) => { const n = norm(q); if (n.length < 8) return; const i = display.indexOf(n); if (i < 0) return; for (let k = i; k < i + n.length; k++) bits[k] |= bit; };
+  annsFor(tid).filter((a) => !a.no_failure && !isComment(a) && a.quote).forEach((a) => add(a.quote, 1));
+  const crit = judge ? ((judge.critiques || {})[tid] || '') : '';
+  [...crit.matchAll(/[“"]([^”"]{12,240})[”"]/g)].map((m) => m[1]).slice(0, 5).forEach((q) => add(q, 2));
+  let out = '', cur = -1, buf = '';
+  const cls = { 1: 'hl-human', 2: 'hl-judge', 3: 'hl-human hl-judge' };
+  const flush = () => { if (!buf) return; out += cls[cur] ? `<mark class="${cls[cur]}">${esc(buf)}</mark>` : esc(buf); buf = ''; };
+  for (let i = 0; i < display.length; i++) { if (bits[i] !== cur) { flush(); cur = bits[i]; } buf += display[i]; }
+  flush();
+  const notes = annsFor(tid).map((a) => a.no_failure ? '<div class="rnote"><span class="badge ok">no failure observed</span></div>' : `<div class="rnote ${isComment(a) ? 'dim' : ''}">${isComment(a) ? 'comment: ' : ''}${esc(a.note || '')}</div>`).join('') || '<div class="dim">no notes on this turn</div>';
+  const steps = (t.steps || []).map((st) => `<div class="cstep"><b>${esc(st.tool_call.name)}</b>(${esc(clip(compact(st.tool_call.arguments), 100))}) → ${esc(clip((st.tool_result || {}).summary || 'no result', 140))}</div>`).join('') || '<div class="dim">no tool calls</div>';
+  return `<div class="clabel">Your notes on this turn</div>${notes}<div class="clabel">User</div><div class="ctext">${esc(clip(t.user, 600))}</div><div class="clabel">Tool calls</div>${steps}<div class="clabel">Reply under evaluation</div><div class="ctext">${out}</div><div class="legend"><mark class="hl-human">text you flagged</mark> <mark class="hl-judge">text the judge quoted</mark> <mark class="hl-human hl-judge">both</mark></div>`;
+}
+async function fillReplyPanel(det) {
+  const tid = det.dataset.reply; const info = state.traceIndex[tid]; const body = $('.rbody', det);
+  if (!info || !body || body.dataset.loaded) return;
+  body.innerHTML = '<div class="dim">loading…</div>';
+  if (!state.sessionCache[info.session_id]) { try { state.sessionCache[info.session_id] = await api(`/api/session?id=${encodeURIComponent(info.session_id)}`); } catch { body.innerHTML = '<div class="dim">could not load the session</div>'; return; } }
+  const s = state.sessionCache[info.session_id]; const t = s.turns.find((x) => x.trace_id === tid); if (!t) return;
+  const judge = state.judges.find((j) => j.judge_id === det.dataset.judge) || null;
+  body.innerHTML = replyPanelHtml(t, tid, judge); body.dataset.loaded = '1';
+}
+const PINNED_LABEL_COLUMNS = 3; // trace, open codes, shortcut stay visible while the mode columns scroll sideways
+function pinLabelColumns(el, attempt = 0) {
+  const table = $('table.labels', el); if (!table || !table.tHead) return;
+  const heads = Array.from(table.tHead.rows[0].cells).slice(0, PINNED_LABEL_COLUMNS);
+  if (heads.some((th) => th.getBoundingClientRect().width === 0)) { if (attempt < 10) requestAnimationFrame(() => pinLabelColumns(el, attempt + 1)); return; } // view not laid out yet
+  let left = 0;
+  heads.forEach((th, i) => {
+    const offset = left; left += th.getBoundingClientRect().width;
+    for (const row of table.rows) { const c = row.cells[i]; if (!c) continue; c.classList.add('pin'); if (i === heads.length - 1) c.classList.add('pin-last'); c.style.left = `${offset}px`; }
+  });
+}
 function renderLabels() {
   const el = $('#labels-view'); const ms = modes(state.labelsCandidates);
   let rows = labelRows();
   const incomplete = (tid) => ms.some((m) => !labelOf(m.name, tid));
   if (state.labelsIncomplete) rows = rows.filter((r) => incomplete(r.tid));
+  const judge = state.judges.find((j) => j.judge_id === state.judgeId) || null;
+  if (judge && state.labelsDisagree) rows = rows.filter((r) => judgeDisagrees(judge, r.tid));
   const counts = ms.map((m) => { const lab = state.labels[m.name] || {}; const ids = labelRows().map((r) => r.tid); const f = ids.filter((t) => lab[t]?.label === 1).length, p = ids.filter((t) => lab[t]?.label === 0).length; return { m, f, p, u: ids.length - f - p }; });
   el.innerHTML = `<div class="labels-toolbar">
       <label><input type="checkbox" id="l-cand" ${state.labelsCandidates ? 'checked' : ''}/> include candidate modes</label>
       <label><input type="checkbox" id="l-all" ${state.labelsShowAll ? 'checked' : ''}/> all traces (not only the review set)</label>
       <label><input type="checkbox" id="l-inc" ${state.labelsIncomplete ? 'checked' : ''}/> incomplete rows only</label>
       <label><input type="checkbox" id="l-follow" ${state.labelsFollow ? 'checked' : ''}/> follow the sidebar filters</label>
+      ${state.judges.length ? `<label>judge <select id="l-judge"><option value="">none</option>${state.judges.map((j) => `<option value="${esc(j.judge_id)}" ${state.judgeId === j.judge_id ? 'selected' : ''}>${esc(j.judge_id)} · ${esc(j.model || '')} · ${esc(j.status || '')} · ${Object.keys(j.verdicts || {}).length} verdicts</option>`).join('')}</select></label>
+      <label><input type="checkbox" id="l-dis" ${state.labelsDisagree ? 'checked' : ''} ${judge ? '' : 'disabled'}/> disagreements only</label>` : ''}
       ${state.labelsFocusSession ? `<span class="badge info">focused on ${esc((state.sessionIndex[state.labelsFocusSession] || {}).scenario_id || '')}</span> <button id="l-unfocus">show all listed</button>` : ''}
+      ${(() => { const n = Object.values(state.labels).reduce((acc, m) => acc + Object.values(m).filter((r) => r && r.langfuse && !r.langfuse.synced).length, 0); return n ? `<span class="badge warn" title="labels saved while Langfuse was unreachable; they sync on the next successful label write, or press retry">${n} not in Langfuse</span>` : ''; })()}
       <button id="l-sync">retry Langfuse sync</button>
-      <span class="dim">${rows.length} rows · F = present (1) · P = absent (0) · "rest absent" fills every unset mode on the row with absent. Each click saves and writes a Langfuse score.</span></div>
-    ${ms.length ? `<table class="labels"><thead><tr><th>trace</th><th>open codes</th><th>shortcut</th>${counts.map(({ m, f, p, u }) => `<th class="mode">${esc(m.name)}<small>${f} fail · ${p} pass · ${u} unset</small></th>`).join('')}<th>evidence note for next click</th></tr></thead><tbody>
+      <span class="dim">${rows.length} rows · F = present (1) · P = absent (0) · "rest absent" fills every unset mode on the row with absent. Each click saves and writes a Langfuse score.${judge ? ' With a judge selected, a disagreeing row offers "judge wrong", "label wrong" (flips your label), and "definition unclear"; the note field on the row is saved with the decision.' : ''}</span></div>
+    ${ms.length ? `<div class="labels-scroll"><table class="labels"><thead><tr><th>trace</th><th>open codes</th><th>shortcut</th>${counts.map(({ m, f, p, u }) => `<th class="mode">${esc(m.name)}<small>${f} fail · ${p} pass · ${u} unset</small></th>`).join('')}${judge ? `<th class="judge">${esc(judge.judge_id)}<small>verdict · agreement with the ${esc(judge.mode)} label · split</small></th>` : ''}<th>evidence note for next click</th></tr></thead><tbody>
     ${rows.map((r) => { const s = state.sessionIndex[r.session_id]; const t = s.turns.find((x) => x.trace_id === r.tid) || {}; const notes = annsFor(r.tid).map((a) => a.no_failure ? 'no failure observed' : (isComment(a) ? 'comment: ' : '') + a.note);
       const rowTags = Array.from(new Set([...(state.traceNotes.traces[r.tid] || {}).tags || [], ...annsFor(r.tid).flatMap((a) => a.tags || [])]));
       return `<tr data-row="${esc(r.tid)}" class="${incomplete(r.tid) ? 'incomplete' : ''} ${state.labelsSelected === r.tid ? 'selected' : ''} ${state.labelsFocusSession && r.session_id === state.labelsFocusSession ? 'focused' : ''}"><td class="trace"><span class="tid" data-open="${esc(r.tid)}" data-ctx="${esc(r.tid)}" title="click to open in Review; hover for context">${esc(short(r.tid))}…</span><div class="sub">${esc(s.scenario_id)} · ${esc(s.role)} · turn ${r.index}${batchOf(r.tid) ? ' · ' + esc(batchOf(r.tid)) : ''}</div><div>${hasFailure(r.tid) ? '<span class="badge danger">failure noted</span>' : isReviewed(r.tid) ? '<span class="badge ok">no failure</span>' : '<span class="badge muted">unreviewed</span>'}${(t.badges || []).map((b) => `<span class="badge ${b.kind}">${esc(b.text)}</span>`).join('')}</div></td>
         <td class="codes" style="max-width:320px;font-size:12px">${notes.length ? notes.map((n) => `<div class="code" title="${esc(n)}">${esc(clip(n, 160))}</div>`).join('') : '<span class="dim">unreviewed</span>'}${rowTags.length ? `<div style="margin-top:3px">${rowTags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}</td>
         <td class="rest">${incomplete(r.tid) ? `<button data-rest="${esc(r.tid)}" title="write 'absent' for every mode still unset on this trace (${ms.filter((m) => !labelOf(m.name, r.tid)).length} left)">rest absent</button>` : '<span class="badge ok">complete</span>'}</td>
         ${ms.map((m) => { const l = labelOf(m.name, r.tid); const v = l ? l.label : null; const uns = l && l.langfuse && !l.langfuse.synced ? '<div class="unsynced" title="' + esc(l.langfuse.error || '') + '">not in Langfuse</div>' : ''; return `<td class="cell" title="${esc(l?.note || '')}"><button data-tid="${esc(r.tid)}" data-mode="${esc(m.name)}" data-v="1" class="${v === 1 ? 'on-fail' : ''}">F</button> <button data-tid="${esc(r.tid)}" data-mode="${esc(m.name)}" data-v="0" class="${v === 0 ? 'on-pass' : ''}">P</button>${uns}</td>`; }).join('')}
-        <td class="note"><input data-note="${esc(r.tid)}" placeholder="evidence (optional)" /></td></tr>`; }).join('')}</tbody></table>` : '<p class="empty">No final modes yet. Mark modes as final in the Taxonomy view, or tick "include candidate modes".</p>'}`;
+        ${judge ? judgeCell(judge, r.tid) : ''}<td class="note"><input data-note="${esc(r.tid)}" placeholder="evidence (optional)" /></td></tr>`; }).join('')}</tbody></table></div>` : '<p class="empty">No final modes yet. Mark modes as final in the Taxonomy view, or tick "include candidate modes".</p>'}`;
+  pinLabelColumns(el);
+  if (!el._replyToggleBound) { // details toggles do not bubble; capture them once on the view
+    el.addEventListener('toggle', (e) => { const d = e.target; if (!d.dataset || !d.dataset.reply) return; if (d.open) { state.replyOpen.add(d.dataset.reply); fillReplyPanel(d); } else state.replyOpen.delete(d.dataset.reply); }, true);
+    el._replyToggleBound = true;
+  }
+  $$('details.reply[open]', el).forEach(fillReplyPanel);
   if (state.labelsScrollTo && state.labelsSelected) { const row = $(`tr[data-row="${state.labelsSelected}"]`, el); if (row) row.scrollIntoView({ block: 'center' }); state.labelsScrollTo = false; }
   el.onmouseover = (e) => { const t = e.target.closest('[data-ctx]'); if (t) showCtx(t.dataset.ctx, t.getBoundingClientRect()); };
   el.onmouseout = (e) => { const t = e.target.closest('[data-ctx]'); if (t && !e.relatedTarget?.closest?.('#ctx-pop')) hideCtx(); };
@@ -663,10 +732,28 @@ function renderLabels() {
   $('#l-cand').onchange = (e) => { state.labelsCandidates = e.target.checked; renderLabels(); };
   $('#l-all').onchange = (e) => { state.labelsShowAll = e.target.checked; renderLabels(); };
   $('#l-inc').onchange = (e) => { state.labelsIncomplete = e.target.checked; renderLabels(); };
+  const lj = $('#l-judge'); if (lj) lj.onchange = (e) => { state.judgeId = e.target.value; if (!state.judgeId) state.labelsDisagree = false; renderLabels(); };
+  const ld = $('#l-dis'); if (ld) ld.onchange = (e) => { state.labelsDisagree = e.target.checked; renderLabels(); };
   $('#l-sync').onclick = async () => { const r = await api('/api/labels/sync', 'POST', {}); toast(`retried ${r.retried}, synced ${r.synced}`); state.labels = await api('/api/labels'); renderLabels(); };
   el.onclick = async (e) => {
     const t = e.target;
     if (t.dataset.open) { state.labelsSelected = t.dataset.open; state.labelsScrollTo = true; hideCtx(); openSession(t.dataset.open, t.dataset.open); return; }
+    if (t.dataset.rv) {
+      const jid = t.dataset.rvj, tid = t.dataset.rvt, decision = t.dataset.rv;
+      const note = ($(`input[data-note="${tid}"]`, el) || {}).value || '';
+      const j = state.judges.find((x) => x.judge_id === jid);
+      try {
+        const r = await api('/api/judge_review', 'POST', { judge_id: jid, trace_id: tid, decision, note });
+        if (j) { j.review = j.review || {}; if (decision === 'clear') delete j.review[tid]; else j.review[tid] = r.record; }
+        if (decision === 'label_wrong' && j) {
+          const v = j.verdicts[tid]; // 1 = judge Pass -> mode label absent (0); 0 = judge Fail -> present (1)
+          const lr = await api('/api/labels', 'POST', { trace_id: tid, mode: j.mode, label: v === 1 ? 0 : 1, note: note || `label changed after reviewing ${jid}: the judge verdict was right` });
+          state.labels[j.mode] = state.labels[j.mode] || {}; state.labels[j.mode][tid] = lr.record;
+          toast(`label flipped to ${v === 1 ? 'absent (Pass)' : 'present (Fail)'}${lr.record.langfuse.synced ? '' : ' · not synced to Langfuse'}`, 3500);
+        } else toast(decision === 'clear' ? 'decision removed' : 'decision saved');
+      } catch (err) { toast('save failed: ' + err.message, 5000); }
+      renderLabels(); return;
+    }
     const row = t.closest('tr[data-row]');
     if (row && !t.closest('button') && !t.closest('input')) {
       state.labelsSelected = row.dataset.row;
@@ -783,8 +870,9 @@ function renderView() {
 let pollSig = ''; let pollDeferred = false;
 async function poll() {
   try {
-    const [sugg, patterns, labels, manifest] = await Promise.all([api('/api/suggestions'), api('/api/patterns'), api('/api/labels'), api('/api/manifest')]);
-    const sig = JSON.stringify([sugg, patterns, manifest]);
+    const [sugg, patterns, labels, manifest, judges] = await Promise.all([api('/api/suggestions'), api('/api/patterns'), api('/api/labels'), api('/api/manifest'), api('/api/judges').catch(() => state.judges)]);
+    state.judges = Array.isArray(judges) ? judges : [];
+    const sig = JSON.stringify([sugg, patterns, manifest, judges]);
     if (sig !== pollSig) {
       const before = state.suggestions.filter((s) => (s.status || 'pending') === 'pending').length;
       const batchesBefore = (state.manifest.batches || []).length;

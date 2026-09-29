@@ -261,6 +261,36 @@ table.labels td.codes .code { position: relative; cursor: help; }
 table.labels td.codes .code:hover { white-space: normal; }
 table.labels td.codes .code:hover::after { content: attr(title); position: absolute; left: 0; top: 100%; z-index: 5; width: 460px; max-width: 70vw; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; box-shadow: 0 4px 14px rgba(0,0,0,.15); white-space: pre-wrap; font-size: 12.5px; line-height: 1.4; }
 tr.incomplete td.trace { border-left: 3px solid var(--warn); }
+/* the table scrolls in its own box under the toolbar, so the header row and the pinned columns hold in every browser */
+#labels-view.active { display: flex; flex-direction: column; height: 100%; box-sizing: border-box; padding-bottom: 20px; }
+.labels-scroll { flex: 1 1 auto; min-height: 0; overflow: auto; border: 1px solid var(--line); background: var(--panel); }
+.labels-scroll table.labels { border-width: 0; }
+/* the first columns stay put while the mode columns scroll sideways (offsets set by pinLabelColumns) */
+table.labels td.pin { position: sticky; background: var(--panel); z-index: 3; }
+table.labels th.pin { z-index: 4; }
+table.labels td.pin:hover { z-index: 6; } /* keeps the open-code tooltip above the columns to its right */
+table.labels .pin-last { box-shadow: 2px 0 0 0 var(--line); }
+/* HW5: judge verdict and critique beside the human label */
+table.labels th.judge { font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+table.labels th.judge small { display: block; color: var(--dim); font-weight: 400; font-family: inherit; }
+table.labels td.judge { min-width: 260px; max-width: 560px; font-size: 12px; }
+table.labels td.judge details.reply summary { cursor: pointer; color: var(--user); font-size: 11.5px; margin-top: 4px; }
+table.labels td.judge .rbody { border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; margin: 4px 0; background: #fff; max-height: 460px; overflow: auto; }
+table.labels td.judge .rbody .ctext { white-space: pre-wrap; line-height: 1.4; }
+table.labels td.judge .rbody .clabel { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--dim); margin-top: 6px; }
+table.labels td.judge .rbody .cstep { font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: #5a3a00; margin: 2px 0; }
+table.labels td.judge .rbody .rnote { margin: 2px 0; white-space: pre-wrap; }
+table.labels td.judge .rbody .legend { margin-top: 6px; font-size: 11px; color: var(--dim); }
+mark.hl-human { background: #ffe08a; color: inherit; }
+mark.hl-judge { background: #cfe3ff; color: inherit; }
+mark.hl-human.hl-judge { background: #c9f0c1; color: inherit; }
+table.labels td.judge.disagree { background: #fff3f0; }
+table.labels td.judge details.critique summary { cursor: pointer; color: var(--dim); font-size: 11.5px; margin-top: 3px; }
+table.labels td.judge details.critique div { white-space: pre-wrap; line-height: 1.4; margin-top: 4px; }
+table.labels td.judge .rvrow { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
+table.labels td.judge button.rv { font-size: 11px; padding: 1px 7px; }
+table.labels td.judge button.rv.on { background: var(--user); color: #fff; border-color: var(--user); }
+table.labels td.judge .rvnote { font-size: 11.5px; margin-top: 3px; white-space: pre-wrap; }
 
 /* progress */
 .prog-section { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 16px; max-width: 1000px; }
