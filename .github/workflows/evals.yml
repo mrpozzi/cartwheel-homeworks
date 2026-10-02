@@ -21,6 +21,7 @@ jobs:
     name: Harbor evaluations
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     env:
       CARTWHEEL_MODEL: ${{ vars.CARTWHEEL_MODEL }}
       PYTHONPATH: ${{ github.workspace }}
@@ -36,8 +37,43 @@ jobs:
       - run: uv sync
 
       # Homework 6: install Harbor 0.23.0.
+      - name: Install Harbor
+        run: |
+          uv tool install 'harbor==0.23.0'
+          harbor --version
+
       # Generate the classified tasks in eval_cases/cases.jsonl.
+      - name: Generate the classified Harbor tasks
+        run: uv run python scripts/export_harbor_tasks.py
+
       # Run five attempts per task in fresh Docker containers.
-      # Pass the agent and judge provider keys to Harbor.
+      # Pass the agent and judge provider keys to Harbor: they are in the job
+      # environment above, and the generated task.toml forwards the judge key
+      # to the verifier.
+      - name: Run every task five times with Harbor
+        run: |
+          test -n "$CARTWHEEL_MODEL" || { echo "Set the CARTWHEEL_MODEL repository variable"; exit 1; }
+          harbor run \
+            -p .harbor/tasks \
+            -a harbor_adapter.agent:CartwheelAgent \
+            -m "$CARTWHEEL_MODEL" \
+            -e docker \
+            --n-attempts 5 \
+            --job-name hw6-evals \
+            --jobs-dir "$GITHUB_WORKSPACE/.harbor/jobs" \
+            --yes
+
       # Summarize the job and upload the job files with `if: always()` so a
       # failed regression keeps its evidence.
+      - name: Summarize the job and apply the CI gate
+        if: always()
+        run: uv run python scripts/summarize_harbor_job.py .harbor/jobs/hw6-evals --expected-attempts 5
+
+      - name: Upload the Harbor job
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hw6-evals
+          path: .harbor/jobs/hw6-evals
+          include-hidden-files: true
+          if-no-files-found: warn
