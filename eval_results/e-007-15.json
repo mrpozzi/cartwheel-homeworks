@@ -1,0 +1,117 @@
+{
+  "case_id": "e-007",
+  "model": "gpt-5.5",
+  "trial_order": "per-trial result.json files sorted by started_at",
+  "trials": [
+    {
+      "trial_name": "e-007__iLapkKh",
+      "passed": 0
+    },
+    {
+      "trial_name": "e-007__KaerPoS",
+      "passed": 1
+    },
+    {
+      "trial_name": "e-007__BKuTdZJ",
+      "passed": 1
+    },
+    {
+      "trial_name": "e-007__h8EP2DK",
+      "passed": 1
+    },
+    {
+      "trial_name": "e-007__hQXnpcd",
+      "passed": 1
+    },
+    {
+      "trial_name": "e-007__mN6aqYH",
+      "passed": 1
+    },
+    {
+      "trial_name": "e-007__cpChiYQ",
+      "passed": 0
+    },
+    {
+      "trial_name": "e-007__WxZEv9S",
+      "passed": 0
+    },
+    {
+      "trial_name": "e-007__yxdnvFi",
+      "passed": 0
+    },
+    {
+      "trial_name": "e-007__ytbFkUP",
+      "passed": 0
+    },
+    {
+      "trial_name": "e-007__zsbhqnn",
+      "passed": 1
+    },
+    {
+      "trial_name": "e-007__gPFknzL",
+      "passed": 0
+    },
+    {
+      "trial_name": "e-007__46bLbDs",
+      "passed": 1
+    },
+    {
+      "trial_name": "e-007__y7HfYci",
+      "passed": 0
+    },
+    {
+      "trial_name": "e-007__YYmcx4s",
+      "passed": 1
+    }
+  ],
+  "rewards": [
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    1
+  ],
+  "n": 15,
+  "successes": 8,
+  "comparisons": [
+    {
+      "n": 5,
+      "successes": 4,
+      "pass_at_k": {
+        "1": 0.8,
+        "3": 1.0,
+        "5": 1.0
+      }
+    },
+    {
+      "n": 10,
+      "successes": 5,
+      "pass_at_k": {
+        "1": 0.5,
+        "3": 0.9166666666666666,
+        "5": 0.996031746031746
+      }
+    },
+    {
+      "n": 15,
+      "successes": 8,
+      "pass_at_k": {
+        "1": 0.5333333333333333,
+        "3": 0.9230769230769231,
+        "5": 0.993006993006993,
+        "10": 1.0,
+        "15": 1.0
+      }
+    }
+  ]
+}
