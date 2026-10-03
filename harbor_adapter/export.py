@@ -224,6 +224,8 @@ def cartwheel_code_checks(workspace: Path) -> bool:
         evidence["transcript"],
         workspace / "data" / "cartwheel.db",
     )
+    for ok, description in outcome["results"]:
+        print(f"check {'passed' if ok else 'FAILED'}: {description}")
     return bool(outcome["passed"])
 '''
 
@@ -234,13 +236,15 @@ def _judge_py(mode: str, expected: str, judge: dict[str, Any]) -> str:
     template = '''from __future__ import annotations
 
 import json
+import sys
 import tempfile
 from pathlib import Path
 
 from docetl.api import Dataset, MapOp, Pipeline, PipelineOutput, PipelineStep
 from rewardkit import criterion
 
-from replay.rollout import judge_trace_text
+sys.path.insert(0, "/app")
+from replay.rollout import hw5_judge_trace_text
 
 PROMPT = __PROMPT__
 MODEL = __MODEL__
@@ -248,21 +252,22 @@ EXPECTED = __EXPECTED__
 
 
 def _decode(row: dict) -> str:
+    """The HW5 verdict parser (analysis.helpers.scale._decode_judge_rows):
+    exactly Pass or Fail with a critique, anything else is an error rather
+    than a verdict."""
     critique = row.get("critique")
     if not isinstance(critique, str) or not critique.strip():
         raise ValueError("judge result needs a critique")
-    raw = str(row.get("result", "")).strip().lower().rstrip(".")
-    if raw in {"pass", "passed"}:
-        return "pass"
-    if raw in {"fail", "failed"}:
-        return "fail"
-    return "fail"
+    verdict = row.get("result")
+    if verdict not in ("Pass", "Fail"):
+        raise ValueError(f"judge result must be Pass or Fail, got {verdict!r}")
+    return verdict.lower()
 
 
 @criterion
 def cartwheel_judge(workspace: Path) -> bool:
     evidence = json.loads((workspace / "cartwheel-result.json").read_text())
-    content = judge_trace_text(evidence["transcript"])
+    content = hw5_judge_trace_text(evidence["transcript"])
     with tempfile.TemporaryDirectory(prefix="cartwheel-judge-") as directory:
         root = Path(directory)
         input_path = root / "input.json"
@@ -305,7 +310,10 @@ def cartwheel_judge(workspace: Path) -> bool:
         rows = json.loads(output_path.read_text())
     if len(rows) != 1:
         raise ValueError("judge returned an unexpected number of results")
-    return _decode(rows[0]) == EXPECTED
+    verdict = _decode(rows[0])
+    print(f"judge verdict: {rows[0].get('result')} (expected {EXPECTED.capitalize()})")
+    print(f"judge critique: {rows[0].get('critique')}")
+    return verdict == EXPECTED
 '''
     return (
         template.replace("__PROMPT__", repr(judge["prompt_text"]))
@@ -341,6 +349,10 @@ ENV OPENAI_AGENTS_DISABLE_TRACING=1
 WORKDIR /app
 COPY cartwheel/pyproject.toml cartwheel/uv.lock cartwheel/README.md /app/
 RUN uv sync --frozen --no-dev --no-install-project
+# Resolve the verifier's tools at build time, before the case files are
+# copied, so every task shares this layer. Downloading rewardkit and DocETL
+# inside each trial took longer than the verifier timeout.
+RUN uvx --from 'harbor-rewardkit==0.2.1' --with 'docetl==0.3.0' rewardkit --help > /dev/null
 COPY cartwheel/ /app/
 RUN uv sync --frozen --no-dev
 '''

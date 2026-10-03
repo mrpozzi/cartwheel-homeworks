@@ -131,12 +131,22 @@ def _auth_context(case_input: dict[str, Any]) -> Any:
 
 
 def _extract_turn(new_items: list[Any]) -> dict[str, Any]:
-    """Collapse one Runner turn's items into {reply, tool_calls, steps}."""
+    """Collapse one Runner turn's items into {reply, tool_calls, steps}.
+
+    ``judge_steps`` and ``final_text`` keep the HW4 review grouping used to
+    build the HW5 judge inputs: a message emitted with tool calls is the
+    narration of the first call in that generation, and the text after the
+    last tool result is the reply. ``reply`` still joins every message, so
+    the checks engine sees what it always saw.
+    """
     from agents.items import MessageOutputItem, ToolCallItem, ToolCallOutputItem
 
     calls: dict[str, dict[str, Any]] = {}
     ordered: list[dict[str, Any]] = []
     reply_parts: list[str] = []
+    judge_steps: list[dict[str, Any]] = []
+    step_by_call: dict[str, dict[str, Any]] = {}
+    pending_texts: list[str] = []
     for item in new_items:
         if isinstance(item, ToolCallItem):
             raw = item.raw_item
@@ -147,6 +157,14 @@ def _extract_turn(new_items: list[Any]) -> dict[str, Any]:
             }
             calls[getattr(raw, "call_id", None)] = record
             ordered.append(record)
+            step = {
+                "narration": "\n".join(pending_texts),
+                "tool_call": {"name": record["name"], "arguments": record["args"]},
+                "tool_result": None,
+            }
+            pending_texts = []
+            judge_steps.append(step)
+            step_by_call[getattr(raw, "call_id", None)] = step
         elif isinstance(item, ToolCallOutputItem):
             call_id = None
             raw = item.raw_item
@@ -156,16 +174,38 @@ def _extract_turn(new_items: list[Any]) -> dict[str, Any]:
                 call_id = getattr(raw, "call_id", None)
             if call_id in calls:
                 calls[call_id]["result"] = item.output
+                step_by_call[call_id]["tool_result"] = {"output": item.output}
         elif isinstance(item, MessageOutputItem):
             for part in getattr(item.raw_item, "content", []) or []:
                 text = getattr(part, "text", None)
                 if text:
                     reply_parts.append(text)
+                    pending_texts.append(text)
     return {
         "reply": "\n".join(reply_parts),
         "tool_calls": ordered,
         "steps": len(new_items),
+        "judge_steps": judge_steps,
+        "final_text": "\n".join(pending_texts),
     }
+
+
+def _context_lines(system_prompt: Any) -> list[str]:
+    """The session context lines the agent was given, read the way the HW4
+    review interface read them from the traced system prompt."""
+    if not isinstance(system_prompt, str):
+        return []
+    lines: list[str] = []
+    grab = False
+    for line in system_prompt.splitlines():
+        if line.startswith("## Session context"):
+            grab = True
+            continue
+        if grab:
+            if not line.strip():
+                break
+            lines.append(line.strip("- ").strip())
+    return lines
 
 
 def run_case(
@@ -211,6 +251,7 @@ def run_case(
             usage["input_tokens"] += run_usage.input_tokens
             usage["output_tokens"] += run_usage.output_tokens
         return {
+            "context": _context_lines(agent.instructions),
             "turns": turns,
             "final_reply": turns[-1]["reply"] if turns else "",
             "steps": sum(t["steps"] for t in turns),
@@ -383,6 +424,52 @@ def judge_trace_text(transcript: dict[str, Any]) -> str:
             lines.append(f"tool_call: {arguments}")
             lines.append(f"tool_result: {result}")
         lines.append(f"assistant: {turn.get('reply', '')}")
+    return "\n".join(lines)
+
+
+def _hw5_json(value: Any) -> str:
+    """Serialize a payload the way the analysis helpers flatten a message."""
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, default=str)
+
+
+def hw5_judge_trace_text(transcript: dict[str, Any]) -> str:
+    """Format a runtime transcript exactly like the student's HW5 judge inputs.
+
+    ``analysis/run_judges.prepare_inputs`` gave the frozen judge one record
+    per conversation: a ``context:`` line with the session context the agent
+    was given, then per turn the user text, the narration before each tool
+    call, ``tool_call``/``tool_result`` payloads that carry the tool name,
+    and the reply. The helpers flattened those messages with
+    ``analysis.helpers.normalization._flatten``. This reproduces that text
+    from ``run_case`` output so the judge sees the format it was validated
+    on. ``judge_trace_text`` above keeps the default course format.
+    """
+    lines: list[str] = []
+    context = transcript.get("context") or []
+    if context:
+        lines.append(
+            "context: Session context given to the agent: " + "; ".join(context)
+        )
+    for turn in transcript.get("turns", []):
+        if turn.get("user"):
+            lines.append(f"user: {turn['user']}")
+        for step in turn.get("judge_steps", []):
+            if step.get("narration"):
+                lines.append(f"assistant: {step['narration']}")
+            call = step.get("tool_call") or {}
+            name = call.get("name")
+            lines.append(
+                "tool_call: "
+                + _hw5_json({"tool": name, "arguments": call.get("arguments")})
+            )
+            result = step.get("tool_result")
+            if result is not None:
+                lines.append(
+                    "tool_result: "
+                    + _hw5_json({"tool": name, "result": result.get("output")})
+                )
+        if turn.get("final_text"):
+            lines.append(f"assistant: {turn['final_text']}")
     return "\n".join(lines)
 
 

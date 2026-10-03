@@ -1,0 +1,28 @@
+{
+  "pull_request": "https://github.com/mrpozzi/cartwheel-homeworks/pull/7",
+  "case_id": "e-006",
+  "agent_model": "gpt-5.5",
+  "regression_run": {
+    "url": "https://github.com/mrpozzi/cartwheel-homeworks/actions/runs/36945487428",
+    "commit": "a00cc37",
+    "change": "Temporary line in SYSTEM_PROMPT_TEMPLATE: restocking fee answers state the rule in plain words and never include a policy identifier, overriding the citation rule.",
+    "result": "failed",
+    "selected_case": "e-006 passed 0 of 5: every reply stated the restocking fee rule without citing cw-restocking-fees",
+    "other_blocking_cases": {
+      "e-009": "passed 4 of 5: one reply printed refund_eligible: false (raw record field); unrelated to the prompt change"
+    }
+  },
+  "revert_run": {
+    "url": "https://github.com/mrpozzi/cartwheel-homeworks/actions/runs/36946829408",
+    "commit": "76186bb",
+    "change": "Reverted the temporary line; the prompt is identical to the one the baselines ran against.",
+    "result": "failed",
+    "selected_case": "e-006 passed 5 of 5: the original behavior returned",
+    "other_blocking_cases": {
+      "e-008": "passed 4 of 5: one reply printed refund_eligible: false",
+      "e-009": "passed 4 of 5: one reply printed refund_eligible: false"
+    }
+  },
+  "second_run_result": "The selected case e-006 passed all five runs after the revert, so the intentional regression was removed. The job still failed because two other regression cases, e-008 and e-009, each failed one of five runs by printing a raw record field. Neither run had an infrastructure error; both failures are kept as evidence and the commit was not rerun.",
+  "explanation": "The temporary instruction was scoped to restocking fee answers, so only e-006 depends on it. Run 1 blocked on e-006 (0 of 5) as intended. Run 2 restored e-006 (5 of 5) and blocked on e-008 and e-009 instead. Both are raw_record_fields_in_reply cases that passed 5 of 5 at baseline but were rebuilt from Homework 4 conversations where the agent had failed, so their baseline reliability was always below 1. Across three evaluations (baseline, run 1, run 2) e-009 passed 13 of 15 and e-008 passed 14 of 15, which matches the handout's point that a regression case passing five times does not guarantee future runs pass; with four regression cases and a per-run reliability near 0.9 for these two, a fully green run is the exception rather than the rule."
+}
