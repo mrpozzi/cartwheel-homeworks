@@ -1,0 +1,20 @@
+{
+  "judge_id": "unsupported_assertion-v2",
+  "judge_mode": "unsupported_assertion",
+  "model": "gpt-5.5",
+  "random_rate": 0.2,
+  "risk_groups": ["multi_turn"],
+  "threshold": 0.15,
+  "periods": [
+    {
+      "label": "before",
+      "from": "2026-09-23T14:19:00Z",
+      "to": "2026-09-23T15:50:00Z"
+    },
+    {
+      "label": "after",
+      "from": "2026-10-03T17:38:00Z",
+      "to": "2026-10-03T18:02:00Z"
+    }
+  ]
+}
