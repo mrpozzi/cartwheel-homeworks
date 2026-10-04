@@ -22,3 +22,6 @@ scenarios/demo_pilot_gt.json
 
 # HW4 review interface: cached Langfuse fetch
 analysis/review_app/cache/
+
+# HW7 monitor output (per-period verdicts and critiques; uploaded as a workflow artifact)
+monitoring/output/
