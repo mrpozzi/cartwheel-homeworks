@@ -32,10 +32,6 @@ INPUTS = STATE / "hw5_trace_inputs.json"
 SPLIT_FRACTIONS = (0.20, 0.40, 0.40)
 SPLIT_SEED = 7
 
-# The helpers read judge inputs from this export rather than from Langfuse,
-# so every prompt version sees exactly the same saved traces.
-os.environ.setdefault("CARTWHEEL_JUDGE_TRACE_SOURCE", str(INPUTS))
-
 
 # ---------------------------------------------------------------------------
 # trace index (scenario, session, turn) from the HW4 review cache
@@ -443,6 +439,11 @@ def main() -> None:
     parser.add_argument("--split", default="dev", help="split for preflight and metrics")
     parser.add_argument("--force", action="store_true", help="redo an existing split (breaks comparability with earlier runs)")
     args = parser.parse_args()
+    # The helpers read judge inputs from this export rather than from Langfuse,
+    # so every prompt version sees exactly the same saved traces. Set here, not
+    # at import, so importing a helper (the HW6 and HW7 tests, the monitor)
+    # leaves the environment alone.
+    os.environ.setdefault("CARTWHEEL_JUDGE_TRACE_SOURCE", str(INPUTS))
     if args.command == "export":
         export_labels(args.mode)
     elif args.command == "inputs":
