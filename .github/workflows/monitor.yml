@@ -1,0 +1,55 @@
+name: monitor
+
+# Homework 7: sample the last day of Cartwheel conversations from Langfuse,
+# run the frozen Homework 5 judge, correct the failure rate, and write the
+# scores back. It reads existing traces only, so it needs no Cartwheel model key.
+on:
+  schedule:
+    - cron: "17 6 * * *" # daily at 06:17 UTC
+  workflow_dispatch:
+    inputs:
+      hours:
+        description: "Hours of conversations to monitor, ending now"
+        required: true
+        default: "24"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    name: sample, judge, and score
+    # Langfuse runs on the student's machine, so the job runs on a
+    # self-hosted runner there. The custom label keeps other jobs off it.
+    runs-on: [self-hosted, cartwheel-monitor]
+    timeout-minutes: 30
+    env:
+      LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+      LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+      LANGFUSE_HOST: ${{ vars.LANGFUSE_HOST }}
+      # The frozen judge (unsupported_assertion-v2) runs on gpt-4o-mini.
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync
+
+      - name: Monitor the last ${{ inputs.hours || '24' }} hours
+        env:
+          HOURS: ${{ inputs.hours || '24' }}
+        run: uv run python -m monitoring.run --last-hours "$HOURS"
+
+      - name: Upload the monitoring output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monitor-${{ github.run_id }}
+          path: |
+            monitoring/output/
+            monitoring/history.jsonl
+            monitoring/prevalence.svg
+          if-no-files-found: warn
