@@ -102,3 +102,14 @@ def test_hw7_cli_takes_a_period_or_positive_last_hours() -> None:
         run.main(["--period", "after", "--last-hours", "24"])
     with pytest.raises(SystemExit):
         run.main(["--last-hours", "0"])
+
+
+def test_hw7_monitor_trace_renders_and_is_not_a_scenario_trace() -> None:
+    from analysis.helpers.normalization import normalize_trace
+
+    entry = json.loads(run.HISTORY_PATH.read_text(encoding="utf-8").splitlines()[0])
+    body = run.monitor_trace_body(entry["period"], run._parse_utc(entry["to"]), entry)
+    normalized = normalize_trace(body)  # the course's Langfuse readers normalize every trace
+    assert normalized["text"]
+    assert not normalized["meta"].get("scenario_id") and not normalized["meta"].get("session_id")
+    assert body["id"] == run.monitor_trace_body(entry["period"], run._parse_utc(entry["to"]), {})["id"]

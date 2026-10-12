@@ -236,6 +236,27 @@ def _selection_summary(plan: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def monitor_trace_body(label: str, period_end: datetime, summary: dict[str, Any]) -> dict[str, Any]:
+    """The period's monitor trace: stable id, dated at the period end.
+
+    It carries an input and an output so the shared trace normalizer can
+    render it; without a scenario id, the course's Langfuse readers skip it.
+    """
+    from monitoring.write_scores import _stable_id
+
+    return {
+        "id": _stable_id(MONITOR_TRACE_NAME, label),
+        "name": MONITOR_TRACE_NAME,
+        "timestamp": period_end.isoformat(),
+        "input": {key: summary.get(key) for key in ("period", "from", "to", "judge_id", "model")},
+        "output": {key: summary.get(key) for key in (
+            "conversations", "random_flagged", "raw", "corrected", "ci_low", "ci_high", "threshold"
+        )},
+        "metadata": summary,
+        "tags": [MONITOR_TRACE_NAME],
+    }
+
+
 def write_monitor_trace(label: str, period_end: datetime, summary: dict[str, Any]) -> str:
     """Create or update the period's monitor trace and return its stable id.
 
@@ -247,25 +268,17 @@ def write_monitor_trace(label: str, period_end: datetime, summary: dict[str, Any
 
     from langfuse import Langfuse
 
-    from monitoring.write_scores import _stable_id
-
-    trace_id = _stable_id(MONITOR_TRACE_NAME, label)
+    body = monitor_trace_body(label, period_end, summary)
     event = {
         "id": str(uuid.uuid4()),
         "type": "trace-create",
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "body": {
-            "id": trace_id,
-            "name": MONITOR_TRACE_NAME,
-            "timestamp": period_end.isoformat(),
-            "metadata": summary,
-            "tags": [MONITOR_TRACE_NAME],
-        },
+        "body": body,
     }
     response = loader._jsonable(Langfuse().api.ingestion.batch(batch=[event]))
     if response.get("errors"):
         raise RuntimeError(f"Langfuse rejected the monitor trace: {response['errors']}")
-    return trace_id
+    return body["id"]
 
 
 def dated_score_records(
